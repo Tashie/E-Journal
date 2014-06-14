@@ -6,5 +6,54 @@
          version="3.0">
 
 
+    <!--
+- Location of the XML file that defines the root application context.
+- Applied by ContextLoaderServlet.
+-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:web-context.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--
+- Servlet that dispatches request to registered handlers (Controller implementations).
+-->
+    <servlet>
+        <servlet-name>edu-system</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:mvc-core-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>edu-system</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- used so we can use forms of method type 'PUT' and 'DELETE'
+         see here: http://static.springsource.org/spring/docs/current/spring-framework-reference/html/view.html#rest-method-conversion
+    -->
+
+    <welcome-file-list>
+        <welcome-file>termGroups.html</welcome-file>
+    </welcome-file-list>
+    <filter>
+        <filter-name>httpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+
+
+    <filter-mapping>
+        <filter-name>httpMethodFilter</filter-name>
+        <servlet-name>edu-system</servlet-name>
+    </filter-mapping>
+
 
 </web-app>

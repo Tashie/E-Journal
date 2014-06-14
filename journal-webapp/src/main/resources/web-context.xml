@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.system.edu" />
+
+
+    <bean id="requestConfigBuilder" class="org.apache.http.client.config.RequestConfig" factory-method="custom" >
+        <property name="connectionRequestTimeout" value="0" />
+        <property name="connectTimeout" value="2000" />
+        <property name="socketTimeout" value="1500" />
+    </bean>
+
+    <bean id="httpClientBuilder" class="org.apache.http.impl.client.HttpClientBuilder" factory-method="create">
+        <property name="maxConnTotal" value="128" />
+        <property name="maxConnPerRoute" value="3" />
+        <property name="defaultRequestConfig">
+            <bean factory-bean="requestConfigBuilder" factory-method="build" />
+        </property>
+    </bean>
+
+    <bean id="httpClient" factory-bean="httpClientBuilder" factory-method="build" destroy-method="close" />
+
+    <bean id="httpClientFactory" class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+        <constructor-arg ref="httpClient"/>
+    </bean>
+
+    <bean class="org.springframework.web.client.RestTemplate" >
+        <constructor-arg ref="httpClientFactory" />
+    </bean>
+
+</beans>
