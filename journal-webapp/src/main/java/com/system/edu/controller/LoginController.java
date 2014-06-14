@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,27 +19,15 @@ public class LoginController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private LoginService loginService;
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getList() {
+    @RequestMapping("/login")
+    public String login() {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam("loginName") String loginName,
-                        @RequestParam("password") String password,
-                        HttpServletResponse response, ModelMap model) {
-        logger.debug("Login request - loginName:{}", loginName);
-        boolean isAuthenticated = loginService.login(loginName, password, response);
-        if (isAuthenticated) {
-            return "login";//todo
-        } else {
-            model.addAttribute("signInError", "Invalid username or password");
-            model.addAttribute("userName", loginName);
-            return "login";
-        }
+    @RequestMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

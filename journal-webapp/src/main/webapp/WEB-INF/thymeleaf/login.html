@@ -7,15 +7,16 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap-superhero.min.css" th:href="@{/css/bootstrap-superhero.min.css}" />
 </head>
 <body>
-	<div class="container sm-form sm-login">
-		<h2 class="sm-heading">Sign in</h2>
-		<form class="login" th:action="@{/login}" method="post">
-			<p th:if="${signInError != null}" class="error-label">Login name or password is incorrect</p>
-			<input type="text" id="loginName" class="form-control" name="loginName" placeholder="Login" autofocus="autofocus"
-				th:value="${loginName}" required="required" />
-			<input type="password" required="required" id="password" class="form-control" name="password" placeholder="Password" />
-			<input type="submit" class="btn btn-primary" value="Sign in" />
-		</form>
-	</div>
+<div class="container sm-form sm-login">
+    <h1>Login page</h1>
+    <p th:if="${loginError}">Wrong user or password</p>
+    <form th:action="@{/j_spring_security_check}" method="post">
+        <label for="j_username">Username</label>:
+        <input type="text" id="j_username" name="j_username" /> <br />
+        <label for="j_password">Password</label>:
+        <input type="password" id="j_password" name="j_password" /> <br />
+        <input type="submit" class="btn btn-primary" value="Log in" />
+    </form>
+</div>
 </body>
 </html>

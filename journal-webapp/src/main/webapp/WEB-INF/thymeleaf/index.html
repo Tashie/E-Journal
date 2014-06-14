@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Login page</title>
+        <meta charset="utf-8" />
+        <link href="webjars/bootstrap/2.3.0/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-superhero.min.css" th:href="@{/css/bootstrap-superhero.min.css}" />
+    </head>
+    <body>
+        <div style="margin: 25px; padding: 25px">
+            <div style="text-align: center">
+                <h2>Welcome to our site,
+                    <div sec:authorize="isAuthenticated()">
+                        <span sec:authentication="principal.username">Unknown</span>
+                    </div>
+                </h2>
+            </div>
+
+            <br />
+
+            <p align="justify">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor molestie tempus.
+                Nulla ultricies pretium libero id vehicula. Maecenas nec ligula libero. Proin id erat dui.
+                Nunc et libero at mi elementum consectetur. Suspendisse feugiat, enim sit amet vestibulum gravida,
+                tortor leo hendrerit nunc, a venenatis sem dui nec sapien. In hac habitasse platea dictumst.
+                Curabitur tristique vehicula justo ac rhoncus. In ultrices ultrices tristique.
+                Etiam ultricies dapibus erat ut consectetur. Nam augue risus, mollis condimentum
+                ultricies non, tempus vel felis. Cum sociis natoque penatibus et magnis dis parturient
+                montes, nascetur ridiculus mus.
+                <br /><br />
+                Etiam turpis est, pharetra quis pulvinar ut, ullamcorper id mi. Aliquam viverra luctus purus,
+                sit amet tincidunt nibh imperdiet quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Pellentesque tempus vulputate nunc, ut adipiscing ante convallis non.
+                Nullam ut velit eu lectus rutrum sodales. Vestibulum ante ipsum primis
+                in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus dictum tristique nunc,
+                quis viverra risus interdum vel. Praesent sit amet lectus varius dolor facilisis dapibus.
+                Vivamus vitae metus sit amet metus volutpat volutpat eu tristique nunc.
+                Pellentesque lobortis adipiscing faucibus. Nam a lorem enim, quis posuere magna.
+                Vestibulum sit amet ipsum neque. Nulla felis erat, ornare in scelerisque vel,
+                ullamcorper sit amet mauris. Nullam non nunc orci, sed aliquet ipsum. Sed condimentum rhoncus
+                neque et ornare. Aenean dictum tempus tortor, vel porttitor libero sollicitudin eu.
+                <br /><br />
+                In hac habitasse platea dictumst. Etiam lacinia, mauris non varius suscipit,
+                sem metus pretium nulla, id facilisis leo augue ut orci. Quisque a feugiat tortor.
+                Integer congue enim nec est molestie gravida. Nunc ut elit tellus, sed cursus ipsum.
+                Nunc viverra felis id arcu scelerisque pellentesque in eget nulla. Class aptent taciti
+                sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean iaculis
+                justo vitae ipsum eleifend lacinia. Donec sagittis scelerisque purus in luctus.
+                <br /><br />
+                Praesent sodales suscipit orci, eu adipiscing neque suscipit in. Duis dignissim,
+                tortor vitae blandit mollis, leo mi rhoncus diam, vitae molestie diam ipsum in nibh.
+                Mauris venenatis pharetra facilisis. Integer accumsan rutrum leo, eget accumsan sem
+                vehicula at. Cras tellus eros, consequat et rhoncus sed, accumsan ut urna. Sed ultrices,
+                erat ut sodales viverra, ipsum sem porttitor ligula, ut ultricies justo nisi ut felis.
+                Donec ac nibh nibh.
+                <br /><br />
+                Cras ligula nisi, gravida ut dictum eget, ultricies ac leo.
+                Fusce faucibus eleifend justo, id volutpat orci tincidunt auctor. Nulla euismod
+                aliquam eleifend. Integer nisi eros, rhoncus rutrum rhoncus sit amet, vulputate ac velit.
+                Vivamus consequat nisi id nunc pharetra in pharetra arcu tempor. Morbi id sapien orci.
+                Sed fringilla pellentesque ligula in iaculis. Maecenas congue congue mauris, quis lacinia
+                nunc malesuada vitae. Aenean eleifend pharetra leo, non suscipit leo facilisis a.
+                Aenean euismod urna pellentesque felis porta quis fermentum ligula fringilla.
+                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                Cras nec neque enim, ut egestas leo.
+            </p>
+        </div>
+    </body>
+</html>
