@@ -18,6 +18,6 @@
         <mapping class="com.system.edu.models.dao.Subjects"/>
         <mapping class="com.system.edu.models.dao.Teachers"/>
         <mapping class="com.system.edu.models.dao.UserRoles"/>
-        <mapping class="com.system.edu.models.dao.Users"/>
+        <mapping class="com.system.edu.models.dao.UsersEntity"/>
     </session-factory>
 </hibernate-configuration>

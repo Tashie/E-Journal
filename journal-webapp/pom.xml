@@ -37,6 +37,7 @@
         <mysql.version>5.1.6</mysql.version>
         <javax.validation.version>1.0.0.GA</javax.validation.version>
         <hibernate.validation.version>4.2.0.Final</hibernate.validation.version>
+        <java.object.merger.version>0.8.5.1</java.object.merger.version>
     </properties>
 
 
@@ -223,6 +224,12 @@
                     <groupId>org.webjars</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.brunneng.jom</groupId>
+            <artifactId>java-object-merger</artifactId>
+            <version>${java.object.merger.version}</version>
         </dependency>
 
         <dependency>

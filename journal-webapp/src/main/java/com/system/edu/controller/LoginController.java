@@ -2,6 +2,7 @@ package com.system.edu.controller;
 
 import com.system.edu.models.ui.Users;
 import com.system.edu.web.service.LoginService;
+import com.system.edu.web.service.RegisterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class LoginController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Autowired
+    RegisterService registerService;
+
     @RequestMapping("/login")
     public String login() {
         return "login";
@@ -40,11 +44,12 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
+        registerService.register(user);
         return "redirect:/login";
     }
 
 
-    @RequestMapping(value = "/register", method=RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Users users) {
         return "register";
     }

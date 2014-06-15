@@ -9,7 +9,7 @@ import javax.persistence.Id;
  * Created by sph on 15.06.2014.
  */
 @Entity
-public class Users {
+public class UsersEntity {
     private int id;
     private String username;
     private String password;
@@ -104,16 +104,16 @@ public class Users {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Users users = (Users) o;
+        UsersEntity usersEntity = (UsersEntity) o;
 
-        if (enabled != users.enabled) return false;
-        if (id != users.id) return false;
-        if (address != null ? !address.equals(users.address) : users.address != null) return false;
-        if (firstname != null ? !firstname.equals(users.firstname) : users.firstname != null) return false;
-        if (lastname != null ? !lastname.equals(users.lastname) : users.lastname != null) return false;
-        if (middlename != null ? !middlename.equals(users.middlename) : users.middlename != null) return false;
-        if (password != null ? !password.equals(users.password) : users.password != null) return false;
-        if (username != null ? !username.equals(users.username) : users.username != null) return false;
+        if (enabled != usersEntity.enabled) return false;
+        if (id != usersEntity.id) return false;
+        if (address != null ? !address.equals(usersEntity.address) : usersEntity.address != null) return false;
+        if (firstname != null ? !firstname.equals(usersEntity.firstname) : usersEntity.firstname != null) return false;
+        if (lastname != null ? !lastname.equals(usersEntity.lastname) : usersEntity.lastname != null) return false;
+        if (middlename != null ? !middlename.equals(usersEntity.middlename) : usersEntity.middlename != null) return false;
+        if (password != null ? !password.equals(usersEntity.password) : usersEntity.password != null) return false;
+        if (username != null ? !username.equals(usersEntity.username) : usersEntity.username != null) return false;
 
         return true;
     }
