@@ -1,17 +1,39 @@
 package com.system.edu.models.ui;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by nata on 15.06.2014.
  */
 
 public class Users {
     private int id;
+
+    @NotNull
+    @Size(min = 4, max = 30)
     private String username;
+
+    @NotNull
+    @Size(min = 6, max = 30)
     private String password;
+
     private byte enabled;
+
+    @NotNull
+    @Size(min = 4, max = 30)
     private String firstname;
+
+    @NotNull
+    @Size(min = 4, max = 30)
     private String lastname;
+
+    @NotNull
+    @Size(min = 4, max = 30)
     private String middlename;
+
+    @NotNull
+    @Size(min = 4, max = 30)
     private String address;
 
     public int getId() {
