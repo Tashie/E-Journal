@@ -1,11 +1,9 @@
-package com.system.edu.models;
-
-import javax.persistence.*;
+package com.system.edu.models.ui;
 
 /**
- * Created by sph on 15.06.2014.
+ * Created by nata on 15.06.2014.
  */
-@Entity
+
 public class Subjects {
     private int id;
     private String name;
@@ -13,8 +11,6 @@ public class Subjects {
     private int difficulty;
     private Cycles cyclesByCycle;
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -23,8 +19,6 @@ public class Subjects {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -33,8 +27,6 @@ public class Subjects {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "name_shorten")
     public String getNameShorten() {
         return nameShorten;
     }
@@ -43,8 +35,6 @@ public class Subjects {
         this.nameShorten = nameShorten;
     }
 
-    @Basic
-    @Column(name = "difficulty")
     public int getDifficulty() {
         return difficulty;
     }
@@ -78,8 +68,6 @@ public class Subjects {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "cycle", referencedColumnName = "id", nullable = false)
     public Cycles getCyclesByCycle() {
         return cyclesByCycle;
     }

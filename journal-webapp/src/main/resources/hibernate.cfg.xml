@@ -6,18 +6,18 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
         <property name="connection.password">a3QrBpO9kx</property>
-        <mapping class="com.system.edu.models.Classes"/>
-        <mapping class="com.system.edu.models.Cycles"/>
-        <mapping class="com.system.edu.models.GradeTypes"/>
-        <mapping class="com.system.edu.models.Grades"/>
-        <mapping class="com.system.edu.models.PlanClasses"/>
-        <mapping class="com.system.edu.models.Plans"/>
-        <mapping class="com.system.edu.models.Positions"/>
-        <mapping class="com.system.edu.models.Pupils"/>
-        <mapping class="com.system.edu.models.Roles"/>
-        <mapping class="com.system.edu.models.Subjects"/>
-        <mapping class="com.system.edu.models.Teachers"/>
-        <mapping class="com.system.edu.models.UserRoles"/>
-        <mapping class="com.system.edu.models.Users"/>
+        <mapping class="com.system.edu.models.dao.Classes"/>
+        <mapping class="com.system.edu.models.dao.Cycles"/>
+        <mapping class="com.system.edu.models.dao.GradeTypes"/>
+        <mapping class="com.system.edu.models.dao.Grades"/>
+        <mapping class="com.system.edu.models.dao.PlanClasses"/>
+        <mapping class="com.system.edu.models.dao.Plans"/>
+        <mapping class="com.system.edu.models.dao.Positions"/>
+        <mapping class="com.system.edu.models.dao.Pupils"/>
+        <mapping class="com.system.edu.models.dao.Roles"/>
+        <mapping class="com.system.edu.models.dao.Subjects"/>
+        <mapping class="com.system.edu.models.dao.Teachers"/>
+        <mapping class="com.system.edu.models.dao.UserRoles"/>
+        <mapping class="com.system.edu.models.dao.Users"/>
     </session-factory>
 </hibernate-configuration>

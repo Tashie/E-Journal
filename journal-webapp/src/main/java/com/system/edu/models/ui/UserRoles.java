@@ -1,18 +1,14 @@
-package com.system.edu.models;
-
-import javax.persistence.*;
+package com.system.edu.models.ui;
 
 /**
- * Created by sph on 15.06.2014.
+ * Created by nata on 15.06.2014.
  */
-@Entity
-@Table(name = "user_roles", schema = "", catalog = "journal")
+
+
 public class UserRoles {
     private int id;
     private Roles rolesByRolecode;
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -38,8 +34,6 @@ public class UserRoles {
         return id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "rolecode", referencedColumnName = "id", nullable = false)
     public Roles getRolesByRolecode() {
         return rolesByRolecode;
     }

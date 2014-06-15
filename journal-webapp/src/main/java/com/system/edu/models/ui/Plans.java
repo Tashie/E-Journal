@@ -1,21 +1,13 @@
-package com.system.edu.models;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+package com.system.edu.models.ui;
 
 /**
- * Created by sph on 15.06.2014.
+ * Created by nata on 15.06.2014.
  */
-@Entity
 public class Plans {
     private int id;
     private int lesson;
     private String topic;
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -24,8 +16,6 @@ public class Plans {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "lesson")
     public int getLesson() {
         return lesson;
     }
@@ -34,8 +24,6 @@ public class Plans {
         this.lesson = lesson;
     }
 
-    @Basic
-    @Column(name = "topic")
     public String getTopic() {
         return topic;
     }

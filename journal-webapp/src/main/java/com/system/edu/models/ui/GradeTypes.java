@@ -1,20 +1,15 @@
-package com.system.edu.models;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+package com.system.edu.models.ui;
 
 /**
- * Created by sph on 15.06.2014.
+ * Created by nata on 15.06.2014.
  */
-@Entity
-public class Cycles {
+
+
+public class GradeTypes {
     private int id;
     private String name;
 
-    @Id
-    @Column(name = "id")
+
     public int getId() {
         return id;
     }
@@ -23,8 +18,7 @@ public class Cycles {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
+
     public String getName() {
         return name;
     }
@@ -38,10 +32,10 @@ public class Cycles {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Cycles cycles = (Cycles) o;
+        GradeTypes that = (GradeTypes) o;
 
-        if (id != cycles.id) return false;
-        if (name != null ? !name.equals(cycles.name) : cycles.name != null) return false;
+        if (id != that.id) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }

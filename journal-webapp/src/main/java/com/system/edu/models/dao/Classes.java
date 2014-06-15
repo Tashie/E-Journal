@@ -1,4 +1,4 @@
-package com.system.edu.models;
+package com.system.edu.models.dao;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
  * Created by sph on 15.06.2014.
  */
 @Entity
-public class Roles {
+public class Classes {
     private int id;
     private String name;
 
@@ -38,10 +38,10 @@ public class Roles {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Roles roles = (Roles) o;
+        Classes classes = (Classes) o;
 
-        if (id != roles.id) return false;
-        if (name != null ? !name.equals(roles.name) : roles.name != null) return false;
+        if (id != classes.id) return false;
+        if (name != null ? !name.equals(classes.name) : classes.name != null) return false;
 
         return true;
     }

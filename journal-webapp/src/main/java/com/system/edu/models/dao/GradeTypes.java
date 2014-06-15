@@ -1,15 +1,13 @@
-package com.system.edu.models;
+package com.system.edu.models.dao;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by sph on 15.06.2014.
  */
 @Entity
-public class Positions {
+@Table(name = "grade_types", schema = "", catalog = "journal")
+public class GradeTypes {
     private int id;
     private String name;
 
@@ -38,10 +36,10 @@ public class Positions {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Positions positions = (Positions) o;
+        GradeTypes that = (GradeTypes) o;
 
-        if (id != positions.id) return false;
-        if (name != null ? !name.equals(positions.name) : positions.name != null) return false;
+        if (id != that.id) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }

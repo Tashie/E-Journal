@@ -1,4 +1,4 @@
-package com.system.edu.models;
+package com.system.edu.models.dao;
 
 import javax.persistence.*;
 

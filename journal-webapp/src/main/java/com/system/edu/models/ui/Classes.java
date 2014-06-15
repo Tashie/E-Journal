@@ -1,18 +1,14 @@
-package com.system.edu.models;
-
-import javax.persistence.*;
+package com.system.edu.models.ui;
 
 /**
- * Created by sph on 15.06.2014.
+ * Created by nata on 15.06.2014.
  */
-@Entity
-@Table(name = "grade_types", schema = "", catalog = "journal")
-public class GradeTypes {
+
+public class Classes {
     private int id;
     private String name;
 
-    @Id
-    @Column(name = "id")
+
     public int getId() {
         return id;
     }
@@ -21,8 +17,6 @@ public class GradeTypes {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -36,10 +30,10 @@ public class GradeTypes {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GradeTypes that = (GradeTypes) o;
+        Classes classes = (Classes) o;
 
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (id != classes.id) return false;
+        if (name != null ? !name.equals(classes.name) : classes.name != null) return false;
 
         return true;
     }
