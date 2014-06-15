@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="utf-8" />
+        <link href="webjars/bootstrap/2.3.0/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-superhero.min.css" th:href="@{/css/bootstrap-superhero.min.css}" />
+    </head>
+    <body>
+        <div th:fragment="top(login_include)">
+            <div class="page-header" id="banner">
+                <div class="row" style="text-align: right; margin-right: 5px" th:if="${login_include}">
+                    <div sec:authorize="isAnonymous()">
+                        <a th:href="@{/login}">Login</a> |
+                        <a th:href="@{/register}">Register</a>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        Welcome, <span sec:authentication="principal.username"></span>
+                        [<a th:href="@{/logout}">logout</a>]
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1>E-Journal</h1>
+                        <p class="lead">The truth behind lies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -9,14 +9,8 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap-superhero.min.css" th:href="@{/css/bootstrap-superhero.min.css}" />
     </head>
     <body>
-        <div style="margin: 25px; padding: 25px">
-            <div style="text-align: center">
-                <h2>Welcome to our site,
-                    <div sec:authorize="isAuthenticated()">
-                        <span sec:authentication="principal.username">Unknown</span>
-                    </div>
-                </h2>
-            </div>
+        <div class="container">
+            <div th:include="header :: top(login_include=true)"></div>
 
             <br />
 

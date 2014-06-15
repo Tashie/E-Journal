@@ -29,7 +29,7 @@
         <!-- Login and logout interceptors -->
         <form-login login-page="/login" default-target-url="/index"
                     authentication-failure-url="/login-error" />
-        <logout logout-url="/logout" logout-success-url="/" />
+        <logout logout-url="/logout" logout-success-url="/index" />
 
     </http>
 

@@ -1,22 +1,59 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Login page</title>
-    <meta charset="utf-8" />
-    <link href="webjars/bootstrap/2.3.0/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}"	rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap-superhero.min.css" th:href="@{/css/bootstrap-superhero.min.css}" />
-</head>
-<body>
-<div class="container sm-form sm-login">
-    <h1>Login page</h1>
-    <p th:if="${loginError}">Wrong user or password</p>
-    <form th:action="@{/j_spring_security_check}" method="post">
-        <label for="j_username">Username</label>:
-        <input type="text" id="j_username" name="j_username" /> <br />
-        <label for="j_password">Password</label>:
-        <input type="password" id="j_password" name="j_password" /> <br />
-        <input type="submit" class="btn btn-primary" value="Log in" />
-    </form>
-</div>
-</body>
+    <head>
+        <title>Login page</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap-superhero.min.css}" />
+    </head>
+    <body>
+    <!--
+    <div class="container sm-form sm-login">
+        <h1>Login page</h1>
+        <p th:if="${loginError}">Wrong user or password</p>
+        <form th:action="@{/j_spring_security_check}" method="post">
+            <label for="j_username">Username</label>:
+            <input type="text" id="j_username" name="j_username" /> <br />
+            <label for="j_password">Password</label>:
+            <input type="password" id="j_password" name="j_password" /> <br />
+            <input type="submit" class="btn btn-primary" value="Log in" />
+        </form>
+    </div>
+    -->
+
+        <div class="container">
+            <div th:include="header :: top(login_include=false)"></div>
+
+            <div class="bs-docs-section">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="well bs-component">
+                            <form class="form-horizontal" th:action="@{/j_spring_security_check}" method="post">
+                                <fieldset>
+                                    <legend>Legend</legend>
+                                    <div class="form-group">
+                                        <label for="j_username" class="col-lg-2 control-label">Login</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="j_username" name="j_username" placeholder="Login"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="j_password" class="col-lg-2 control-label">Password</label>
+                                        <div class="col-lg-10">
+                                            <input type="password" class="form-control" id="j_password" name="j_password" placeholder="Password"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-10 col-lg-offset-2">
+                                            <button type="button" class="btn btn-default" th:onclick="'location.href=\'' + @{/index} + '\''">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
