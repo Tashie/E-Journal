@@ -30,9 +30,9 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletResponse response) {
-        return "redirect:/";
+    @RequestMapping("/register")
+    public String register() {
+        return "register";
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)

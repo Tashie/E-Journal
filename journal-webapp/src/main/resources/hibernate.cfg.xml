@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://mysql-env-3491451.jelasticloud.com/journal</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">a3QrBpO9kx</property>
+        <mapping class="com.system.edu.models.Classes"/>
+        <mapping class="com.system.edu.models.Cycles"/>
+        <mapping class="com.system.edu.models.GradeTypes"/>
+        <mapping class="com.system.edu.models.Grades"/>
+        <mapping class="com.system.edu.models.PlanClasses"/>
+        <mapping class="com.system.edu.models.Plans"/>
+        <mapping class="com.system.edu.models.Positions"/>
+        <mapping class="com.system.edu.models.Pupils"/>
+        <mapping class="com.system.edu.models.Roles"/>
+        <mapping class="com.system.edu.models.Subjects"/>
+        <mapping class="com.system.edu.models.Teachers"/>
+        <mapping class="com.system.edu.models.UserRoles"/>
+        <mapping class="com.system.edu.models.Users"/>
+    </session-factory>
+</hibernate-configuration>

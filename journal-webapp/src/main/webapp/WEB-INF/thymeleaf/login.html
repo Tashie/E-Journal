@@ -3,23 +3,9 @@
     <head>
         <title>Login page</title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap-superhero.min.css}" />
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
     </head>
     <body>
-    <!--
-    <div class="container sm-form sm-login">
-        <h1>Login page</h1>
-        <p th:if="${loginError}">Wrong user or password</p>
-        <form th:action="@{/j_spring_security_check}" method="post">
-            <label for="j_username">Username</label>:
-            <input type="text" id="j_username" name="j_username" /> <br />
-            <label for="j_password">Password</label>:
-            <input type="password" id="j_password" name="j_password" /> <br />
-            <input type="submit" class="btn btn-primary" value="Log in" />
-        </form>
-    </div>
-    -->
-
         <div class="container">
             <div th:include="header :: top(login_include=false)"></div>
 
@@ -29,7 +15,7 @@
                         <div class="well bs-component">
                             <form class="form-horizontal" th:action="@{/j_spring_security_check}" method="post">
                                 <fieldset>
-                                    <legend>Legend</legend>
+                                    <legend>Enter your credentials</legend>
                                     <div class="form-group">
                                         <label for="j_username" class="col-lg-2 control-label">Login</label>
                                         <div class="col-lg-10">
