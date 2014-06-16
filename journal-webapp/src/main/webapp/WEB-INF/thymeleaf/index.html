@@ -5,14 +5,13 @@
     <head>
         <title>Login page</title>
         <meta charset="utf-8" />
-        <link href="webjars/bootstrap/2.3.0/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap-superhero.min.css" th:href="@{/css/bootstrap-superhero.min.css}" />
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
     </head>
     <body>
         <div class="container">
             <div th:include="header :: top(login_include=true)"></div>
 
-            <br />
+            <div th:include="menu :: bar"></div>
 
             <p align="justify">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor molestie tempus.
@@ -61,5 +60,7 @@
                 Cras nec neque enim, ut egestas leo.
             </p>
         </div>
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script th:src="@{/js/lib/development/bootstrap.js}"></script>
     </body>
 </html>
