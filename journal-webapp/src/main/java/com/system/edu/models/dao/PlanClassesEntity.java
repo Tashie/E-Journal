@@ -4,18 +4,19 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by sph on 15.06.2014.
+ * Created with IntelliJ IDEA.
+ * User: nata
+ * Date: 17.06.14
+ * Time: 9:00
+ * To change this template use File | Settings | File Templates.
  */
-@Entity
 @Table(name = "plan_classes", schema = "", catalog = "journal")
-public class PlanClasses {
+@Entity
+public class PlanClassesEntity {
     private int id;
-    private Integer subgroup;
-    private Date pcDate;
-    private Classes classesByClazz;
 
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -24,8 +25,10 @@ public class PlanClasses {
         this.id = id;
     }
 
+    private Integer subgroup;
+
+    @Column(name = "subgroup", nullable = true, insertable = true, updatable = true, length = 10, precision = 0)
     @Basic
-    @Column(name = "subgroup")
     public Integer getSubgroup() {
         return subgroup;
     }
@@ -34,8 +37,10 @@ public class PlanClasses {
         this.subgroup = subgroup;
     }
 
+    private Date pcDate;
+
+    @Column(name = "pc_date", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Basic
-    @Column(name = "pc_date")
     public Date getPcDate() {
         return pcDate;
     }
@@ -44,12 +49,24 @@ public class PlanClasses {
         this.pcDate = pcDate;
     }
 
+    private ClassesEntity classesByClazz;
+
+    @ManyToOne
+    @JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
+    public ClassesEntity getClassesByClazz() {
+        return classesByClazz;
+    }
+
+    public void setClassesByClazz(ClassesEntity classesByClazz) {
+        this.classesByClazz = classesByClazz;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlanClasses that = (PlanClasses) o;
+        PlanClassesEntity that = (PlanClassesEntity) o;
 
         if (id != that.id) return false;
         if (pcDate != null ? !pcDate.equals(that.pcDate) : that.pcDate != null) return false;
@@ -64,15 +81,5 @@ public class PlanClasses {
         result = 31 * result + (subgroup != null ? subgroup.hashCode() : 0);
         result = 31 * result + (pcDate != null ? pcDate.hashCode() : 0);
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
-    public Classes getClassesByClazz() {
-        return classesByClazz;
-    }
-
-    public void setClassesByClazz(Classes classesByClazz) {
-        this.classesByClazz = classesByClazz;
     }
 }

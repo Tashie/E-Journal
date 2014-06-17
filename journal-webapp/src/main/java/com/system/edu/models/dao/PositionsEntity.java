@@ -1,20 +1,23 @@
 package com.system.edu.models.dao;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.Table;
+import javax.persistence.Column;
 /**
- * Created by sph on 15.06.2014.
+ * Created with IntelliJ IDEA.
+ * User: nata
+ * Date: 17.06.14
+ * To change this template use File | Settings | File Templates.
  */
+@Table(name = "positions", schema = "", catalog = "journal")
 @Entity
-public class Positions {
+public class PositionsEntity {
     private int id;
-    private String name;
 
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -23,8 +26,10 @@ public class Positions {
         this.id = id;
     }
 
+    private String name;
+
+    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
     @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -38,10 +43,10 @@ public class Positions {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Positions positions = (Positions) o;
+        PositionsEntity that = (PositionsEntity) o;
 
-        if (id != positions.id) return false;
-        if (name != null ? !name.equals(positions.name) : positions.name != null) return false;
+        if (id != that.id) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }

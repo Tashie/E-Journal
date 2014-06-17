@@ -1,21 +1,24 @@
 package com.system.edu.models.dao;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
 /**
- * Created by sph on 15.06.2014.
+ * Created with IntelliJ IDEA.
+ * User: nata
+ * Date: 17.06.14
+ * To change this template use File | Settings | File Templates.
  */
+@Table(name = "plans", schema = "", catalog = "journal")
 @Entity
-public class Plans {
+public class PlansEntity {
     private int id;
-    private int lesson;
-    private String topic;
 
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -24,8 +27,10 @@ public class Plans {
         this.id = id;
     }
 
+    private int lesson;
+
+    @Column(name = "lesson", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Basic
-    @Column(name = "lesson")
     public int getLesson() {
         return lesson;
     }
@@ -34,8 +39,10 @@ public class Plans {
         this.lesson = lesson;
     }
 
+    private String topic;
+
+    @Column(name = "topic", nullable = false, insertable = true, updatable = true, length = 255, precision = 0)
     @Basic
-    @Column(name = "topic")
     public String getTopic() {
         return topic;
     }
@@ -49,11 +56,11 @@ public class Plans {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Plans plans = (Plans) o;
+        PlansEntity that = (PlansEntity) o;
 
-        if (id != plans.id) return false;
-        if (lesson != plans.lesson) return false;
-        if (topic != null ? !topic.equals(plans.topic) : plans.topic != null) return false;
+        if (id != that.id) return false;
+        if (lesson != that.lesson) return false;
+        if (topic != null ? !topic.equals(that.topic) : that.topic != null) return false;
 
         return true;
     }

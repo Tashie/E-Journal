@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
  */
 
 
-
 @Component
 public class RegisterService {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -27,7 +26,7 @@ public class RegisterService {
         try {
             IMergingContext context = new MergingContext();
             UsersEntity users = context.map(user, UsersEntity.class);
-            //todo -> registerDao add new user
+            registerDao.registerUser(users);
         } catch (Exception e) {
             logger.error("Error while add new user:", e);
             return false;
