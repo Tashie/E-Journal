@@ -86,15 +86,15 @@ public class PupilsEntity {
         this.address = address;
     }
 
-    private Classes classesByClazz;
+    private ClassesEntity classesByClazz;
 
     @ManyToOne
     @JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
-    public Classes getClassesByClazz() {
+    public ClassesEntity getClassesByClazz() {
         return classesByClazz;
     }
 
-    public void setClassesByClazz(Classes classesByClazz) {
+    public void setClassesByClazz(ClassesEntity classesByClazz) {
         this.classesByClazz = classesByClazz;
     }
 
