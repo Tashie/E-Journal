@@ -4,6 +4,7 @@ import com.system.edu.models.dao.RolesEntity;
 import com.system.edu.models.dao.UserRolesEntity;
 import com.system.edu.models.dao.UsersEntity;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,5 +33,14 @@ public class RegisterDao {
             return false;
         }
         return true;
+    }
+
+    @Transactional
+    public boolean checkUserName(String login) {
+        UsersEntity user = (UsersEntity)sessionFactory.getCurrentSession()
+                .createCriteria(UsersEntity.class)
+                .add(Restrictions.eq("username", login))
+                .uniqueResult();
+        return user == null ? false : true;
     }
 }

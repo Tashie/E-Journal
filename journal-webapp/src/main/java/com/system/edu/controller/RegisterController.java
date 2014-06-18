@@ -1,6 +1,7 @@
 package com.system.edu.controller;
 
 import com.system.edu.models.ui.Users;
+import com.system.edu.web.dao.RegisterDao;
 import com.system.edu.web.service.HashService;
 import com.system.edu.web.service.RegisterService;
 import net.tanesha.recaptcha.ReCaptchaImpl;
@@ -23,10 +24,13 @@ public class RegisterController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    RegisterService registerService;
+    private RegisterService registerService;
 
     @Autowired
     private HashService hashService;
+
+    @Autowired
+    private RegisterDao registerDao;
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@Valid Users user, BindingResult bindingResult, ModelMap model,
@@ -49,6 +53,10 @@ public class RegisterController {
         if (user.getPassword().compareTo(confirm) != 0) {
             model.addAttribute("check_password", "Passwords have to be the same");
             bindingResult.reject("check_password", "Passwords have to be the same");
+        }
+
+        if (registerDao.checkUserName(user.getUsername())) {
+            bindingResult.rejectValue("username", "123", "This name is already registered");
         }
 
         if (!user.getPassword().isEmpty()) {
