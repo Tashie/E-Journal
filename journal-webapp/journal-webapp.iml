@@ -35,15 +35,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:4.2.11.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.1.0.GA" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:1.0.1.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.2.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:4.2.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: net.sf.brunneng.jom:java-object-merger:0.8.5.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
-    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:3.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
@@ -93,6 +84,8 @@
     <orderEntry type="library" name="Maven: org.webjars:json2:20110223" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:backbone-eventbinder:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:backbone-babysitter:0.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.4.5" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:nvd3:1.1.15-beta" level="project" />
     <orderEntry type="library" name="Maven: net.sf.brunneng.jom:java-object-merger:0.8.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />

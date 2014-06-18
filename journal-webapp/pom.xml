@@ -38,6 +38,7 @@
         <javax.validation.version>1.0.0.GA</javax.validation.version>
         <hibernate.validation.version>4.2.0.Final</hibernate.validation.version>
         <java.object.merger.version>0.8.5.1</java.object.merger.version>
+        <java.mail.version>1.4.5</java.mail.version>
     </properties>
 
 
@@ -213,6 +214,11 @@
             <version>${javax.validation.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>${java.mail.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.webjars</groupId>
