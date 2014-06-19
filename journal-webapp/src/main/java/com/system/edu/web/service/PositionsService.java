@@ -24,7 +24,7 @@ public class PositionsService {
     @Autowired
     private PositionsDao positionDAO;
 
-    public void addPosition(PositionsEntity position) {
+    public void addPosition(Positions position) {
         positionDAO.addPosition(position);
     }
 
@@ -32,7 +32,7 @@ public class PositionsService {
         positionDAO.updatePosition(position);
     }
 
-    public PositionsEntity getPosition(int id) {
+    public Positions getPosition(int id) {
         return positionDAO.getPosition(id);
     }
 
@@ -40,6 +40,9 @@ public class PositionsService {
         positionDAO.deletePosition(id);
     }
 
+    public boolean checkIsUniquePositionName(String posName) {
+        return positionDAO.checkPositionName(posName);
+    }
 
     public List<Positions> getPositions() {
         return positionDAO.getAllPositions();

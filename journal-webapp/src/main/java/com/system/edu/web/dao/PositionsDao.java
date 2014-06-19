@@ -6,6 +6,7 @@ import com.system.edu.models.ui.Positions;
 import net.sf.brunneng.jom.IMergingContext;
 import net.sf.brunneng.jom.MergingContext;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,24 +26,49 @@ public class PositionsDao {
     @Autowired
     SessionFactory sessionFactory;
 
+    IMergingContext context = new MergingContext();
+
+
     @Transactional
-    public void addPosition(PositionsEntity position) {
-        //To change body of created methods use File | Settings | File Templates.
+    public boolean addPosition(Positions position) {
+        try {
+            PositionsEntity positionsEntity = context.map(position, PositionsEntity.class);
+            sessionFactory.getCurrentSession().save(positionsEntity);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional
+    public boolean checkPositionName(String name) {
+
+        PositionsEntity positionsEntity = (PositionsEntity) sessionFactory.getCurrentSession().createCriteria(PositionsEntity.class).add(Restrictions.eq("name", name))
+                .uniqueResult();
+        return positionsEntity == null ? true : false;
     }
 
     @Transactional
     public void updatePosition(PositionsEntity position) {
-        //To change body of created methods use File | Settings | File Templates.
+        sessionFactory.getCurrentSession().merge(position);
     }
 
     @Transactional
-    public PositionsEntity getPosition(int id) {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+    public Positions getPosition(int id) {
+        Object object = sessionFactory.getCurrentSession().get(UsersEntity.class, id);
+        Positions position = context.map(object, Positions.class);
+        return position;
     }
 
     @Transactional
-    public void deletePosition(int id) {
-        //To change body of created methods use File | Settings | File Templates.
+    public boolean deletePosition(int id) {
+        try {
+            PositionsEntity entityForDelete = (PositionsEntity) sessionFactory.getCurrentSession().createCriteria(PositionsEntity.class).add(Restrictions.eq("id", id)).uniqueResult();
+            sessionFactory.getCurrentSession().delete(entityForDelete);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @Transactional
@@ -50,7 +76,6 @@ public class PositionsDao {
         List<Positions> positions = new ArrayList<>();
         try {
             List<PositionsEntity> positionsEntities = sessionFactory.getCurrentSession().createQuery("from PositionsEntity").list();
-            IMergingContext context = new MergingContext();
             for (PositionsEntity pos : positionsEntities) {
                 Positions position = context.map(pos, Positions.class);
                 positions.add(position);

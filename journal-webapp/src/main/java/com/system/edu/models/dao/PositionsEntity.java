@@ -1,10 +1,9 @@
 package com.system.edu.models.dao;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: nata
@@ -18,6 +17,8 @@ public class PositionsEntity {
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
+    @GenericGenerator(name="posId" , strategy="increment")
+    @GeneratedValue(generator="posId")
     public int getId() {
         return id;
     }
