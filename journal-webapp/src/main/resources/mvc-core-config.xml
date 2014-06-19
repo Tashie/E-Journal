@@ -35,6 +35,7 @@
 
 	<mvc:view-controller path="/login" view-name="login" />
 
+    <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource" id="messageSource" p:basenames="WEB-INF/messages/messages_en" p:fallbackToSystemLocale="false"/>
 
 	<!-- - This bean resolves specific types of exceptions to corresponding 
 		logical - view names for error views. -->

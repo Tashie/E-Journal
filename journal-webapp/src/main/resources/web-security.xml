@@ -22,6 +22,7 @@
         <!-- Login and logout -->
         <intercept-url pattern="/login" access="permitAll" />
         <intercept-url pattern="/logout" access="permitAll" />
+        <intercept-url pattern="/position" access="permitAll" />
 
         <!-- Register interceptor -->
         <intercept-url pattern="/register" access="isAnonymous()" />
