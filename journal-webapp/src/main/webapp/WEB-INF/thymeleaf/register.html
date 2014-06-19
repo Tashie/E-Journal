@@ -21,23 +21,24 @@
 
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="Login"/>
+                                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-warning">Username error</p>
                                 </div>
-                                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</p>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="col-lg-2 control-label">Password</label>
 
                                 <div class="col-lg-10">
                                     <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Password"/>
+                                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-warning">Password error</p>
                                 </div>
-                                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</p>
                             </div>
                             <div class="form-group">
                                 <label for="check_password" class="col-lg-2 control-label">Password confirm</label>
 
                                 <div class="col-lg-10">
-                                    <input type="password" class="form-control" id="check_password"
+                                    <input type="password" class="form-control" id="check_password" name="check_password"
                                            placeholder="Password checking"/>
+                                    <p th:if="${check_password != null}" class="text-warning">Passwords are not the same</p>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -45,33 +46,44 @@
 
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" th:field="*{lastname}" id="lastname" placeholder="Lastname"/>
+                                    <p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="text-warning">Lastname error</p>
                                 </div>
-                                <p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Lastname error</p>
                             </div>
                             <div class="form-group">
                                 <label for="firstname" class="col-lg-2 control-label">Firstname</label>
 
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" id="firstname" th:field="*{firstname}" placeholder="Firstname"/>
+                                    <p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="text-warning">Firstname error</p>
                                 </div>
-                                <p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname
-                                    error</p>
                             </div>
                             <div class="form-group">
                                 <label for="middlename" class="col-lg-2 control-label">Middlename</label>
 
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" id="middlename" th:field="*{middlename}" placeholder="Middlename"/>
+                                    <p th:if="${#fields.hasErrors('middlename')}" th:errors="*{middlename}" class="text-warning">Middlename error</p>
                                 </div>
-                                <p th:if="${#fields.hasErrors('middlename')}" th:errors="*{middlename}">Middlename error</p>
                             </div>
                             <div class="form-group">
                                 <label for="address" class="col-lg-2 control-label">Address</label>
 
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" id="address" th:field="*{address}" placeholder="Address"/>
+                                    <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-warning">Address error</p>
                                 </div>
-                                <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error</p>
+                            </div>
+                            <div class="form-group" style="margin-left: 100px">
+                                <p th:if="${captcha != null}" class="text-warning">Captcha error</p>
+                                <script type="text/javascript"
+                                        src="http://www.google.com/recaptcha/api/challenge?k=6LcmHssSAAAAAOsVCsZyg-azcyr7R7cnAOZUdmg6">
+                                </script>
+                                <noscript>
+                                    <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LcmHssSAAAAAOsVCsZyg-azcyr7R7cnAOZUdmg6"
+                                            height="300" width="500" frameborder="0"></iframe><br/>
+                                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+                                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+                                </noscript>
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
@@ -88,5 +100,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var RecaptchaOptions = {
+        theme : 'white',
+        lang : 'en'
+    };
+</script>
 </body>
 </html>

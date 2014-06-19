@@ -24,6 +24,7 @@ public class UserRolesEntity {
     }
 
     private RolesEntity rolesByRolecode;
+    private UsersEntity user;
 
     @ManyToOne
     @JoinColumn(name = "rolecode", referencedColumnName = "id", nullable = false)
@@ -31,9 +32,17 @@ public class UserRolesEntity {
         return rolesByRolecode;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
+    public UsersEntity getUser() {
+        return user;
+    }
+
     public void setRolesByRolecode(RolesEntity rolesByRolecode) {
         this.rolesByRolecode = rolesByRolecode;
     }
+
+    public void setUser(UsersEntity user) { this.user = user; }
 
     @Override
     public boolean equals(Object o) {
