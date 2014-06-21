@@ -33,7 +33,7 @@ public class PositionsDao {
     public boolean addPosition(Positions position) {
         try {
             PositionsEntity positionsEntity = context.map(position, PositionsEntity.class);
-            sessionFactory.getCurrentSession().save(positionsEntity);
+            sessionFactory.getCurrentSession().merge(positionsEntity);
         } catch (Exception e) {
             return false;
         }
@@ -49,8 +49,9 @@ public class PositionsDao {
     }
 
     @Transactional
-    public void updatePosition(PositionsEntity position) {
-        sessionFactory.getCurrentSession().merge(position);
+    public void updatePosition(Positions position) {
+        PositionsEntity positionsEntity = context.map(position, PositionsEntity.class);
+        sessionFactory.getCurrentSession().merge(positionsEntity);
     }
 
     @Transactional

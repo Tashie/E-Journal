@@ -28,7 +28,7 @@ public class PositionsService {
         positionDAO.addPosition(position);
     }
 
-    public void updatePosition(PositionsEntity position) {
+    public void updatePosition(Positions position) {
         positionDAO.updatePosition(position);
     }
 
