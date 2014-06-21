@@ -9,6 +9,13 @@
 <div class="container">
     <div th:include="header :: top(login_include=false)"></div>
 
+    <div th:include="menu :: bar"></div>
+
+    <ul class="breadcrumb" style="margin-bottom: 15px;">
+        <li><a th:href="@{/index}">Home</a></li>
+        <li class="active">Registration</li>
+    </ul>
+
     <div class="bs-docs-section">
         <div class="row">
             <div class="col-lg-6">

@@ -1,14 +1,30 @@
 package com.system.edu.models.ui;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by nata on 15.06.2014.
  */
 
 public class Subjects {
     private int id;
+
+    @NotNull
+    @Size(min = 4, max = 30)
     private String name;
+
+    @NotNull
+    @Size(min = 4, max = 30)
     private String nameShorten;
+
+    @NotNull
+    @Min(1)
+    @Max(10)
     private int difficulty;
+
     private Cycles cyclesByCycle;
 
     public int getId() {

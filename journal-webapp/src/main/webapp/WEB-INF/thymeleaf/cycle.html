@@ -11,6 +11,11 @@
 
             <div th:include="menu :: bar"></div>
 
+            <ul class="breadcrumb" style="margin-bottom: 15px;">
+                <li><a th:href="@{/index}">Home</a></li>
+                <li class="active">Cycles</li>
+            </ul>
+
             <h4 class="page-header" data-th-text="#{cycle.list.table.title}">Subject Cycles</h4>
             <div class="table responsive">
                 <table class="table table-striped table-bordered table-hover">
