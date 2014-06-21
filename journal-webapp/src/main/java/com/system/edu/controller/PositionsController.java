@@ -48,7 +48,7 @@ public class PositionsController {
             Positions position = new Positions();
             model.addAttribute("position", position);
         }
-        return "position";
+        return "directories/position";
     }
 
 
@@ -60,7 +60,7 @@ public class PositionsController {
 
         if (result.hasErrors() || !positionsService.checkIsUniquePositionName(position.getName())) {
             logger.info("Position-add error: " + result.toString());
-            return "redirect:/positions";
+            return "directories/positions";
         } else {
             positionsService.addPosition(position);
             return "redirect:/positions";

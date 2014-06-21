@@ -70,7 +70,7 @@ public class RegisterController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "register";
+            return "auth/register";
         }
 
         registerService.register(user);
@@ -80,6 +80,6 @@ public class RegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Users users) {
-        return "register";
+        return "auth/register";
     }
 }

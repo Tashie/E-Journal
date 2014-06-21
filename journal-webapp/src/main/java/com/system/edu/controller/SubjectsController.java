@@ -36,7 +36,7 @@ public class SubjectsController {
         List<Subjects> subjects = subjectsService.getSubjects();
         model.addAttribute("subjects", subjects);
 
-        return "subjects";
+        return "directories/subjects";
     }
 
     @RequestMapping(value = {"/subjects/add"}, method = RequestMethod.GET)
@@ -50,7 +50,7 @@ public class SubjectsController {
             model.addAttribute("cycles", cycles);
         }
 
-        return "subject";
+        return "directories/subject";
     }
 
     @RequestMapping(value = "/subjects/add", method = RequestMethod.POST)
@@ -65,7 +65,7 @@ public class SubjectsController {
             List<Cycles> cycles = cyclesService.getCycles();
             model.addAttribute("cycles", cycles);
 
-            return "subject";
+            return "directories/subject";
         } else {
             subjectsService.addSubject(subject);
             return "redirect:/subjects";

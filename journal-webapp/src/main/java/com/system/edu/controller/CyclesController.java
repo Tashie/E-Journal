@@ -40,7 +40,7 @@ public class CyclesController {
             model.addAttribute("cycle", cycle);
         }
 
-        return "cycle";
+        return "directories/cycle";
     }
 
     @RequestMapping(value = "/cycles/add", method = RequestMethod.POST)
@@ -51,7 +51,7 @@ public class CyclesController {
 
         if (result.hasErrors() || !cyclesService.cycleExists(cycle.getName())) {
             logger.info("Cycle-add error: " + result.toString());
-            return "redirect:/cycles";
+            return "directories/cycles";
         } else {
             cyclesService.addCycle(cycle);
             return "redirect:/cycles";
