@@ -48,7 +48,7 @@ public class MailService {
     private void setMessageContent(String recipient, String subject, String content, MimeMessage msg)
             throws MessagingException {
         msg.setSubject(subject);
-        msg.setContent(content, "text/plain");
+        msg.setContent(content, "text/html");
         msg.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
         msg.setFrom(new InternetAddress(SENDER));
     }

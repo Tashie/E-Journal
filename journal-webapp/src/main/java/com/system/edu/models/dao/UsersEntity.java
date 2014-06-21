@@ -27,6 +27,14 @@ public class UsersEntity {
         this.id = id;
     }
 
+    private String uuid;
+
+    @Column(name = "uuid", nullable = true, insertable = true, updatable = true, length = 50, precision = 0)
+    @Basic
+    public String getUuid() { return uuid; }
+
+    public void setUuid(String uuid) { this.uuid = uuid; }
+
     private String address;
 
     @Column(name = "address", nullable = true, insertable = true, updatable = true, length = 255, precision = 0)

@@ -11,7 +11,7 @@ public class Users {
     private int id;
 
     @NotNull
-    @Size(min = 4, max = 30)
+    @Size(min = 4, max = 150)
     private String username;
 
     @NotNull
@@ -35,6 +35,16 @@ public class Users {
     @NotNull
     @Size(min = 4, max = 30)
     private String address;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    private String uuid;
 
     public int getId() {
         return id;

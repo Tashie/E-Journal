@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title data-th-text="#{subject.list.page.title}">Title</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <div th:include="header :: top(login_include=true)"></div>
+
+            <div th:include="menu :: bar"></div>
+
+            <ul class="breadcrumb" style="margin-bottom: 15px;">
+                <li><a th:href="@{/index}">Home</a></li>
+                <li class="active">Registration</li>
+            </ul>
+
+            <h4 class="page-header" data-th-text="${success}">Registration was successful</h4>
+        </div>
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script th:src="@{/js/lib/development/bootstrap.js}"></script>
+    </body>
+</html>
