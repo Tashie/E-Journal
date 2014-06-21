@@ -45,4 +45,25 @@ public class RegisterDao {
                 .uniqueResult();
         return user == null ? false : true;
     }
+
+    @Transactional
+    public boolean validateUser(String username, String uuid) {
+        try {
+            UsersEntity user = (UsersEntity) sessionFactory.getCurrentSession()
+                    .createCriteria(UsersEntity.class)
+                    .add(Restrictions.eq("username", username))
+                    .add(Restrictions.eq("uuid", uuid))
+                    .uniqueResult();
+            if (user != null) {
+                user.setEnabled((byte) 1);
+                sessionFactory.getCurrentSession()
+                        .update(user);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

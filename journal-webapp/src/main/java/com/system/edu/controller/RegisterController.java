@@ -120,7 +120,7 @@ public class RegisterController {
 
     @RequestMapping(value = "/register_successful", method = RequestMethod.GET)
     public String success(ModelMap map) {
-        map.addAttribute("success", "The registration was successful");
+        map.addAttribute("success", "Your account was added into the database. Please check your email to finish the registration process.");
         return "auth/register_successful";
     }
 
@@ -128,7 +128,11 @@ public class RegisterController {
     public String validate(@RequestParam("username") String username,
                            @RequestParam("uuid") String uuid,
                            ModelMap map) {
-        map.addAttribute("success", "The registration was successful");
+        if (registerDao.validateUser(username, uuid)) {
+            map.addAttribute("success", "The registration was successful. You can now log in.");
+        } else {
+            map.addAttribute("success", "User was not validated. You will not be able to log in.");
+        }
         return "auth/register_successful";
     }
 }
