@@ -23,7 +23,7 @@
     <h4 class="page-header" data-th-text="#{position.list.table.title}">Configured Positions</h4>
 
     <div class="table responsive">
-        <table class="table table-striped table-bordered table-hover">
+        <table id = "positionsTable" class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th class="col-sm-1" data-th-text="#{position.list.id.label}">Id</th>
@@ -89,8 +89,10 @@
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script th:src="@{/js/lib/development/bootstrap.js}"></script>
+<script th:src="@{/js/lib/development/table.pagination.js}"></script>
 
 <script type="text/javascript">
+    $(document).ready(function() { $('#positionsTable').dataTable( { "pagingType": "full_numbers" } ); } );
     function editPosition(id, name) {
         $("#posId").val(id);
         $("#posNameId").val(name);
