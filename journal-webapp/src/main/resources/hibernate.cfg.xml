@@ -10,8 +10,6 @@
         <mapping class="com.system.edu.models.dao.CyclesEntity"/>
         <mapping class="com.system.edu.models.dao.GradeTypesEntity"/>
         <mapping class="com.system.edu.models.dao.GradesEntity"/>
-        <mapping class="com.system.edu.models.dao.PlanClassesEntity"/>
-        <mapping class="com.system.edu.models.dao.PlansEntity"/>
         <mapping class="com.system.edu.models.dao.PositionsEntity"/>
         <mapping class="com.system.edu.models.dao.PupilsEntity"/>
         <mapping class="com.system.edu.models.dao.RolesEntity"/>
@@ -22,8 +20,6 @@
         <mapping class="com.system.edu.models.dao.CyclesEntity"/>
         <mapping class="com.system.edu.models.dao.GradeTypesEntity"/>
         <mapping class="com.system.edu.models.dao.GradesEntity"/>
-        <mapping class="com.system.edu.models.dao.PlanClassesEntity"/>
-        <mapping class="com.system.edu.models.dao.PlansEntity"/>
         <mapping class="com.system.edu.models.dao.PositionsEntity"/>
         <mapping class="com.system.edu.models.dao.PupilsEntity"/>
         <mapping class="com.system.edu.models.dao.RolesEntity"/>

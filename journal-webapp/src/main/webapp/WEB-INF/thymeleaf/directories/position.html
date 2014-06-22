@@ -57,7 +57,7 @@
 
     <form class="form" action="#" data-th-action="@{/positions/add}" data-th-object="${position}" method="post">
         <div class="table responsive">
-            <table class="no-border-on-me table ">
+            <table class="no-border-on-me table " style="">
                 <thead>
                 <tr>
                     <th class="col-sm-1"></th>
@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><input type="text" id="posId" hidden="hidden" data-th-field="*{id}"/></td>
+                    <td style="border: 0"><input type="text" id="posId" hidden="hidden" data-th-field="*{id}"/></td>
                     <td><input class="form-control" id="posNameId" type="text" data-th-field="*{name}"
                                placeholder="Name"/></td>
                     <td>
