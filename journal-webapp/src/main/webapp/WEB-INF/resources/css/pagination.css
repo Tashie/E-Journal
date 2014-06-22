@@ -1,0 +1,44 @@
+.dataTables_length {
+    margin: 10px 0;
+    position: relative;
+    float: left;
+}
+
+.dataTables_filter {
+    margin: 10px 0;
+    position: relative;
+    float: right;
+}
+
+select {
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #bf5a16;
+    font-weight: bold;
+}
+
+input[type=search] {
+    height: 30px;
+    margin-left: 5px;
+}
+
+a.paginate_button {
+    background-color: #4e5d6c;
+    width: 30px;
+    height: 30px;
+    display: block;
+    position: relative;
+    float: left;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+}
+
+a.paginate_button.current {
+    background-color: #df691a;
+}
+
+.dataTables_paginate {
+    margin: 10px 0;
+}

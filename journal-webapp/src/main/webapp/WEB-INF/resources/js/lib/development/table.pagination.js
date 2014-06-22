@@ -10584,7 +10584,7 @@
 				 *      } );
 				 *    } );
                      */
-                    "sFirst": "First",
+                    "sFirst": "&lt&lt",
 
 
                     /**
@@ -10607,7 +10607,7 @@
 				 *      } );
 				 *    } );
                      */
-                    "sLast": "Last",
+                    "sLast": "&gt&gt",
 
 
                     /**
@@ -10630,7 +10630,7 @@
 				 *      } );
 				 *    } );
                      */
-                    "sNext": "Next",
+                    "sNext": "&gt",
 
 
                     /**
@@ -10653,7 +10653,7 @@
 				 *      } );
 				 *    } );
                      */
-                    "sPrevious": "Previous"
+                    "sPrevious": "&lt"
                 },
 
                 /**
@@ -13735,6 +13735,7 @@
                                         'aria-controls': settings.sTableId,
                                         'data-dt-idx': counter,
                                         'tabindex': settings.iTabIndex,
+                                        'href': '#',
                                         'id': idx === 0 && typeof button === 'string' ?
                                             settings.sTableId +'_'+ button :
                                             null
