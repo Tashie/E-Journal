@@ -11,6 +11,7 @@
     <http pattern="/resources/**" security="none" />
 
     <http use-expressions="true" access-denied-page="/accessdenied">
+        <intercept-url pattern="/lang**" access="permitAll"/>
 
         <!-- Main page and locales -->
         <intercept-url pattern="/" access="permitAll" />
