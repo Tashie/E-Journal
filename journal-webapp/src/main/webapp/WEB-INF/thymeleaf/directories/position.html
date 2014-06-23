@@ -34,7 +34,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-th-each="position : ${positions}">
+            <tr data-th-each="position : ${positionsList}">
                 <td data-th-text="${position.id}"></td>
                 <td data-th-text="${position.name}"></td>
                 <td style="text-align: center;">
@@ -55,7 +55,7 @@
         </table>
     </div>
 
-    <form class="form" action="#" data-th-action="@{/positions/add}" data-th-object="${position}" method="post">
+    <form class="form" action="#" data-th-action="@{/positions/add}" data-th-object="${positions}" method="post">
         <div class="table responsive">
             <table class="no-border-on-me table " style="">
                 <thead>

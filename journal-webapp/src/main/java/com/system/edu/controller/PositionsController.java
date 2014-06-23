@@ -40,13 +40,13 @@ public class PositionsController {
         logger.info("IN: position/list-GET");
 
         List<Positions> positions = positionsService.getPositions();
-        model.addAttribute("positions", positions);
+        model.addAttribute("positionsList", positions);
 
 
-        if (!model.containsAttribute("position")) {
+        if (!model.containsAttribute("positions")) {
             logger.info("Adding position object to model");
             Positions position = new Positions();
-            model.addAttribute("position", position);
+            model.addAttribute("positions", position);
         }
         return "directories/position";
     }
@@ -60,7 +60,7 @@ public class PositionsController {
 
         if (result.hasErrors() || !positionsService.checkIsUniquePositionName(position.getName())) {
             logger.info("Position-add error: " + result.toString());
-            return "directories/positions";
+            return "directories/position";
         } else {
             positionsService.addPosition(position);
             return "redirect:/positions";

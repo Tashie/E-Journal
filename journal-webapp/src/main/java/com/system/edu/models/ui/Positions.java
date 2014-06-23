@@ -1,11 +1,17 @@
 package com.system.edu.models.ui;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by nata on 15.06.2014.
  */
 
 public class Positions {
     private int id;
+
+    @NotNull
+    @Size(min = 4, max = 150)
     private String name;
 
 
