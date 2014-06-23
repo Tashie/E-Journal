@@ -14,6 +14,10 @@ import javax.persistence.*;
 @Entity
 public class SubjectsEntity {
     private int id;
+    private String name;
+    private String nameShorten;
+    private int difficulty;
+    private CyclesEntity cyclesByCycle;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
@@ -27,8 +31,6 @@ public class SubjectsEntity {
         this.id = id;
     }
 
-    private String name;
-
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 255, precision = 0)
     @Basic
     public String getName() {
@@ -38,8 +40,6 @@ public class SubjectsEntity {
     public void setName(String name) {
         this.name = name;
     }
-
-    private String nameShorten;
 
     @Column(name = "name_shorten", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
     @Basic
@@ -51,8 +51,6 @@ public class SubjectsEntity {
         this.nameShorten = nameShorten;
     }
 
-    private int difficulty;
-
     @Column(name = "difficulty", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Basic
     public int getDifficulty() {
@@ -62,8 +60,6 @@ public class SubjectsEntity {
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
-
-    private CyclesEntity cyclesByCycle;
 
     @ManyToOne
     @JoinColumn(name = "cycle", referencedColumnName = "id", nullable = false)

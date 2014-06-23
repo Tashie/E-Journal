@@ -1,17 +1,20 @@
-package com.system.edu.models.ui;
+package com.system.edu.models.dao;
 
-import java.sql.Date;
+import javax.persistence.*;
 
 /**
- * Created by nata on 15.06.2014.
+ * Created by sph on 23.06.2014.
  */
-
-public class PlanClasses {
+@Entity
+@Table(name = "plan_classes", schema = "", catalog = "journal")
+public class PlanClassesEntity {
     private int id;
     private Integer subgroup;
-    private Plans plansByPlan;
-    private Classes classesByClazz;
+    private PlansEntity plansByPlan;
+    private ClassesEntity classesByClazz;
 
+    @Id
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -20,6 +23,8 @@ public class PlanClasses {
         this.id = id;
     }
 
+    @Basic
+    @Column(name = "subgroup")
     public Integer getSubgroup() {
         return subgroup;
     }
@@ -33,7 +38,7 @@ public class PlanClasses {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlanClasses that = (PlanClasses) o;
+        PlanClassesEntity that = (PlanClassesEntity) o;
 
         if (id != that.id) return false;
         if (subgroup != null ? !subgroup.equals(that.subgroup) : that.subgroup != null) return false;
@@ -48,19 +53,23 @@ public class PlanClasses {
         return result;
     }
 
-    public Plans getPlansByPlan() {
+    @ManyToOne
+    @JoinColumn(name = "plan", referencedColumnName = "id", nullable = false)
+    public PlansEntity getPlansByPlan() {
         return plansByPlan;
     }
 
-    public void setPlansByPlan(Plans plansByPlan) {
+    public void setPlansByPlan(PlansEntity plansByPlan) {
         this.plansByPlan = plansByPlan;
     }
 
-    public Classes getClassesByClazz() {
+    @ManyToOne
+    @JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
+    public ClassesEntity getClassesByClazz() {
         return classesByClazz;
     }
 
-    public void setClassesByClazz(Classes classesByClazz) {
+    public void setClassesByClazz(ClassesEntity classesByClazz) {
         this.classesByClazz = classesByClazz;
     }
 }

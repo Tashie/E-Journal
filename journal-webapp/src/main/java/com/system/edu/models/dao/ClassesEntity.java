@@ -1,10 +1,6 @@
 package com.system.edu.models.dao;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +12,8 @@ import javax.persistence.Column;
 @Entity
 public class ClassesEntity {
     private int id;
+    private String name;
+    private TeachersEntity teachersByHeadTeacher;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
@@ -26,8 +24,6 @@ public class ClassesEntity {
     public void setId(int id) {
         this.id = id;
     }
-
-    private String name;
 
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
     @Basic
@@ -57,5 +53,15 @@ public class ClassesEntity {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "head_teacher", referencedColumnName = "id", nullable = false)
+    public TeachersEntity getTeachersByHeadTeacher() {
+        return teachersByHeadTeacher;
+    }
+
+    public void setTeachersByHeadTeacher(TeachersEntity teachersByHeadTeacher) {
+        this.teachersByHeadTeacher = teachersByHeadTeacher;
     }
 }

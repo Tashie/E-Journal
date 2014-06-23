@@ -13,6 +13,12 @@ import java.sql.Date;
 @Entity
 public class TeachersEntity {
     private int id;
+    private String lastname;
+    private String firstname;
+    private String middlename;
+    private Date birthdate;
+    private String address;
+    private PositionsEntity positionsByPosition;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
@@ -24,8 +30,6 @@ public class TeachersEntity {
         this.id = id;
     }
 
-    private String lastname;
-
     @Column(name = "lastname", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
     @Basic
     public String getLastname() {
@@ -35,8 +39,6 @@ public class TeachersEntity {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-
-    private String firstname;
 
     @Column(name = "firstname", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
     @Basic
@@ -48,8 +50,6 @@ public class TeachersEntity {
         this.firstname = firstname;
     }
 
-    private String middlename;
-
     @Column(name = "middlename", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
     @Basic
     public String getMiddlename() {
@@ -59,8 +59,6 @@ public class TeachersEntity {
     public void setMiddlename(String middlename) {
         this.middlename = middlename;
     }
-
-    private Date birthdate;
 
     @Column(name = "birthdate", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Basic
@@ -72,8 +70,6 @@ public class TeachersEntity {
         this.birthdate = birthdate;
     }
 
-    private String address;
-
     @Column(name = "address", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
     @Basic
     public String getAddress() {
@@ -83,8 +79,6 @@ public class TeachersEntity {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    private PositionsEntity positionsByPosition;
 
     @ManyToOne
     @JoinColumn(name = "position", referencedColumnName = "id", nullable = false)

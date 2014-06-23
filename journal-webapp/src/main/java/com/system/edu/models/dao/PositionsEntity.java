@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Entity
 public class PositionsEntity {
     private int id;
+    private String name;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
@@ -26,8 +27,6 @@ public class PositionsEntity {
     public void setId(int id) {
         this.id = id;
     }
-
-    private String name;
 
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
     @Basic

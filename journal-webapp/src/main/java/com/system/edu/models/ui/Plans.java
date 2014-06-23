@@ -1,12 +1,33 @@
 package com.system.edu.models.ui;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 /**
  * Created by nata on 15.06.2014.
  */
 public class Plans {
     private int id;
-    private int lesson;
-    private String topic;
+    private int year;
+    private Teachers teachersByTeacher;
+    private Subjects subjectsBySubject;
+
+    public Teachers getTeachersByTeacher() {
+        return teachersByTeacher;
+    }
+
+    public void setTeachersByTeacher(Teachers teachersByTeacher) {
+        this.teachersByTeacher = teachersByTeacher;
+    }
+
+    public Subjects getSubjectsBySubject() {
+        return subjectsBySubject;
+    }
+
+    public void setSubjectsBySubject(Subjects subjectsBySubject) {
+        this.subjectsBySubject = subjectsBySubject;
+    }
 
     public int getId() {
         return id;
@@ -16,20 +37,12 @@ public class Plans {
         this.id = id;
     }
 
-    public int getLesson() {
-        return lesson;
+    public int getYear() {
+        return year;
     }
 
-    public void setLesson(int lesson) {
-        this.lesson = lesson;
-    }
-
-    public String getTopic() {
-        return topic;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setYear(int year) {
+        this.year = year;
     }
 
     @Override
@@ -37,11 +50,10 @@ public class Plans {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Plans plans = (Plans) o;
+        Plans that = (Plans) o;
 
-        if (id != plans.id) return false;
-        if (lesson != plans.lesson) return false;
-        if (topic != null ? !topic.equals(plans.topic) : plans.topic != null) return false;
+        if (id != that.id) return false;
+        if (year != that.year) return false;
 
         return true;
     }
@@ -49,8 +61,7 @@ public class Plans {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + lesson;
-        result = 31 * result + (topic != null ? topic.hashCode() : 0);
+        result = 31 * result + year;
         return result;
     }
 }

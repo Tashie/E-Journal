@@ -1,16 +1,13 @@
 package com.system.edu.models.ui;
 
-import java.sql.Date;
-
 /**
- * Created by nata on 15.06.2014.
+ * Created by sph on 23.06.2014.
  */
-
-public class PlanClasses {
+public class PlanLessons {
     private int id;
-    private Integer subgroup;
+    private int lesson;
+    private String topic;
     private Plans plansByPlan;
-    private Classes classesByClazz;
 
     public int getId() {
         return id;
@@ -20,12 +17,20 @@ public class PlanClasses {
         this.id = id;
     }
 
-    public Integer getSubgroup() {
-        return subgroup;
+    public int getLesson() {
+        return lesson;
     }
 
-    public void setSubgroup(Integer subgroup) {
-        this.subgroup = subgroup;
+    public void setLesson(int lesson) {
+        this.lesson = lesson;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     @Override
@@ -33,10 +38,11 @@ public class PlanClasses {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlanClasses that = (PlanClasses) o;
+        PlanLessons that = (PlanLessons) o;
 
         if (id != that.id) return false;
-        if (subgroup != null ? !subgroup.equals(that.subgroup) : that.subgroup != null) return false;
+        if (lesson != that.lesson) return false;
+        if (topic != null ? !topic.equals(that.topic) : that.topic != null) return false;
 
         return true;
     }
@@ -44,7 +50,8 @@ public class PlanClasses {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (subgroup != null ? subgroup.hashCode() : 0);
+        result = 31 * result + lesson;
+        result = 31 * result + (topic != null ? topic.hashCode() : 0);
         return result;
     }
 
@@ -54,13 +61,5 @@ public class PlanClasses {
 
     public void setPlansByPlan(Plans plansByPlan) {
         this.plansByPlan = plansByPlan;
-    }
-
-    public Classes getClassesByClazz() {
-        return classesByClazz;
-    }
-
-    public void setClassesByClazz(Classes classesByClazz) {
-        this.classesByClazz = classesByClazz;
     }
 }

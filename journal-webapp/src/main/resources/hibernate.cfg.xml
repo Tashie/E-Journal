@@ -27,5 +27,9 @@
         <mapping class="com.system.edu.models.dao.TeachersEntity"/>
         <mapping class="com.system.edu.models.dao.UserRolesEntity"/>
         <mapping class="com.system.edu.models.dao.UsersEntity"/>
+        <mapping class="com.system.edu.models.dao.PlanClassesEntity"/>
+        <mapping class="com.system.edu.models.dao.PlanLessonsEntity"/>
+        <mapping class="com.system.edu.models.dao.PlansEntity"/>
+        <mapping class="com.system.edu.models.dao.ScheduleEntity"/>
     </session-factory>
 </hibernate-configuration>
