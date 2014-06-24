@@ -8,6 +8,16 @@ public class Classes {
     private int id;
     private String name;
 
+    public Teachers getTeachersByHeadTeacher() {
+        return teachersByHeadTeacher;
+    }
+
+    public void setTeachersByHeadTeacher(Teachers teachersByHeadTeacher) {
+        this.teachersByHeadTeacher = teachersByHeadTeacher;
+    }
+
+    private Teachers teachersByHeadTeacher;
+
 
     public int getId() {
         return id;

@@ -54,8 +54,8 @@ public class SubjectsController {
     }
 
     @RequestMapping(value = "/subjects/add", method = RequestMethod.POST)
-    public String addCycle(@Valid @ModelAttribute Subjects subject,
-                           BindingResult result, ModelMap model) {
+     public String addCycle(@Valid @ModelAttribute Subjects subject,
+                            BindingResult result, ModelMap model) {
 
         logger.info("IN: subjects/add-POST");
 
