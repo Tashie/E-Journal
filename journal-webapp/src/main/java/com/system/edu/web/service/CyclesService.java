@@ -36,4 +36,9 @@ public class CyclesService {
     public boolean cycleExists(String name) {
         return cyclesDao.cycleExists(name);
     }
+
+
+    public void deleteCycle(int id) {
+        cyclesDao.deleteCycle(id);
+    }
 }

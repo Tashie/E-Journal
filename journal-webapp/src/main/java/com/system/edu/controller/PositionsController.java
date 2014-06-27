@@ -36,7 +36,7 @@ public class PositionsController {
     private MessageSource messageSource;
 
     @RequestMapping(value = {"/positions"}, method = RequestMethod.GET)
-    public String listOfPositions(Model model, @ModelAttribute Positions positions) {
+    public String listOfPositions(Model model, @ModelAttribute Positions positionModel) {
         logger.info("IN: position/list-GET");
 
         List<Positions> positionList = positionsService.getPositions();
@@ -46,18 +46,18 @@ public class PositionsController {
 
 
     @RequestMapping(value = "/positions/add", method = RequestMethod.POST)
-    public String addingPositions(Model model, @Valid @ModelAttribute Positions positions,
+    public String addingPositions(Model model, @Valid @ModelAttribute Positions positionModel,
                                   BindingResult bindingResult, RedirectAttributes redirectAttrs) {
 
         logger.info("IN: Position/add-POST");
 
-        if (bindingResult.hasErrors() || !positionsService.checkIsUniquePositionName(positions.getName())) {
+        if (bindingResult.hasErrors() || !positionsService.checkIsUniquePositionName(positionModel.getName())) {
             logger.info("Position-add error: " + bindingResult.toString());
             bindingResult.rejectValue("name", "123", "Name is incorrect. Try again");
 
-            return listOfPositions(model, positions);
+            return listOfPositions(model, positionModel);
         } else {
-            positionsService.addPosition(positions);
+            positionsService.addPosition(positionModel);
             return "redirect:/positions";
         }
     }
