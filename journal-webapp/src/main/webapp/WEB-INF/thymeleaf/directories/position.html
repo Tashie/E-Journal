@@ -56,8 +56,8 @@
     </div>
 
     <form class="form" id="position-details-block" action="#" data-th-action="@{/positions/add}" data-th-object="${positions}" method="post">
-        <div class="table responsive" style="position: absolute">
-            <table class="no-border-on-me" style="margin-top: 50px; margin-left: 150px; text-align: center">
+        <div class="table responsive">
+            <table class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th class="col-sm-1"></th>
@@ -92,7 +92,6 @@
 <script th:src="@{/js/lib/development/bootstrap.js}"></script>
 <script th:src="@{/js/lib/development/table.pagination.js}"></script>
 <script th:src="@{/js/lib/models/position.js}"></script>
-<script src="js/backbone/timer_.js"></script>
 
 </body>
 </html>

@@ -18,7 +18,7 @@
 
             <h4 class="page-header" data-th-text="#{cycle.list.table.title}">Subject Cycles</h4>
             <div class="table responsive">
-                <table class="table table-striped table-bordered table-hover">
+                <table id = "cyclesTable" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th class="col-sm-1" data-th-text="#{cycle.list.id.label}">Id</th>
@@ -27,14 +27,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-th-each="cycle : ${cycles}">
+                        <tr data-th-each="cycle : ${cyclesList}">
                             <td data-th-text="${cycle.id}">-</td>
                             <td data-th-text="${cycle.name}">-</td>
                             <td style="text-align: center;">
-                                <a href="#" data-th-href="@{/cycles/edit(id=${cycle.id})}">
-                                    <button type="button" class="btn btn-default btn-xs">
-                                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
-                                    </button></a> &nbsp;
+                                <button type="button"
+                                        th:onclick="'javascript:editCycle(\'' + ${cycle.id} + '\' , \'' + ${cycle.name}+ '\');'"
+                                        class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
+                                </button>
+                                &nbsp;
                                 <a href="#" data-th-href="@{/cycles/delete(id=${cycle.id})}">
                                     <button type="button" class="btn btn-default btn-xs">
                                         <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
@@ -45,7 +47,7 @@
                 </table>
             </div>
 
-            <form class="form" action="#" data-th-action="@{/cycles/add}" data-th-object="${cycle}" method="post">
+            <form class="form" action="#" data-th-action="@{/cycles/add}" data-th-object="${cycles}" method="post">
                 <div class="table responsive">
                     <table class="no-border-on-me table ">
                         <thead>
@@ -57,8 +59,8 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="text" hidden="hidden" data-th-field="*{id}"/></td>
-                                <td><input class="form-control" type="text" data-th-field="*{name}" placeholder="Name"/></td>
+                                <td><input id="cycleId" type="text" hidden="hidden" data-th-field="*{id}"/></td>
+                                <td><input id="cycleNameId" class="form-control" type="text" data-th-field="*{name}" placeholder="Name"/></td>
                                 <td>
                                     <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.cycle}">Add cycle</button>
                                 </td>
@@ -75,5 +77,7 @@
         </div>
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script th:src="@{/js/lib/development/bootstrap.js}"></script>
+        <script th:src="@{/js/lib/development/table.pagination.js}"></script>
+        <script th:src="@{/js/lib/models/cycles.js}"></script>
     </body>
 </html>
