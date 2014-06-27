@@ -36,33 +36,28 @@ public class PositionsController {
     private MessageSource messageSource;
 
     @RequestMapping(value = {"/positions"}, method = RequestMethod.GET)
-    public String listOfPositions(Model model) {
+    public String listOfPositions(Model model, @ModelAttribute Positions positions) {
         logger.info("IN: position/list-GET");
 
-        List<Positions> positions = positionsService.getPositions();
-        model.addAttribute("positionsList", positions);
-
-
-        if (!model.containsAttribute("positions")) {
-            logger.info("Adding position object to model");
-            Positions position = new Positions();
-            model.addAttribute("positions", position);
-        }
+        List<Positions> positionList = positionsService.getPositions();
+        model.addAttribute("positionsList", positionList);
         return "directories/position";
     }
 
 
     @RequestMapping(value = "/positions/add", method = RequestMethod.POST)
-    public String addingPositions(@Valid @ModelAttribute Positions position,
-                                  BindingResult result, RedirectAttributes redirectAttrs) {
+    public String addingPositions(Model model, @Valid @ModelAttribute Positions positions,
+                                  BindingResult bindingResult, RedirectAttributes redirectAttrs) {
 
         logger.info("IN: Position/add-POST");
 
-        if (result.hasErrors() || !positionsService.checkIsUniquePositionName(position.getName())) {
-            logger.info("Position-add error: " + result.toString());
-            return "directories/position";
+        if (bindingResult.hasErrors() || !positionsService.checkIsUniquePositionName(positions.getName())) {
+            logger.info("Position-add error: " + bindingResult.toString());
+            bindingResult.rejectValue("name", "123", "Name is incorrect. Try again");
+
+            return listOfPositions(model, positions);
         } else {
-            positionsService.addPosition(position);
+            positionsService.addPosition(positions);
             return "redirect:/positions";
         }
     }
