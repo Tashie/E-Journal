@@ -55,7 +55,7 @@
         </table>
     </div>
 
-    <form class="form" action="#" data-th-action="@{/positions/add}" data-th-object="${positions}" method="post">
+    <form class="form" id="position-details-block" action="#" data-th-action="@{/positions/add}" data-th-object="${positions}" method="post">
         <div class="table responsive" style="position: absolute">
             <table class="no-border-on-me" style="margin-top: 50px; margin-left: 150px; text-align: center">
                 <thead>
@@ -91,13 +91,8 @@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script th:src="@{/js/lib/development/bootstrap.js}"></script>
 <script th:src="@{/js/lib/development/table.pagination.js}"></script>
+<script th:src="@{/js/lib/models/position.js}"></script>
+<script src="js/backbone/timer_.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() { $('#positionsTable').dataTable( { "pagingType": "full_numbers" } ); } );
-    function editPosition(id, name) {
-        $("#posId").val(id);
-        $("#posNameId").val(name);
-    }
-</script>
 </body>
 </html>
