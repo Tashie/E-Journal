@@ -1,20 +1,19 @@
 package com.system.edu.models.dao;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by sph on 23.06.2014.
+ * User: nata
+ * Date: 27.06.14
  */
+@javax.persistence.Table(name = "plan_classes", schema = "", catalog = "journal")
 @Entity
-@Table(name = "plan_classes", schema = "", catalog = "journal")
 public class PlanClassesEntity {
     private int id;
-    private Integer subgroup;
-    private PlansEntity plansByPlan;
-    private ClassesEntity classesByClazz;
 
+    @javax.persistence.Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -23,13 +22,15 @@ public class PlanClassesEntity {
         this.id = id;
     }
 
+    private int subgroup;
+
+    @javax.persistence.Column(name = "subgroup", nullable = true, insertable = true, updatable = true, length = 10, precision = 0)
     @Basic
-    @Column(name = "subgroup")
-    public Integer getSubgroup() {
+    public int getSubgroup() {
         return subgroup;
     }
 
-    public void setSubgroup(Integer subgroup) {
+    public void setSubgroup(int subgroup) {
         this.subgroup = subgroup;
     }
 
@@ -41,7 +42,7 @@ public class PlanClassesEntity {
         PlanClassesEntity that = (PlanClassesEntity) o;
 
         if (id != that.id) return false;
-        if (subgroup != null ? !subgroup.equals(that.subgroup) : that.subgroup != null) return false;
+        if (subgroup != that.subgroup) return false;
 
         return true;
     }
@@ -49,12 +50,14 @@ public class PlanClassesEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (subgroup != null ? subgroup.hashCode() : 0);
+        result = 31 * result + subgroup;
         return result;
     }
 
+    private PlansEntity plansByPlan;
+
     @ManyToOne
-    @JoinColumn(name = "plan", referencedColumnName = "id", nullable = false)
+    @javax.persistence.JoinColumn(name = "plan", referencedColumnName = "id", nullable = false)
     public PlansEntity getPlansByPlan() {
         return plansByPlan;
     }
@@ -63,13 +66,26 @@ public class PlanClassesEntity {
         this.plansByPlan = plansByPlan;
     }
 
+    private ClassesEntity classesByClazz;
+
     @ManyToOne
-    @JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
+    @javax.persistence.JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
     public ClassesEntity getClassesByClazz() {
         return classesByClazz;
     }
 
     public void setClassesByClazz(ClassesEntity classesByClazz) {
         this.classesByClazz = classesByClazz;
+    }
+
+    private Collection<ScheduleEntity> schedulesById;
+
+    @OneToMany(mappedBy = "planClassesByPlanClasses")
+    public Collection<ScheduleEntity> getSchedulesById() {
+        return schedulesById;
+    }
+
+    public void setSchedulesById(Collection<ScheduleEntity> schedulesById) {
+        this.schedulesById = schedulesById;
     }
 }

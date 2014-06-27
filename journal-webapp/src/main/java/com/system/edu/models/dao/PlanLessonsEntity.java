@@ -1,20 +1,20 @@
 package com.system.edu.models.dao;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by sph on 23.06.2014.
+ * User: nata
+ * Date: 27.06.14
  */
+@SuppressWarnings("ALL")
+@javax.persistence.Table(name = "plan_lessons", schema = "", catalog = "journal")
 @Entity
-@Table(name = "plan_lessons", schema = "", catalog = "journal")
 public class PlanLessonsEntity {
     private int id;
-    private int lesson;
-    private String topic;
-    private PlansEntity plansByPlan;
 
+    @javax.persistence.Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -23,8 +23,10 @@ public class PlanLessonsEntity {
         this.id = id;
     }
 
+    private int lesson;
+
+    @javax.persistence.Column(name = "lesson", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Basic
-    @Column(name = "lesson")
     public int getLesson() {
         return lesson;
     }
@@ -33,8 +35,10 @@ public class PlanLessonsEntity {
         this.lesson = lesson;
     }
 
+    private String topic;
+
+    @javax.persistence.Column(name = "topic", nullable = false, insertable = true, updatable = true, length = 255, precision = 0)
     @Basic
-    @Column(name = "topic")
     public String getTopic() {
         return topic;
     }
@@ -65,13 +69,26 @@ public class PlanLessonsEntity {
         return result;
     }
 
+    private PlansEntity plansByPlan;
+
     @ManyToOne
-    @JoinColumn(name = "plan", referencedColumnName = "id", nullable = false)
+    @javax.persistence.JoinColumn(name = "plan", referencedColumnName = "id", nullable = false)
     public PlansEntity getPlansByPlan() {
         return plansByPlan;
     }
 
     public void setPlansByPlan(PlansEntity plansByPlan) {
         this.plansByPlan = plansByPlan;
+    }
+
+    private Collection<ScheduleEntity> schedulesById;
+
+    @OneToMany(mappedBy = "planLessonsByPlanLessons")
+    public Collection<ScheduleEntity> getSchedulesById() {
+        return schedulesById;
+    }
+
+    public void setSchedulesById(Collection<ScheduleEntity> schedulesById) {
+        this.schedulesById = schedulesById;
     }
 }

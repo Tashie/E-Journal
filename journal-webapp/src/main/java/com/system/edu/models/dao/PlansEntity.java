@@ -1,20 +1,19 @@
 package com.system.edu.models.dao;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by sph on 23.06.2014.
+ * User: nata
+ * Date: 27.06.14
  */
+@javax.persistence.Table(name = "plans", schema = "", catalog = "journal")
 @Entity
-@Table(name = "plans", schema = "", catalog = "journal")
 public class PlansEntity {
     private int id;
-    private int year;
-    private TeachersEntity teachersByTeacher;
-    private SubjectsEntity subjectsBySubject;
 
+    @javax.persistence.Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -23,8 +22,10 @@ public class PlansEntity {
         this.id = id;
     }
 
+    private int year;
+
+    @javax.persistence.Column(name = "year", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Basic
-    @Column(name = "year")
     public int getYear() {
         return year;
     }
@@ -53,6 +54,30 @@ public class PlansEntity {
         return result;
     }
 
+    private Collection<PlanClassesEntity> planClassesesById;
+
+    @OneToMany(mappedBy = "plansByPlan")
+    public Collection<PlanClassesEntity> getPlanClassesesById() {
+        return planClassesesById;
+    }
+
+    public void setPlanClassesesById(Collection<PlanClassesEntity> planClassesesById) {
+        this.planClassesesById = planClassesesById;
+    }
+
+    private Collection<PlanLessonsEntity> planLessonsesById;
+
+    @OneToMany(mappedBy = "plansByPlan")
+    public Collection<PlanLessonsEntity> getPlanLessonsesById() {
+        return planLessonsesById;
+    }
+
+    public void setPlanLessonsesById(Collection<PlanLessonsEntity> planLessonsesById) {
+        this.planLessonsesById = planLessonsesById;
+    }
+
+    private TeachersEntity teachersByTeacher;
+
     @ManyToOne
     @JoinColumn(name = "teacher", referencedColumnName = "id", nullable = false)
     public TeachersEntity getTeachersByTeacher() {
@@ -62,6 +87,8 @@ public class PlansEntity {
     public void setTeachersByTeacher(TeachersEntity teachersByTeacher) {
         this.teachersByTeacher = teachersByTeacher;
     }
+
+    private SubjectsEntity subjectsBySubject;
 
     @ManyToOne
     @JoinColumn(name = "subject", referencedColumnName = "id", nullable = false)
