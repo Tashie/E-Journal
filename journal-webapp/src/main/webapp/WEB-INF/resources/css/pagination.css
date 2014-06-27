@@ -1,13 +1,13 @@
 .dataTables_length {
     margin: 10px 0;
     position: relative;
-    float: left;
+    float: right;
 }
 
 .dataTables_filter {
     margin: 10px 0;
     position: relative;
-    float: right;
+    float: left;
 }
 
 select {
