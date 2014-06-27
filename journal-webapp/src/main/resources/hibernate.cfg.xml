@@ -31,5 +31,6 @@
         <mapping class="com.system.edu.models.dao.PlanLessonsEntity"/>
         <mapping class="com.system.edu.models.dao.PlansEntity"/>
         <mapping class="com.system.edu.models.dao.ScheduleEntity"/>
+        <mapping class="com.system.edu.models.dao.SupportEntity"/>
     </session-factory>
 </hibernate-configuration>
