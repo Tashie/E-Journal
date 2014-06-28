@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title data-th-text="#{plans.list.page.title}">Plans</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" href="../css/pagination.css" th:href="@{/css/pagination.css}"/>
+    <link rel="script" type="javascript" href="../js/lib/development/jquery-2.1.1.js"
+          th:href="@{/js/lib/development/jquery-2.1.1.js}"/>
+</head>
+
+<body>
+
+<div class="container">
+    <div th:include="header :: top(login_include=true)"></div>
+
+    <div th:include="menu :: bar"></div>
+
+    <ul class="breadcrumb" style="margin-bottom: 15px;">
+        <li><a th:href="@{/index}">Home</a></li>
+        <li class="active">Plans</li>
+    </ul>
+
+    <h4 class="page-header" data-th-text="#{plan.list.table.title}">Configured Plans</h4>
+
+    <div class="table responsive">
+        <table id="plansTable" class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="col-sm-1" data-th-text="#{plans.list.id.label}">Id</th>
+                <th class="col-sm-4" data-th-text="#{plans.list.teacher.name.label}">Teacher</th>
+                <th class="col-sm-2" data-th-text="#{plans.list.subject.name.label}" style="text-align: center">Subject
+                </th>
+                <th class="col-sm-4" data-th-text="#{plans.list.year.name.label}">Year</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-th-each="plan : ${plansList}">
+                <td data-th-text="${plan.id}"></td>
+                <td data-th-text="${plan.teachersByTeacher.getFIO()}"></td>
+                <td data-th-text="${plan.subjectsBySubject.name}"></td>
+                <td data-th-text="${plan.year}"></td>
+                <td style="text-align: center;">
+
+                    <a href="#" data-th-href="@{/plans/delete(id=${plan.id})}">
+                        <button type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script th:src="@{/js/lib/development/bootstrap.js}"></script>
+<script th:src="@{/js/lib/development/table.pagination.js}"></script>
+<script th:src="@{/js/lib/models/plans.js}"></script>
+
+</body>
+</html>

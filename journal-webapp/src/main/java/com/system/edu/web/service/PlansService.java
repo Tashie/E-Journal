@@ -26,8 +26,7 @@ public class PlansService {
     private PlansDao plansDao;
 
     public List<Plans> getPlans() {
-        List<Plans> plansList = new ArrayList<>();
-        return plansList;
+        return plansDao.getAllPlans();
     }
 
     public boolean addPlan(Plans plans) {
