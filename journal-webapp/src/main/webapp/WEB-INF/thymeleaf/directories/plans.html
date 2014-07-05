@@ -3,12 +3,14 @@
 <head>
     <title data-th-text="#{plans.list.page.title}">Plans</title>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
-    <link rel="stylesheet" type="text/css" href="../css/pagination.css" th:href="@{/css/pagination.css}"/>
     <link rel="script" type="javascript" href="../js/lib/development/jquery-2.1.1.js"
           th:href="@{/js/lib/development/jquery-2.1.1.js}"/>
-</head>
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css"/>
 
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" href="../css/pagination.css" th:href="@{/css/pagination.css}"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+</head>
 <body>
 
 <div class="container">
@@ -52,12 +54,61 @@
             </tbody>
         </table>
     </div>
+
+
+    <form class="form" id="plans-details-block" action="#" data-th-action="@{/plans/add}" data-th-object="${plans}"
+          method="post">
+        <div class="table responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="col-sm-1">Teacher</th>
+                    <th class="col-sm-4">Subject</th>
+                    <th class="col-sm-2">Date</th>
+                    <th class="col-sm-2"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="border: 0">
+                        <select id="teacherId">
+                            <option th:each="teach : ${teacherList}" th:value="${teach.id}"
+                                    th:text="${teach.firstname + ' ' + teach.middlename + ' ' + teach.lastname }"></option>
+                        </select>
+                    </td>
+                    <td style="border: 0">
+                        <select id="subjectId">
+                            <option th:each="subj : ${subjectsList}" th:value="${subj.id}"
+                                    th:text="${subj.name}"></option>
+                        </select>
+                    </td>
+                    <td style="border: 0">
+                        <div class="hero-unit">
+                            <input  type="text" placeholder="click to show datepicker"  id="year1"/>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script th:src="@{/js/lib/development/bootstrap.js}"></script>
-<script th:src="@{/js/lib/development/table.pagination.js}"></script>
-<script th:src="@{/js/lib/models/plans.js}"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#year1').datepicker({
+            format: "yyyy"
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"/>
+<script th:src="@{/js/lib/development/bootstrap.js}"/>
+<script th:src="@{/js/lib/development/table.pagination.js}"/>
+<script th:src="@{/js/lib/models/plans.js}"/>
+<script th:src="@{/js/lib/development/datetimepicker.js}"/>
 
 </body>
 </html>

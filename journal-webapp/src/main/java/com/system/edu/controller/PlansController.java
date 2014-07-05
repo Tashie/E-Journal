@@ -2,6 +2,8 @@ package com.system.edu.controller;
 
 import com.system.edu.models.ui.Plans;
 import com.system.edu.web.service.PlansService;
+import com.system.edu.web.service.SubjectsService;
+import com.system.edu.web.service.TeachersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,13 @@ public class PlansController {
     private PlansService plansService;
 
     @Autowired
+    private TeachersService teachersService;
+
+
+    @Autowired
+    private SubjectsService subjectsService;
+
+    @Autowired
     private MessageSource messageSource;
 
     @RequestMapping(value = {"/plans"}, method = RequestMethod.GET)
@@ -39,6 +48,8 @@ public class PlansController {
 
         List<Plans> plansList = plansService.getPlans();
         model.addAttribute("plansList", plansList);
+        model.addAttribute("teacherList", teachersService.getTeachers());
+        model.addAttribute("subjectsList", subjectsService.getSubjects());
         return "directories/plans";
     }
 
