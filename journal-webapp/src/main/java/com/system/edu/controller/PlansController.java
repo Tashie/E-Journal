@@ -1,5 +1,6 @@
 package com.system.edu.controller;
 
+import com.system.edu.models.ui.Classes;
 import com.system.edu.models.ui.Plans;
 import com.system.edu.web.service.PlansService;
 import com.system.edu.web.service.SubjectsService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +45,7 @@ public class PlansController {
     private MessageSource messageSource;
 
     @RequestMapping(value = {"/plans"}, method = RequestMethod.GET)
-    public String listOfPlans(Model model, @ModelAttribute Plans planModel) {
+    public String listOfPlans(ModelMap model, @ModelAttribute Plans planModel) {
         logger.info("IN: plans/list-GET");
 
         List<Plans> plansList = plansService.getPlans();
@@ -55,8 +57,8 @@ public class PlansController {
 
 
     @RequestMapping(value = "/plans/add", method = RequestMethod.POST)
-    public String addingPlans(Model model, @Valid @ModelAttribute Plans plansModel,
-                                  BindingResult bindingResult, RedirectAttributes redirectAttrs) {
+    public String addingPlans(@Valid @ModelAttribute Plans plansModel,
+                              BindingResult bindingResult, ModelMap model) {
 
         logger.info("IN: Plans/add-POST");
 
