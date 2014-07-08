@@ -56,15 +56,18 @@
         <script th:src="@{/js/lib/development/bootstrap.js}"></script>
 
         <script>
-            function editRow(subjectId, name, nameShorten, difficulty, cycleId) {
-                var row = $('#srow' + subjectId);
+            var subjectId;
+
+            function editRow(subject, name, nameShorten, difficulty, cycleId) {
+                subjectId = subject;
+                var row = $('#srow' + subject);
                 row.empty();
                 var row_name = '<td><input id="sname" type="text" value=""/></td>';
                 var row_shname = '<td><input id="shname" type="text" value=""/></td>';
                 var row_sdifficulty = '<td><input id="sdifficulty" type="text" value=""/></td>';
                 var row_scycle = '<select id="scycle" class="form-control"><option th:each="cycle : ${cycles}" th:value="${cycle.id}" th:text="${cycle.name}">Cycle</option></select>';
-                var row_sbuttons = '<td style="text-align: center;"><button type="button" class="btn btn-default btn-xs" onclick="accept(' + subjectId + ');"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Accept</button>&nbsp;'
-                        + '<button type="button" class="btn btn-default btn-xs" onclick="cancel(' + subjectId + ');"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Cancel</button></td>';
+                var row_sbuttons = '<td style="text-align: center;"><button type="button" class="btn btn-default btn-xs" onclick="accept();"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Accept</button>&nbsp;';
+                row_sbuttons += '<button type="button" class="btn btn-default btn-xs" onclick="cancel();"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Cancel</button></td>';
 
                 row.append(row_name);
                 row.append(row_shname);
@@ -77,7 +80,7 @@
                 $('#sdifficulty').val(difficulty);
             }
 
-            function accept(subjectId) {
+            function accept() {
                 var sname = $('#sname').val();
                 var shname = $('#shname').val();
                 var sdifficulty = $('#sdifficulty').val();
@@ -85,6 +88,8 @@
                 var scycleName = $('#scycle option:selected').text();
 
                 var row = $('#srow' + subjectId);
+                row.empty();
+
                 row.append('<td>' + sname + '</td>');
                 row.append('<td>' + shname + '</td>');
                 row.append('<td>' + sdifficulty + '</td>');
@@ -93,10 +98,10 @@
 
                 $.post( "http://localhost:8080/edu-system/subjects/edit", { subjectId: subjectId, name: sname, nameShorten: shname, difficulty: sdifficulty, cycle: scycleId })
                         .done(function() {
-                            alert( "second success" );
+                            alert("success");
                         })
                         .fail(function() {
-                            alert( "error" );
+                            alert("error");
                         });
             }
         </script>

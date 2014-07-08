@@ -76,10 +76,20 @@ public class SubjectsController {
 
     @RequestMapping(value = "/subjects/edit", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void editCycle(@RequestParam("subjectId") String subjectId,
+    public void editCycle(@RequestParam("subjectId") int subjectId,
                             @RequestParam("name") String name,
                             @RequestParam("nameShorten") String nameShorten,
-                            @RequestParam("difficulty") String difficulty,
-                            @RequestParam("cycle") String cycle) {
+                            @RequestParam("difficulty") int difficulty,
+                            @RequestParam("cycle") int cycleId) {
+        Subjects subject = new Subjects();
+        subject.setId(subjectId);
+        subject.setName(name);
+        subject.setNameShorten(nameShorten);
+        subject.setDifficulty(difficulty);
+        Cycles cycle = new Cycles();
+        cycle.setId(cycleId);
+        subject.setCyclesByCycle(cycle);
+
+        subjectsService.editSubject(subject);
     }
 }

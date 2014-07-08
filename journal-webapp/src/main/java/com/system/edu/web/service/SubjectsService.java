@@ -33,6 +33,11 @@ public class SubjectsService {
         return subjectsDao.addSubject(subjectsEntity);
     }
 
+    public boolean editSubject(Subjects subject) {
+        SubjectsEntity subjectsEntity = context.map(subject, SubjectsEntity.class);
+        return subjectsDao.editSubject(subjectsEntity);
+    }
+
     public boolean subjectExists(String name) {
         return subjectsDao.subjectExists(name);
     }

@@ -33,6 +33,17 @@ public class SubjectsDao {
     }
 
     @Transactional
+    public boolean editSubject(SubjectsEntity subjectsEntity) {
+        try {
+            sessionFactory.getCurrentSession()
+                    .update(subjectsEntity);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional
     public boolean subjectExists(String name) {
         SubjectsEntity subjectsEntity = (SubjectsEntity)sessionFactory.getCurrentSession()
                 .createCriteria(SubjectsEntity.class).add(Restrictions.eq("name", name))
