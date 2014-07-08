@@ -71,21 +71,28 @@
                 <tbody>
                 <tr>
                     <td style="border: 0">
-                        <select id="teacherId">
-                            <option th:each="teach : ${teacherList}" th:value="${teach.id}"
+                        <input type="text" hidden="hidden" data-th-field="*{id}"/>
+                        <select id="teacherId" th:field="*{teachersByTeacher.id}">
+                            <option th:each="teach : ${teacherList}"
+                                    th:value="${teach.id}"
                                     th:text="${teach.firstname + ' ' + teach.middlename + ' ' + teach.lastname }"></option>
                         </select>
                     </td>
                     <td style="border: 0">
-                        <select id="subjectId">
-                            <option th:each="subj : ${subjectsList}" th:value="${subj.id}"
+                        <select id="subjectId"  th:field="*{subjectsBySubject.id}">
+                            <option th:each="subj : ${subjectsList}"
+                                    th:value="${subj.id}"
                                     th:text="${subj.name}"></option>
                         </select>
                     </td>
                     <td style="border: 0">
                         <div class="hero-unit">
-                            <input  type="text" placeholder="click to show datepicker"  id="year1"/>
+                            <input  type="text" placeholder="click to show datepicker"  data-th-field="*{year}" id="year1"/>
                         </div>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.plan}">Update plan
+                        </button>
                     </td>
                 </tr>
                 </tbody>

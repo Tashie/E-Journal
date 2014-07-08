@@ -40,9 +40,9 @@ public class PlansDao {
     @Transactional
     public boolean isPlanExists(Plans plans) {
 
-        PlansEntity plansEntity = (PlansEntity) sessionFactory.getCurrentSession().createCriteria(PlansEntity.class).add(Restrictions.eq("subject", plans.getSubjectsBySubject())).add(Restrictions.eq("lesson", plans.getSubjectsBySubject()))
+        PlansEntity plansEntity = (PlansEntity) sessionFactory.getCurrentSession().createCriteria(PlansEntity.class).add(Restrictions.eq("subjectsBySubject.id", plans.getSubjectsBySubject().getId())).add(Restrictions.eq("teachersByTeacher.id", plans.getTeachersByTeacher().getId()))
                 .uniqueResult();
-        return plansEntity == null ? true : false;
+        return plansEntity != null ? true : false;
     }
 
 
