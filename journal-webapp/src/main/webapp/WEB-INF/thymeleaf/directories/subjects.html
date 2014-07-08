@@ -29,20 +29,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr data-th-each="subject : ${subjects}">
+                    <tr th:each="subject : ${subjects}" th:id="srow + ${subject.id}">
                         <td data-th-text="${subject.name}">-</td>
                         <td data-th-text="${subject.nameShorten}">-</td>
                         <td data-th-text="${subject.difficulty}">-</td>
                         <td data-th-text="${subject.cyclesByCycle.name}">-</td>
                         <td style="text-align: center;">
-                            <a href="#" data-th-href="@{/subjects/edit(id=${subject.id})}">
-                                <button type="button" class="btn btn-default btn-xs">
-                                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
-                                </button></a> &nbsp;
+                            <button type="button" class="btn btn-default btn-xs" th:onclick="'javascript:editRow(' + ${subject.id} + ',\'' + ${subject.name} + '\',\'' + ${subject.nameShorten} + '\',\'' + ${subject.difficulty} + '\',' + ${subject.cyclesByCycle.id} + ');'">
+                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
+                            </button>
                             <a href="#" data-th-href="@{/subjects/delete(id=${subject.id})}">
                                 <button type="button" class="btn btn-default btn-xs">
                                     <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
-                                </button></a>
+                                </button>
+                            </a>
                         </td>
                     </tr>
                     </tbody>
@@ -54,5 +54,51 @@
         </div>
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script th:src="@{/js/lib/development/bootstrap.js}"></script>
+
+        <script>
+            function editRow(subjectId, name, nameShorten, difficulty, cycleId) {
+                var row = $('#srow' + subjectId);
+                row.empty();
+                var row_name = '<td><input id="sname" type="text" value=""/></td>';
+                var row_shname = '<td><input id="shname" type="text" value=""/></td>';
+                var row_sdifficulty = '<td><input id="sdifficulty" type="text" value=""/></td>';
+                var row_scycle = '<select id="scycle" class="form-control"><option th:each="cycle : ${cycles}" th:value="${cycle.id}" th:text="${cycle.name}">Cycle</option></select>';
+                var row_sbuttons = '<td style="text-align: center;"><button type="button" class="btn btn-default btn-xs" onclick="accept(' + subjectId + ');"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Accept</button>&nbsp;'
+                        + '<button type="button" class="btn btn-default btn-xs" onclick="cancel(' + subjectId + ');"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Cancel</button></td>';
+
+                row.append(row_name);
+                row.append(row_shname);
+                row.append(row_sdifficulty);
+                row.append(row_scycle);
+                row.append(row_sbuttons);
+
+                $('#sname').val(name);
+                $('#shname').val(nameShorten);
+                $('#sdifficulty').val(difficulty);
+            }
+
+            function accept(subjectId) {
+                var sname = $('#sname').val();
+                var shname = $('#shname').val();
+                var sdifficulty = $('#sdifficulty').val();
+                var scycleId = $('#scycle').val();
+                var scycleName = $('#scycle option:selected').text();
+
+                var row = $('#srow' + subjectId);
+                row.append('<td>' + sname + '</td>');
+                row.append('<td>' + shname + '</td>');
+                row.append('<td>' + sdifficulty + '</td>');
+                row.append('<td>' + scycleName + '</td>');
+                row.append('<button type="button" class="btn btn-default btn-xs" onclick="editRow(' + subjectId + ',\'' + sname + '\',\'' + shname + '\',\'' + sdifficulty + '\',' + scycleId + ');"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>');
+
+                $.post( "http://localhost:8080/edu-system/subjects/edit", { subjectId: subjectId, name: sname, nameShorten: shname, difficulty: sdifficulty, cycle: scycleId })
+                        .done(function() {
+                            alert( "second success" );
+                        })
+                        .fail(function() {
+                            alert( "error" );
+                        });
+            }
+        </script>
     </body>
 </html>

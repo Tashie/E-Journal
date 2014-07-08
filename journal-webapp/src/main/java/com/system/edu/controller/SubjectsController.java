@@ -7,13 +7,12 @@ import com.system.edu.web.service.SubjectsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,6 +34,9 @@ public class SubjectsController {
 
         List<Subjects> subjects = subjectsService.getSubjects();
         model.addAttribute("subjects", subjects);
+
+        List<Cycles> cycles = cyclesService.getCycles();
+        model.addAttribute("cycles", cycles);
 
         return "directories/subjects";
     }
@@ -70,5 +72,14 @@ public class SubjectsController {
             subjectsService.addSubject(subject);
             return "redirect:/subjects";
         }
+    }
+
+    @RequestMapping(value = "/subjects/edit", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void editCycle(@RequestParam("subjectId") String subjectId,
+                            @RequestParam("name") String name,
+                            @RequestParam("nameShorten") String nameShorten,
+                            @RequestParam("difficulty") String difficulty,
+                            @RequestParam("cycle") String cycle) {
     }
 }
