@@ -1,10 +1,15 @@
 package com.system.edu.web.dao;
 
 import com.system.edu.models.dao.PlansEntity;
+import com.system.edu.models.dao.SubjectsEntity;
+import com.system.edu.models.dao.TeachersEntity;
 import com.system.edu.models.ui.Plans;
+import com.system.edu.models.ui.Subjects;
+import com.system.edu.models.ui.Teachers;
 import net.sf.brunneng.jom.IMergingContext;
 import net.sf.brunneng.jom.MergingContext;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -78,5 +83,49 @@ public class PlansDao {
             //todo
         }
         return plans;
+    }
+
+    @Transactional
+    public List<Subjects> getSubjects() {
+        List<Subjects> subjects = new ArrayList<>();
+        try {
+            List<SubjectsEntity> subjectsEntities = sessionFactory.getCurrentSession()
+                    .createCriteria(PlansEntity.class)
+                    .setProjection(Projections.distinct(Projections.property("subjectsBySubject")))
+                    .list();
+            for (SubjectsEntity subj : subjectsEntities) {
+                Subjects subject = context.map(subj, Subjects.class);
+                subjects.add(subject);
+            }
+        } catch (Exception e) {
+            //todo
+        }
+        return subjects;
+    }
+
+    @Transactional
+    public List<String> getYears() {
+        return sessionFactory.getCurrentSession()
+                .createCriteria(PlansEntity.class)
+                .setProjection(Projections.distinct(Projections.property("year")))
+                .list();
+    }
+
+    @Transactional
+    public  List<Teachers> getTeachers() {
+        List<Teachers> teachers = new ArrayList<>();
+        try {
+            List<TeachersEntity> teachersEntities = sessionFactory.getCurrentSession()
+                    .createCriteria(PlansEntity.class)
+                    .setProjection(Projections.distinct(Projections.property("teachersByTeacher")))
+                    .list();
+            for (TeachersEntity tchr : teachersEntities) {
+                Teachers teacher = context.map(tchr, Teachers.class);
+                teachers.add(teacher);
+            }
+        } catch (Exception e) {
+            //todo
+        }
+        return teachers;
     }
 }

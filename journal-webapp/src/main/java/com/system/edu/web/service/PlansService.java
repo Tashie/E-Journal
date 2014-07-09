@@ -4,6 +4,7 @@ import com.system.edu.models.dao.PlansEntity;
 import com.system.edu.models.dao.SubjectsEntity;
 import com.system.edu.models.ui.Plans;
 import com.system.edu.models.ui.Subjects;
+import com.system.edu.models.ui.Teachers;
 import com.system.edu.web.dao.PlansDao;
 import net.sf.brunneng.jom.IMergingContext;
 import net.sf.brunneng.jom.MergingContext;
@@ -40,4 +41,10 @@ public class PlansService {
     public boolean delete(Integer planId) {
         return plansDao.deletePlans(planId);
     }
+
+    public List<Subjects> getSubjects() { return plansDao.getSubjects(); }
+
+    public List<String> getYears() { return plansDao.getYears(); }
+
+    public List<Teachers> getTeachers() { return plansDao.getTeachers(); }
 }

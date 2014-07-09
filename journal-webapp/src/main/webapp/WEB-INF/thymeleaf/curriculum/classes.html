@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title data-th-text="#{subject.list.page.title}">Title</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:include="header :: top(login_include=true)"></div>
+
+    <div th:include="menu :: bar"></div>
+
+    <ul class="breadcrumb" style="margin-bottom: 15px;">
+        <li><a th:href="@{/index}">Home</a></li>
+        <li class="active">Classes for a plan</li>
+    </ul>
+
+    <h4 class="page-header" data-th-text="#{class.list.table.title}">List of classes</h4>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="col-sm-1">Teacher</th>
+            <th class="col-sm-4">Subject</th>
+            <th class="col-sm-2">Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="border: 0">
+                <select id="teacherId">
+                    <option th:each="teach : ${teachersList}"
+                            th:value="${teach.id}"
+                            th:text="${teach.firstname + ' ' + teach.middlename + ' ' + teach.lastname }"></option>
+                </select>
+            </td>
+            <td style="border: 0">
+                <select id="subjectId">
+                    <option th:each="subj : ${subjectsList}"
+                            th:value="${subj.id}"
+                            th:text="${subj.name}"></option>
+                </select>
+            </td>
+            <td style="border: 0">
+                <select id="years">
+                    <option th:each="year : ${yearsList}"
+                            th:value="${year}"
+                            th:text="${year}"></option>
+                </select>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script th:src="@{/js/lib/development/bootstrap.js}"></script>
+</body>
+</html>
