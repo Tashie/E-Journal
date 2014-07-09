@@ -52,7 +52,7 @@ public class PlansController {
         model.addAttribute("plansList", plansList);
         model.addAttribute("teacherList", teachersService.getTeachers());
         model.addAttribute("subjectsList", subjectsService.getSubjects());
-        return "directories/plans";
+        return "curriculum/plans";
     }
 
 
@@ -81,6 +81,5 @@ public class PlansController {
 
         return "redirect:/plans";
     }
-
 
 }

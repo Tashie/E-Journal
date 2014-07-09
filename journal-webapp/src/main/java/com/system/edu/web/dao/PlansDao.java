@@ -35,7 +35,8 @@ public class PlansDao {
     public boolean addPlan(Plans plan) {
         try {
             PlansEntity plansEntity = context.map(plan, PlansEntity.class);
-            sessionFactory.getCurrentSession().merge(plansEntity);
+            sessionFactory.getCurrentSession()
+                    .merge(plansEntity);
         } catch (Exception e) {
             return false;
         }
@@ -45,7 +46,10 @@ public class PlansDao {
     @Transactional
     public boolean isPlanExists(Plans plans) {
 
-        PlansEntity plansEntity = (PlansEntity) sessionFactory.getCurrentSession().createCriteria(PlansEntity.class).add(Restrictions.eq("subjectsBySubject.id", plans.getSubjectsBySubject().getId())).add(Restrictions.eq("teachersByTeacher.id", plans.getTeachersByTeacher().getId()))
+        PlansEntity plansEntity = (PlansEntity) sessionFactory.getCurrentSession()
+                .createCriteria(PlansEntity.class)
+                .add(Restrictions.eq("subjectsBySubject.id", plans.getSubjectsBySubject().getId()))
+                .add(Restrictions.eq("teachersByTeacher.id", plans.getTeachersByTeacher().getId()))
                 .uniqueResult();
         return plansEntity != null ? true : false;
     }
@@ -62,7 +66,11 @@ public class PlansDao {
     @Transactional
     public boolean deletePlans(int id) {
         try {
-            PlansEntity entityForDelete = (PlansEntity) sessionFactory.getCurrentSession().createCriteria(PlansEntity.class).add(Restrictions.eq("id", id)).uniqueResult();
+            PlansEntity entityForDelete = (PlansEntity) sessionFactory.getCurrentSession()
+                    .createCriteria(PlansEntity.class)
+                    .add(Restrictions.eq("id", id))
+                    .uniqueResult();
+
             sessionFactory.getCurrentSession().delete(entityForDelete);
         } catch (Exception e) {
             return false;
@@ -74,7 +82,10 @@ public class PlansDao {
     public List<Plans> getAllPlans() {
         List<Plans> plans = new ArrayList<>();
         try {
-            List<PlansEntity> plansEntities = sessionFactory.getCurrentSession().createQuery("from PlansEntity").list();
+            List<PlansEntity> plansEntities = sessionFactory.getCurrentSession()
+                    .createCriteria(PlansEntity.class)
+                    .list();
+
             for (PlansEntity pos : plansEntities) {
                 Plans plan = context.map(pos, Plans.class);
                 plans.add(plan);
