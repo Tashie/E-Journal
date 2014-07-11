@@ -64,6 +64,9 @@ public class PlanClassesController {
         model.addAttribute("yearsList", years);
         model.addAttribute("teachersList", teachers);
         model.addAttribute("classesList", classes);
+        model.addAttribute("selectedTeacherId", teacherId);
+        model.addAttribute("selectedSubjectId", subjectId);
+        model.addAttribute("selectedYear", year);
 
         return "curriculum/classes";
     }
