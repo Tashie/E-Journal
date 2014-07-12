@@ -94,8 +94,10 @@
                 row.append('<td>' + shname + '</td>');
                 row.append('<td>' + sdifficulty + '</td>');
                 row.append('<td>' + scycleName + '</td>');
-                row.append('<button type="button" class="btn btn-default btn-xs" onclick="editRow(' + subjectId + ',\'' + sname + '\',\'' + shname + '\',\'' + sdifficulty + '\',' + scycleId + ');"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>');
-
+                row.append('<button id="editId" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>');
+                $("#editId").button().click(function () {
+                    editRow(subjectId, sname, shname, sdifficulty, scycleId);
+                });
                 $.post( "http://localhost:8080/edu-system/subjects/edit", { subjectId: subjectId, name: sname, nameShorten: shname, difficulty: sdifficulty, cycle: scycleId })
                         .done(function() {
                             alert("success");
