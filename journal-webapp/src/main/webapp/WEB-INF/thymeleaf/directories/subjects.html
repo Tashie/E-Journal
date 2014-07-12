@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title data-th-text="#{subject.list.page.title}">Title</title>
-        <meta charset="utf-8"/>
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
-    </head>
-    <body>
+<head>
+    <title data-th-text="#{subject.list.page.title}">Title</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" href="../css/reveal.css" th:href="@{/css/reveal.css}"/>
+    <script th:src="@{/js/lib/development/bootstrap.js}"></script>
+    <script th:src="@{/js/lib/development/jquery.reveal.js}"></script>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
+    <script type="text/javascript" src="js/lib/development/jquery.reveal.js"></script>
+</head>
+<body>
         <div class="container">
             <div th:include="header :: top(login_include=true)"></div>
 
@@ -52,8 +58,12 @@
                 <button type="button" class="btn btn-primary" th:onclick="'location.href=\'' + @{/subjects/add} + '\''">Add a new subject</button>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script th:src="@{/js/lib/development/bootstrap.js}"></script>
+
+        <div id="modal" class="reveal-modal">
+            <span id="message"></span>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
 
         <script>
             var subjectId;
@@ -95,15 +105,17 @@
                 row.append('<td>' + sdifficulty + '</td>');
                 row.append('<td>' + scycleName + '</td>');
                 row.append('<button id="editId" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>');
-                $("#editId").button().click(function () {
+                $("#editId").click(function () {
                     editRow(subjectId, sname, shname, sdifficulty, scycleId);
                 });
-                $.post( "http://localhost:8080/edu-system/subjects/edit", { subjectId: subjectId, name: sname, nameShorten: shname, difficulty: sdifficulty, cycle: scycleId })
+                $.post( "/edu-system/subjects/edit", { subjectId: subjectId, name: sname, nameShorten: shname, difficulty: sdifficulty, cycle: scycleId })
                         .done(function() {
-                            alert("success");
+                            $("#message").text("Your data was upgrade successfully");
+                            $("#modal").reveal({});
                         })
                         .fail(function() {
-                            alert("error");
+                            $("#message").text("Some error was occurred");
+                            $("#modal").reveal({});
                         });
             }
         </script>
