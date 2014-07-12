@@ -104,10 +104,13 @@
                 row.append('<td>' + shname + '</td>');
                 row.append('<td>' + sdifficulty + '</td>');
                 row.append('<td>' + scycleName + '</td>');
-                row.append('<button id="editId" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>');
-                $("#editId").click(function () {
+                row.append('<button id="editBtnId" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>    <a href="#" id="deleteBtnId"> <button type="button" class="btn btn-default btn-xs"> <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete </button> </a>');
+
+                $("#editBtnId").click(function () {
                     editRow(subjectId, sname, shname, sdifficulty, scycleId);
                 });
+
+                $("#deleteBtnId").prop("href", "/edu-system/subjects/delete?id=" + subjectId);
                 $.post( "/edu-system/subjects/edit", { subjectId: subjectId, name: sname, nameShorten: shname, difficulty: sdifficulty, cycle: scycleId })
                         .done(function() {
                             $("#message").text("Your data was upgrade successfully");

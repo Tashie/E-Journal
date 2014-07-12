@@ -92,4 +92,13 @@ public class SubjectsController {
 
         subjectsService.editSubject(subject);
     }
+
+
+    @RequestMapping(value = "/subjects/delete", method = RequestMethod.GET)
+    public String editStrategyPage(@RequestParam(value = "id", required = true) Integer id, Model model) {
+        logger.info("IN: Subjects/delete-GET:  ID to query = " + id);
+
+       //todo
+        return "redirect:/subjects";
+    }
 }
