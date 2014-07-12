@@ -47,4 +47,8 @@ public class PlansService {
     public List<String> getYears() { return plansDao.getYears(); }
 
     public List<Teachers> getTeachers() { return plansDao.getTeachers(); }
+
+    public Plans getPlans(int teacherId, int subjectId, int year) {
+        return plansDao.getPlans(teacherId, subjectId, year);
+    }
 }

@@ -50,4 +50,11 @@ public class SubjectsDao {
                 .uniqueResult();
         return subjectsEntity == null ? true : false;
     }
+
+    @Transactional
+    public String getSubjectName(int id) {
+        SubjectsEntity subjectsEntity = (SubjectsEntity) sessionFactory.getCurrentSession()
+                .get(SubjectsEntity.class, id);
+        return subjectsEntity.getName();
+    }
 }

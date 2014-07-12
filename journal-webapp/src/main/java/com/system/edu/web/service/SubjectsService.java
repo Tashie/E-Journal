@@ -41,4 +41,8 @@ public class SubjectsService {
     public boolean subjectExists(String name) {
         return subjectsDao.subjectExists(name);
     }
+
+    public String getSubjectName(int id) {
+        return subjectsDao.getSubjectName(id);
+    }
 }

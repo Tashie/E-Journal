@@ -34,4 +34,24 @@ public class PlanClassesDao {
                 ))
                 .list();
     }
+
+    @Transactional
+    public boolean addPlanClass(PlanClassesEntity planClassesEntity) {
+        try {
+            sessionFactory.getCurrentSession()
+                    .save(planClassesEntity);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional
+    public boolean isPlanExists(PlanClasses plansClasses) {
+        PlanClassesEntity plansEntity = (PlanClassesEntity) sessionFactory.getCurrentSession()
+                .createCriteria(PlanClassesEntity.class)
+                .add(Restrictions.eq("plansByPlan.id", plansClasses.getId()))
+                .uniqueResult();
+        return plansEntity != null ? true : false;
+    }
 }

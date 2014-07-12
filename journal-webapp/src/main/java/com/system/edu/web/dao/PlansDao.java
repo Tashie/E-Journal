@@ -123,7 +123,7 @@ public class PlansDao {
     }
 
     @Transactional
-    public  List<Teachers> getTeachers() {
+    public List<Teachers> getTeachers() {
         List<Teachers> teachers = new ArrayList<>();
         try {
             List<TeachersEntity> teachersEntities = sessionFactory.getCurrentSession()
@@ -138,5 +138,17 @@ public class PlansDao {
             //todo
         }
         return teachers;
+    }
+
+    @Transactional
+    public Plans getPlans(int teacherId, int subjectId, int year) {
+        PlansEntity plansEntity = (PlansEntity) sessionFactory.getCurrentSession()
+                .createCriteria(PlansEntity.class)
+                .add(Restrictions.eq("subjectsBySubject.id", subjectId))
+                .add(Restrictions.eq("teachersByTeacher.id", teacherId))
+                .add(Restrictions.eq("year", year))
+                .uniqueResult();
+        Plans plans = context.map(plansEntity, Plans.class);
+        return plans;
     }
 }

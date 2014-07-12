@@ -76,7 +76,7 @@
         </table>
     </div>
     <div class="row" style="text-align: right; margin-right: 10px">
-        <button type="button" class="btn btn-primary" th:onclick="'location.href=\'' + @{/planclasses/add} + '\''">Add a new class</button>
+        <button type="button" class="btn btn-primary" th:onclick="'location.href=\'' + @{/planclasses/add/__${selectedTeacherId}__/__${selectedSubjectId}__/__${selectedYear}__} + '\''">Add a new class</button>
     </div>
 
 </div>

@@ -31,4 +31,8 @@ public class TeachersService {
         }
         return teachers;
     }
+
+    public String getTeacherName(int id) {
+        return teachersDao.getTeacherName(id);
+    }
 }

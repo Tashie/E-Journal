@@ -32,4 +32,13 @@ public class PlanClassesService {
         }
         return classes;
     }
+
+    public boolean addPlanClass(PlanClasses planClasses) {
+        PlanClassesEntity planClassesEntity = context.map(planClasses, PlanClassesEntity.class);
+        return planClassesDao.addPlanClass(planClassesEntity);
+    }
+
+    public boolean isPlanExists(PlanClasses plan) {
+        return planClassesDao.isPlanExists(plan);
+    }
 }

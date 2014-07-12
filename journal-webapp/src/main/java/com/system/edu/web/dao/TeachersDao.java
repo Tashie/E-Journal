@@ -2,6 +2,7 @@ package com.system.edu.web.dao;
 
 import com.system.edu.models.dao.TeachersEntity;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,5 +23,14 @@ public class TeachersDao {
     public List<TeachersEntity> getAllTeachers() {
         return sessionFactory.getCurrentSession()
                 .createCriteria(TeachersEntity.class).list();
+    }
+
+    @Transactional
+    public String getTeacherName(int id) {
+        TeachersEntity teachersEntity = (TeachersEntity) sessionFactory.getCurrentSession()
+                .get(TeachersEntity.class, id);
+        return teachersEntity.getLastname() + " " +
+                teachersEntity.getFirstname() + " " +
+                teachersEntity.getMiddlename();
     }
 }
