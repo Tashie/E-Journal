@@ -29,7 +29,6 @@
         <webjars-bootstrap-datepicker.version>1.3.0</webjars-bootstrap-datepicker.version>
         <webjars-requirejs.version>2.1.10</webjars-requirejs.version>
         <webjars-backbone.version>1.1.0</webjars-backbone.version>
-        <webjars-eventAggregator.version>0.0.0</webjars-eventAggregator.version>
         <webjars-marionette.version>1.1.0</webjars-marionette.version>
         <webjar-underscorejs.version>1.5.2-2</webjar-underscorejs.version>
         <hibernate.version>4.2.11.Final</hibernate.version>
@@ -190,11 +189,6 @@
             <version>${webjars-backbone.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>backbone-wreqr</artifactId>
-            <version>${webjars-eventAggregator.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.webjars</groupId>

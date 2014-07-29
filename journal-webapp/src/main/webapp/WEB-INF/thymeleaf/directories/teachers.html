@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title data-th-text="#{gaga.list.page.title}">Title</title>
+    <title data-th-text="#{teachers.list.page.title}">Title</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" href="../css/pagination.css" th:href="@{/css/pagination.css}"/>
@@ -24,27 +24,34 @@
     <h4 class="page-header" data-th-text="#{teachers.list.table.title}">Configured Positions</h4>
 
     <div class="table responsive">
-        <table id = "positionsTable" class="table table-striped table-bordered table-hover">
+        <table id = "teachersTable" class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th class="col-sm-1" data-th-text="#{teachers.list.id.label}">Id</th>
-                <th class="col-sm-4" data-th-text="#{teachers.list.name.label}">Position Name</th>
-                <th class="col-sm-2" data-th-text="#{teachers.list.actions.label}" style="text-align: center">Action
-                </th>
+                <th class="col-sm-2" data-th-text="#{teachers.list.lastname.label}">Lastname</th>
+                <th class="col-sm-2" data-th-text="#{teachers.list.firstname.label}" style="text-align: center">Firstname</th>
+                <th class="col-sm-2" data-th-text="#{teachers.list.middlename.label}" style="text-align: center">Middlename</th>
+                <th class="col-sm-2" data-th-text="#{teachers.list.birthdate.label}" style="text-align: center">Birthdate</th>
+                <th class="col-sm-2" data-th-text="#{teachers.list.address.label}" style="text-align: center">Address</th>
+                <th class="col-sm-2" data-th-text="#{teachers.list.action.label}" style="text-align: center">Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr data-th-each="position : ${positionsList}">
-                <td data-th-text="${position.id}"></td>
-                <td data-th-text="${position.name}"></td>
+            <tr data-th-each="teachers : ${teachersList}">
+                <td data-th-text="${teachers.id}">1</td>
+                <td data-th-text="${teachers.lastname}">s</td>
+                <td data-th-text="${teachers.firstname}">s</td>
+                <td data-th-text="${teachers.middlename}">s</td>
+                <td data-th-text="${teachers.birthdate}">12/12/12</td>
+                <td data-th-text="${teachers.address}">dss</td>
                 <td style="text-align: center;">
                     <button type="button"
-                            th:onclick="'javascript:editPosition(\'' + ${position.id} + '\' , \'' + ${position.name}+ '\');'"
+                            th:onclick="'javascript:editTeachers(\'' + ${teachers.id} + '\' , \'' + ${teachers.lastname}+ '\', \'' + ${teachers.firstname}+ '\', \'' + ${teachers.middlename}+ '\', \'' + ${teachers.birthdate}+ '\', \'' + ${teachers.address}+ '\');'"
                             class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
                     </button>
                     &nbsp;
-                    <a href="#" data-th-href="@{/positions/delete(id=${position.id})}">
+                    <a href="#" data-th-href="@{/teachers/delete(id=${teachers.id})}">
                         <button type="button" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
                         </button>
@@ -55,7 +62,7 @@
         </table>
     </div>
 
-    <form class="form" id="position-details-block" action="#" data-th-action="@{/positions/add}" data-th-object="${positions}" method="post">
+    <!--<form class="form" id="teacher-details-block" action="#" data-th-action="@{/teachers/add}" data-th-object="${teachers}" method="post">
         <div class="table responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
@@ -71,7 +78,7 @@
                     <td><input class="form-control" id="posNameId" type="text" data-th-field="*{name}"
                                placeholder="Name"/></td>
                     <td>
-                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.position}">Update position
+                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.teachers}">Update position
                         </button>
                     </td>
                 </tr>
@@ -86,12 +93,13 @@
             </table>
         </div>
     </form>
+-->
 </div>
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script th:src="@{/js/lib/development/bootstrap.js}"></script>
 <script th:src="@{/js/lib/development/table.pagination.js}"></script>
-<script th:src="@{/js/lib/models/position.js}"></script>
+<script th:src="@{/js/lib/models/teachers.js}"></script>
 
 </body>
 </html>

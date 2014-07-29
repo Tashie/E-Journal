@@ -32,7 +32,29 @@ public class TeachersService {
         return teachers;
     }
 
+    public void addTeacher(Teachers teachers) {
+        teachersDao.addTeachers(teachers);
+    }
+
+    public void updateTeachers(Teachers teachers) {
+        teachersDao.updateTeachers(teachers);
+    }
+
+    public Teachers getTeahers(int id) {
+        return teachersDao.getTeachers(id);
+    }
+
+    public void deleteTeacher(int id) {
+        teachersDao.deleteTeachers(id);
+    }
+
+    public boolean checkIsUniqueTeacherName(String posName) {
+        return teachersDao.checkTeachersName(posName);
+    }
+
+
     public String getTeacherName(int id) {
         return teachersDao.getTeacherName(id);
     }
+
 }
