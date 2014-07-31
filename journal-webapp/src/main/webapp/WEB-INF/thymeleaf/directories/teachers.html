@@ -62,21 +62,28 @@
         </table>
     </div>
 
-    <!--<form class="form" id="teacher-details-block" action="#" data-th-action="@{/teachers/add}" data-th-object="${teachers}" method="post">
+    <form class="form" id="teacher-details-block" action="#" data-th-action="@{/teachers/add}" data-th-object="${teachers}" method="post">
         <div class="table responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th class="col-sm-1"></th>
-                    <th class="col-sm-4"></th>
+                    <th class="col-sm-2"></th>
+                    <th class="col-sm-2"></th>
+                    <th class="col-sm-2"></th>
+                    <th class="col-sm-2"></th>
+                    <th class="col-sm-2"></th>
                     <th class="col-sm-2"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td style="border: 0"><input type="text" id="posId" hidden="hidden" data-th-field="*{id}"/></td>
-                    <td><input class="form-control" id="posNameId" type="text" data-th-field="*{name}"
-                               placeholder="Name"/></td>
+                    <td><input class="form-control" id="FastNameId" type="text" data-th-field="*{lastname}" placeholder="lastname"/></td>
+                    <td><input class="form-control" id="FirstNameID" type="text" data-th-field="*{firstname}" placeholder="firstname"/></td>
+                    <td><input class="form-control" id="MiddleNameID" type="text" data-th-field="*{middlename}" placeholder="middlename"/></td>
+                    <td><input class="form-control" id="Birthdate" type="text" data-th-field="*{birthdate}" placeholder="birthdate"/></td>
+                    <td><input class="form-control" id="Address" type="text" data-th-field="*{address}" placeholder="address"/></td>
                     <td>
                         <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.teachers}">Update position
                         </button>
@@ -84,16 +91,18 @@
                 </tr>
                 <tr>
                     <td class="col-sm-1"></td>
-                    <td class="col-sm-4 text-danger" data-th-if="${#fields.hasErrors('name')}" data-th-errors="*{name}">
-                        name error
-                    </td>
+                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('lastname')}" data-th-errors="*{lastname}">lastname error</td>
+                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('firstname')}" data-th-errors="*{firstname}">firstname error</td>
+                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('middlename')}" data-th-errors="*{middlename}">middlename error</td>
+                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('birthdate')}" data-th-errors="*{birthdate}">birthdate error</td>
+                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('address')}" data-th-errors="*{address}">address error</td>
                     <td class="col-sm-2"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </form>
--->
+
 </div>
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

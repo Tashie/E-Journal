@@ -74,25 +74,6 @@ plans.list.subject.name.label=Subject
 plans.list.teacher.name.label=Teacher
 plans.list.year.name.label=Year
 plan.list.table.title=Plans List
-<<<<<<< HEAD
-
-
-gaga.list.page.title=11111111111
-teachers.list.head.title=Teachers
-teachers.list.body.title=Teachers
-teachers.list.table.title=Teachers
-teachers.list.id.label=Id1
-teachers.list.lastname.label=Lastname
-teachers.list.firstname.label=Firstname
-teachers.list.middlename.label=Middlename
-teachers.list.birthdate.label=Birthdate
-teachers.list.address.label=Address
-teachers.list.add.title=Add Position1
-
-
-
-
-=======
 button.label.add.plan=Add plan
 
 planclasses.list.page.title=Plan Classes List
@@ -107,4 +88,25 @@ planclasses.list.cycle.label=Cycle Name
 planclasses.list.actions.label=Actions
 
 button.label.add.planclasses=Add a new class
->>>>>>> c2db1f4b28c42ce5c632f899f38549a6368dca14
+
+teachers.list.page.title=Teachers List
+teachers.list.head.title=Teachers
+teachers.list.body.title=Teachers
+teachers.list.table.title=Teachers
+teachers.list.id.label=Id
+teachers.list.lastname.label=Lastname
+teachers.list.firstname.label=Firstname
+teachers.list.middlename.label=Middlename
+teachers.list.birthdate.label=Birthdate
+teachers.list.address.label=Address
+teachers.list.action.label=Actions
+teachers.list.add.title=Add Teacher
+button.label.add.teachers=Add teachers
+
+teachers.id=1
+teachers.lastname=ôôô
+teachers.firstname=ëëë
+teachers.middlename=æææ
+teachers.birthdate=12/12/12
+teachers.address=ôûôâ
+
