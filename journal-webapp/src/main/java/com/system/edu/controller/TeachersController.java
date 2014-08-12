@@ -7,10 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -22,8 +25,9 @@ public class TeachersController {
     static Logger logger = LoggerFactory.getLogger(TeachersController.class);
 
 
-@Autowired
-private TeachersService teachersService;
+    @Autowired
+    private TeachersService teachersService;
+
 
     @RequestMapping(value = {"/teachers"}, method = RequestMethod.GET)
     public String listOfTeachers(Model model, @ModelAttribute Teachers teachersModel) {
@@ -32,15 +36,15 @@ private TeachersService teachersService;
         List<Teachers> teachersList = teachersService.getTeachers();
         model.addAttribute("teachersList", teachersList);
         return "directories/teachers";
-}
-/*
+    }
+
     @RequestMapping(value = "/teachers/add", method = RequestMethod.POST)
     public String addingTeachers(Model model, @Valid @ModelAttribute Teachers teachersModel,
-                                  BindingResult bindingResult, RedirectAttributes redirectAttrs) {
+                                 BindingResult bindingResult, RedirectAttributes redirectAttrs) {
 
         logger.info("IN: Teachers/add-POST");
 
-        if (bindingResult.hasErrors() || !teachersService.checkIsUniqueTeacherName(teachersModel.getLastname())) {
+        if (!teachersService.checkIsUniqueTeacherName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename()) ||bindingResult.hasErrors()) {
             logger.info("Teachers-add error: " + bindingResult.toString());
             bindingResult.rejectValue("name", "123", "Name is incorrect. Try again");
 
@@ -49,6 +53,22 @@ private TeachersService teachersService;
             teachersService.addTeacher(teachersModel);
             return "redirect:/teachers";
         }
-    }*/
+
+
+        /*
+        test variant -> move to delete
+
+        Teachers teacher = new Teachers();
+        Positions positions = !positionsService.getPositions().isEmpty() ? positionsService.getPositions().get(0) : new Positions();
+        teacher.setAddress("asdfa");
+        java.sql.Date dt = new java.sql.Date(System.currentTimeMillis());
+        teacher.setBirthdate(dt);
+        teacher.setFirstname("adf");
+        teacher.setLastname("asdf");
+        teacher.setMiddlename("adfasf");
+        teacher.setPositionsByPosition(positions);
+        teachersService.addTeacher(teacher);
+        return "redirect:/teachers";*/
+    }
 
 }
