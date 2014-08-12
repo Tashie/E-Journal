@@ -1,10 +1,9 @@
 package com.system.edu.models.ui;
 
-import antlr.StringUtils;
 import com.google.common.base.Joiner;
 
-import java.sql.Date;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Created by nata on 15.06.2014.
@@ -50,13 +49,9 @@ public class Teachers {
         this.middlename = middlename;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
-    }
+    public Date getBirthdate() { return birthdate; }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
+    public void setBirthdate(Date birthdate) { this.birthdate = birthdate; }
 
     public String getFIO() {
         return Joiner.on(" ").join(Arrays.asList(middlename, firstname, lastname));

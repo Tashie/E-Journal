@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../css/pagination.css" th:href="@{/css/pagination.css}"/>
     <link rel="script" type="javascript" href="../js/lib/development/jquery-2.1.1.js"
           th:href="@{/js/lib/development/jquery-2.1.1.js}"/>
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 </head>
 
 <body>
@@ -42,7 +44,7 @@
                 <td data-th-text="${teachers.lastname}">s</td>
                 <td data-th-text="${teachers.firstname}">s</td>
                 <td data-th-text="${teachers.middlename}">s</td>
-                <td data-th-text="${teachers.birthdate}">12/12/12</td>
+                <td data-th-text="${teachers.birthdate}">12/12/2012</td>
                 <td data-th-text="${teachers.address}">dss</td>
                 <td style="text-align: center;">
                     <button type="button"
@@ -82,7 +84,7 @@
                     <td><input class="form-control" id="FastNameId" type="text" data-th-field="*{lastname}" placeholder="lastname"/></td>
                     <td><input class="form-control" id="FirstNameID" type="text" data-th-field="*{firstname}" placeholder="firstname"/></td>
                     <td><input class="form-control" id="MiddleNameID" type="text" data-th-field="*{middlename}" placeholder="middlename"/></td>
-                    <td><input class="form-control" id="Birthdate" type="text" data-th-field="*{birthdate}" placeholder="birthdate"/></td>
+                    <td><input class="form-control" id="BirthdateID" type="text" data-th-field="*{birthdate}" placeholder="birthdate"/></td>
                     <td><input class="form-control" id="Address" type="text" data-th-field="*{address}" placeholder="address"/></td>
                     <td>
                         <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.teachers}">Update position
@@ -94,8 +96,8 @@
                     <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('lastname')}" data-th-errors="*{lastname}">lastname error</td>
                     <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('firstname')}" data-th-errors="*{firstname}">firstname error</td>
                     <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('middlename')}" data-th-errors="*{middlename}">middlename error</td>
-                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('birthdate')}" data-th-errors="*{birthdate}">birthdate error</td>
-                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('address')}" data-th-errors="*{address}">address error</td>
+                    <td class="col-sm-2"></td>
+                    <td class="col-sm-2"></td>
                     <td class="col-sm-2"></td>
                 </tr>
                 </tbody>
@@ -105,10 +107,16 @@
 
 </div>
 
+<script type="text/javascript">
+    $(function () {
+        $('#BirthdateID').datepicker();
+    })
+</script>
+
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script th:src="@{/js/lib/development/bootstrap.js}"></script>
 <script th:src="@{/js/lib/development/table.pagination.js}"></script>
 <script th:src="@{/js/lib/models/teachers.js}"></script>
-
+<script th:src="@{/js/lib/development/datetimepicker.js}"></script>
 </body>
 </html>
