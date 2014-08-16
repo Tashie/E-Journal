@@ -24,8 +24,10 @@ public class TeachersDao {
 
     @Autowired
     SessionFactory sessionFactory;
+
+
     @Transactional
-    public boolean addTeachers(Teachers teachers) {
+    public boolean addTeacher(Teachers teachers) {
         try {
             TeachersEntity teachersEntity = context.map(teachers, TeachersEntity.class);
             sessionFactory.getCurrentSession().merge(teachersEntity);
@@ -36,11 +38,16 @@ public class TeachersDao {
     }
 
     @Transactional
-    public boolean checkTeachersName(String surname) {
+    public boolean checkTeachersName(String lastname, String firstname, String middlename) {
 
-        TeachersEntity teachersEntity = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("surname", surname))
+        TeachersEntity teachersEntity = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("lastname", lastname))
                 .uniqueResult();
-        return teachersEntity == null ? true : false;
+        TeachersEntity teachersEntity1 = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("firstname", firstname))
+                .uniqueResult();
+        TeachersEntity teachersEntity2 = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("middlename", middlename))
+                .uniqueResult();
+
+        return (teachersEntity == null ? true : false) && (teachersEntity1 == null ? true : false) && (teachersEntity2 == null ? true : false);
     }
 
     @Transactional

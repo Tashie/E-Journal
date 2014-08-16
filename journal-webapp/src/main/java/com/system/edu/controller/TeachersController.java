@@ -28,6 +28,7 @@ public class TeachersController {
     @Autowired
     private TeachersService teachersService;
 
+
     @RequestMapping(value = {"/teachers"}, method = RequestMethod.GET)
     public String listOfTeachers(Model model, @ModelAttribute Teachers teachersModel) {
         logger.info("IN: teachers/list-GET");
@@ -43,21 +44,21 @@ public class TeachersController {
 
         logger.info("IN: Teachers/add-POST");
 
-        if (/*bindingResult.hasErrors() ||*/ !teachersService.checkIsUniqueTeacherName(teachersModel.getLastname())) {
+        if (!teachersService.checkIsUniqueTeacherName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename()) ||bindingResult.hasErrors()) {
             logger.info("Teachers-add error: " + bindingResult.toString());
             bindingResult.rejectValue("lastname", "123", "LastName is incorrect. Try again");
 
             return listOfTeachers(model, teachersModel);
         }
 
-        if (/*bindingResult.hasErrors() ||*/ !teachersService.checkIsUniqueTeacherName(teachersModel.getFirstname())) {
+        if (/*bindingResult.hasErrors() ||*/ !teachersService.checkIsUniqueTeacherName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename())) {
             logger.info("Teachers-add error: " + bindingResult.toString());
             bindingResult.rejectValue("firstname", "123", "FirstName is incorrect. Try again");
 
             return listOfTeachers(model, teachersModel);
         }
 
-        if (/*bindingResult.hasErrors() ||*/ !teachersService.checkIsUniqueTeacherName(teachersModel.getMiddlename())) {
+        if (/*bindingResult.hasErrors() ||*/ !teachersService.checkIsUniqueTeacherName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename())) {
             logger.info("Teachers-add error: " + bindingResult.toString());
             bindingResult.rejectValue("middlename", "123", "MiddleName is incorrect. Try again");
 
@@ -80,6 +81,22 @@ public class TeachersController {
             teachersService.addTeacher(teachersModel);
             return "redirect:/teachers";
         }
+
+
+        /*
+        test variant -> move to delete
+
+        Teachers teacher = new Teachers();
+        Positions positions = !positionsService.getPositions().isEmpty() ? positionsService.getPositions().get(0) : new Positions();
+        teacher.setAddress("asdfa");
+        java.sql.Date dt = new java.sql.Date(System.currentTimeMillis());
+        teacher.setBirthdate(dt);
+        teacher.setFirstname("adf");
+        teacher.setLastname("asdf");
+        teacher.setMiddlename("adfasf");
+        teacher.setPositionsByPosition(positions);
+        teachersService.addTeacher(teacher);
+        return "redirect:/teachers";*/
     }
 
 }

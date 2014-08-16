@@ -33,14 +33,14 @@ public class TeachersService {
     }
 
     public void addTeacher(Teachers teachers) {
-        teachersDao.addTeachers(teachers);
+        teachersDao.addTeacher(teachers);
     }
 
     public void updateTeachers(Teachers teachers) {
         teachersDao.updateTeachers(teachers);
     }
 
-    public Teachers getTeahers(int id) {
+    public Teachers getTeachers(int id) {
         return teachersDao.getTeachers(id);
     }
 
@@ -48,8 +48,8 @@ public class TeachersService {
         teachersDao.deleteTeachers(id);
     }
 
-    public boolean checkIsUniqueTeacherName(String posName) {
-        return teachersDao.checkTeachersName(posName);
+    public boolean checkIsUniqueTeacherName(String posName1, String posName2, String posName3) {
+        return teachersDao.checkTeachersName(posName1, posName2, posName3);
     }
 
 
