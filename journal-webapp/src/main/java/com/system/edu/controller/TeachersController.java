@@ -1,6 +1,8 @@
 package com.system.edu.controller;
 
+import com.system.edu.models.ui.Positions;
 import com.system.edu.models.ui.Teachers;
+import com.system.edu.web.service.PositionsService;
 import com.system.edu.web.service.TeachersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,8 @@ public class TeachersController {
     @Autowired
     private TeachersService teachersService;
 
+    @Autowired
+    private PositionsService positionsService;
 
     @RequestMapping(value = {"/teachers"}, method = RequestMethod.GET)
     public String listOfTeachers(Model model, @ModelAttribute Teachers teachersModel) {
@@ -44,59 +48,18 @@ public class TeachersController {
 
         logger.info("IN: Teachers/add-POST");
 
-        if (!teachersService.checkIsUniqueTeacherName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename()) ||bindingResult.hasErrors()) {
+        if (!teachersService.checkIsUniqueTeacherFullName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename()) || bindingResult.hasErrors()) {
             logger.info("Teachers-add error: " + bindingResult.toString());
-            bindingResult.rejectValue("lastname", "123", "LastName is incorrect. Try again");
+            bindingResult.rejectValue("lastname", "123", "Teacher with the same name already exists. Check your data again");
 
             return listOfTeachers(model, teachersModel);
-        }
-
-        if (/*bindingResult.hasErrors() ||*/ !teachersService.checkIsUniqueTeacherName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename())) {
-            logger.info("Teachers-add error: " + bindingResult.toString());
-            bindingResult.rejectValue("firstname", "123", "FirstName is incorrect. Try again");
-
-            return listOfTeachers(model, teachersModel);
-        }
-
-        if (/*bindingResult.hasErrors() ||*/ !teachersService.checkIsUniqueTeacherName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename())) {
-            logger.info("Teachers-add error: " + bindingResult.toString());
-            bindingResult.rejectValue("middlename", "123", "MiddleName is incorrect. Try again");
-
-            return listOfTeachers(model, teachersModel);
-        }
-
-//        if (bindingResult.hasErrors() || !teachersService.checkIsUniqueTeacherName(teachersModel.getBirthdate())) {
-//            logger.info("Teachers-add error: " + bindingResult.toString());
-//            bindingResult.rejectValue("birthdate", "123", "Birthdate is incorrect. Try again");
-//
-//            return listOfTeachers(model, teachersModel);
-//        }
-
-//        if (/*bindingResult.hasErrors() ||*/ !teachersService.checkIsUniqueTeacherName(teachersModel.getAddress())) {
-//            logger.info("Teachers-add error: " + bindingResult.toString());
-//            bindingResult.rejectValue("address", "123", "Address is incorrect. Try again");
-//
-//            return listOfTeachers(model, teachersModel);}
-        else {
+        } else {
+            Positions positions = !positionsService.getPositions().isEmpty() ? positionsService.getPositions().get(0) : new Positions(); //DIMA -> TODO
+            teachersModel.setPositionsByPosition(positions);
             teachersService.addTeacher(teachersModel);
             return "redirect:/teachers";
         }
 
-
-        /*
-        test variant -> move to delete
-
-        Teachers teacher = new Teachers();
-        Positions positions = !positionsService.getPositions().isEmpty() ? positionsService.getPositions().get(0) : new Positions();
-        teacher.setAddress("asdfa");
-        java.sql.Date dt = new java.sql.Date(System.currentTimeMillis());
-        teacher.setBirthdate(dt);
-        teacher.setFirstname("adf");
-        teacher.setLastname("asdf");
-        teacher.setMiddlename("adfasf");
-        teacher.setPositionsByPosition(positions);
-        teachersService.addTeacher(teacher);
-        return "redirect:/teachers";*/
     }
 
 }

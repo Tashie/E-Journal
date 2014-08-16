@@ -38,7 +38,7 @@ public class TeachersDao {
     }
 
     @Transactional
-    public boolean checkTeachersName(String lastname, String firstname, String middlename) {
+    public boolean checkTeachersFullName(String lastname, String firstname, String middlename) {
 
         TeachersEntity teachersEntity = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("lastname", lastname))
                 .uniqueResult();
