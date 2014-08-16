@@ -48,8 +48,8 @@ public class TeachersService {
         teachersDao.deleteTeachers(id);
     }
 
-    public boolean checkIsUniqueTeacherName(String posName1, String posName2, String posName3) {
-        return teachersDao.checkTeachersName(posName1, posName2, posName3);
+    public boolean checkIsUniqueTeacherFullName(String lastname, String firstname, String middlename) {
+        return teachersDao.checkTeachersFullName(lastname, firstname, middlename);
     }
 
 
