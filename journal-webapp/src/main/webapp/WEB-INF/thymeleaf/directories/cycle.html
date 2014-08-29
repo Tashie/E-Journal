@@ -37,7 +37,7 @@
                                     <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
                                 </button>
                                 &nbsp;
-                                <a href="#" data-th-href="@{/cycles/delete(id=${cycle.id})}">
+                                <a href="#" th:attr="onclick='javascript:deleteCycleById(\'' + ${cycle.id} + '\');'">
                                     <button type="button" class="btn btn-default btn-xs">
                                         <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
                                     </button></a>
