@@ -36,6 +36,8 @@ public class TeachersController {
     @RequestMapping(value = {"/teachers"}, method = RequestMethod.GET)
     public String listOfTeachers(Model model, @ModelAttribute Teachers teachersModel) {
         logger.info("IN: teachers/list-GET");
+        List<Positions> positions = positionsService.getPositions();
+        model.addAttribute("positions", positions);
 
         List<Teachers> teachersList = teachersService.getTeachers();
         model.addAttribute("teachersList", teachersList);
@@ -54,8 +56,6 @@ public class TeachersController {
 
             return listOfTeachers(model, teachersModel);
         } else {
-            Positions positions = !positionsService.getPositions().isEmpty() ? positionsService.getPositions().get(0) : new Positions(); //DIMA -> TODO
-            teachersModel.setPositionsByPosition(positions);
             teachersService.addTeacher(teachersModel);
             return "redirect:/teachers";
         }
