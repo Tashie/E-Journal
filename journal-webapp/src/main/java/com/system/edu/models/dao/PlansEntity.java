@@ -99,4 +99,28 @@ public class PlansEntity {
     public void setSubjectsBySubject(SubjectsEntity subjectsBySubject) {
         this.subjectsBySubject = subjectsBySubject;
     }
+
+    private ClassesEntity classesByClass;
+
+    @ManyToOne
+    @JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
+    public ClassesEntity getClassesByClass() {
+        return classesByClass;
+    }
+
+    public void setClassesByClass(ClassesEntity classesByClass) {
+        this.classesByClass = classesByClass;
+    }
+
+    private String notes;
+
+    @javax.persistence.Column(name = "notes", nullable = true, insertable = true, updatable = true)
+    @Basic
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }

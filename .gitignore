@@ -1,3 +1,7 @@
 .idea/*
 journal-webapp/target/
 journal-webapp-test/target/
+edu-parent.iml
+journal-webapp/journal-webapp.iml
+journal-webapp-test/journal-web-test.iml
+journal-webapp/src/main/resources/jdbc.properties
