@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $('#cyclesTable').dataTable({ "pagingType": "full_numbers" });
-    $('#cyclesTable').dataTable({ "pagingType": "full_numbers" });
 });
 
 
