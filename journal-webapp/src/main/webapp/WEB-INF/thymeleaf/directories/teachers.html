@@ -42,7 +42,7 @@
                 <td data-th-text="${teachers.lastname}">s</td>
                 <td data-th-text="${teachers.firstname}">s</td>
                 <td data-th-text="${teachers.middlename}">s</td>
-                <td data-th-text="${teachers.birthdate}">12/12/2012</td>
+                <td data-th-text="${#dates.format(teachers.birthdate, 'dd-MM-yyyy')}">22-12-2012</td>
                 <td data-th-text="${teachers.address}">dss</td>
                 <td style="text-align: center;">
                     <button type="button"
@@ -92,7 +92,7 @@
                             </select>
                             <p th:if="${#fields.hasErrors('positionsByPosition')}" th:errors="*{positionsByPosition}" class="text-warning">Position name is incorrect</p>
 
-                    </div></td>
+                        </div></td>
                     <td><input class="form-control" id="Address" type="text" data-th-field="*{address}" placeholder="address"/></td>
                     <td>
                         <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.teachers}">Update position
@@ -117,7 +117,9 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#BirthdateID').datepicker();
+        $('#BirthdateID').datepicker({
+            format : "d MM, yyyy"
+        });
     })
 </script>
 
