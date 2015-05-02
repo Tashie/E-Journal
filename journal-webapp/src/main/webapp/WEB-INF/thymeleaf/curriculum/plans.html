@@ -29,21 +29,22 @@
         <table id="plansTable" class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th class="col-sm-1" data-th-text="#{plans.list.id.label}">Id</th>
-                <th class="col-sm-4" data-th-text="#{plans.list.teacher.name.label}">Teacher</th>
-                <th class="col-sm-2" data-th-text="#{plans.list.subject.name.label}" style="text-align: center">Subject
-                </th>
-                <th class="col-sm-4" data-th-text="#{plans.list.year.name.label}">Year</th>
+                <th class="col-sm-1" data-th-text="#{plans.list.year.name.label}">Year</th>
+                <th class="col-sm-4" data-th-text="#{plans.list.subject.name.label}">Subject</th>
+                <th class="col-sm-1" data-th-text="#{plans.list.class.name.label}">Class</th>
+                <th class="col-sm-3" data-th-text="#{plans.list.teacher.name.label}">Teacher</th>
+                <th class="col-sm-3" data-th-text="#{plans.list.notes.name.label}">Notes</th>
+                <th class="col-sm-2"></th>
             </tr>
             </thead>
             <tbody>
             <tr data-th-each="plan : ${plansList}">
-                <td data-th-text="${plan.id}"></td>
-                <td data-th-text="${plan.teachersByTeacher.getFIO()}"></td>
-                <td data-th-text="${plan.subjectsBySubject.name}"></td>
                 <td data-th-text="${plan.year}"></td>
+                <td data-th-text="${plan.subjectsBySubject.name}"></td>
+                <td data-th-text="${plan.classFor}"></td>
+                <td data-th-text="${plan.teachersByTeacher.getFIO()}"></td>
+                <td data-th-text="${plan.notes}"></td>
                 <td style="text-align: center;">
-
                     <a href="#" data-th-href="@{/plans/delete(id=${plan.id})}">
                         <button type="button" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
@@ -55,7 +56,6 @@
         </table>
     </div>
 
-
     <form class="form" id="plans-details-block" action="#" data-th-action="@{/plans/add}" data-th-object="${plans}"
           method="post">
         <div class="table responsive">
@@ -64,6 +64,7 @@
                 <tr>
                     <th class="col-sm-1">Teacher</th>
                     <th class="col-sm-4">Subject</th>
+                    <th class="col-sm-1">Class</th>
                     <th class="col-sm-2">Date</th>
                     <th class="col-sm-2"></th>
                 </tr>
@@ -86,12 +87,14 @@
                         </select>
                     </td>
                     <td style="border: 0">
-                        <div class="hero-unit">
-                            <input  type="text" placeholder="click to show datepicker"  data-th-field="*{year}" id="year1"/>
-                        </div>
+                        <input class="form-control" type="text" placeholder="class" data-th-field="*{classFor}" id="classFor"/>
+                    </td>
+                    <td style="border: 0">
+                        <input class="form-control" type="text" placeholder="enter a year" data-th-field="*{year}" id="year1"/>
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.plan}">Update plan
+                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.plan}">
+                            Update plan
                         </button>
                     </td>
                 </tr>
@@ -100,16 +103,6 @@
         </div>
     </form>
 </div>
-
-
-
-<script type="text/javascript">
-    $(function () {
-        $('#year1').datepicker({
-            format: "yyyy"
-        });
-    });
-</script>
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"/>
 <script th:src="@{/js/lib/development/bootstrap.js}"/>

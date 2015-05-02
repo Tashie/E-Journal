@@ -1,4 +1,5 @@
 .idea/*
+target/
 journal-webapp/target/
 journal-webapp-test/target/
 edu-parent.iml

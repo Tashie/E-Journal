@@ -1,5 +1,7 @@
 package com.system.edu.models.dao;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -7,13 +9,15 @@ import java.util.Collection;
  * User: nata
  * Date: 27.06.14
  */
-@javax.persistence.Table(name = "plans", schema = "", catalog = "journal")
+@Table(name = "plans", schema = "", catalog = "journal")
 @Entity
 public class PlansEntity {
     private int id;
 
-    @javax.persistence.Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
+    @GenericGenerator(name="plId" , strategy="increment")
+    @GeneratedValue(generator="plId")
     public int getId() {
         return id;
     }
@@ -24,7 +28,7 @@ public class PlansEntity {
 
     private int year;
 
-    @javax.persistence.Column(name = "year", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @Column(name = "year", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Basic
     public int getYear() {
         return year;
@@ -100,21 +104,21 @@ public class PlansEntity {
         this.subjectsBySubject = subjectsBySubject;
     }
 
-    private ClassesEntity classesByClass;
+    private int classFor;
 
-    @ManyToOne
-    @JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
-    public ClassesEntity getClassesByClass() {
-        return classesByClass;
+    @Column(name = "class", nullable = true, insertable = true, updatable = true, length = 10, precision = 0)
+    @Basic
+    public int getClassFor() {
+        return classFor;
     }
 
-    public void setClassesByClass(ClassesEntity classesByClass) {
-        this.classesByClass = classesByClass;
+    public void setClassFor(int classFor) {
+        this.classFor = classFor;
     }
 
     private String notes;
 
-    @javax.persistence.Column(name = "notes", nullable = true, insertable = true, updatable = true)
+    @Column(name = "notes", nullable = true, insertable = true, updatable = true)
     @Basic
     public String getNotes() {
         return notes;

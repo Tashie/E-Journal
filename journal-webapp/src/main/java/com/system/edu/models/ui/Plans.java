@@ -12,6 +12,8 @@ public class Plans {
     private int year;
     private Teachers teachersByTeacher;
     private Subjects subjectsBySubject;
+    private int classFor;
+    private String notes;
 
     public Teachers getTeachersByTeacher() {
         return teachersByTeacher;
@@ -43,6 +45,22 @@ public class Plans {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public int getClassFor() {
+        return classFor;
+    }
+
+    public void setClassFor(int classFor) {
+        this.classFor = classFor;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     @Override
