@@ -1,7 +1,3 @@
-/**
- * Created by Дмитрий on 27.07.14.
- */
-
 $(document).ready(function () {
     $('#teachersTable').dataTable({ "pagingType": "full_numbers" });
 });

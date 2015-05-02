@@ -2634,8 +2634,7 @@
                 str+input;
 
             var filter = $('<div/>', {
-                'id': ! features.f ? tableId+'_filter' : null,
-                'class': classes.sFilter
+                'id': ! features.f ? tableId+'_filter' : null
             } )
                 .append( $('<label/>' ).append( str ) );
 
