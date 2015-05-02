@@ -106,7 +106,7 @@
                     <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('middlename')}" data-th-errors="*{middlename}">middlename error</td>
                     <td class="col-sm-2"></td>
                     <td class="col-sm-2"></td>
-                    <td class="col-sm-2"></td>
+                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('address')}" data-th-errors="*{address}">address error</td>
                 </tr>
                 </tbody>
             </table>

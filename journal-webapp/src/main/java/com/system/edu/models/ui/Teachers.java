@@ -2,6 +2,8 @@ package com.system.edu.models.ui;
 
 import com.google.common.base.Joiner;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -10,10 +12,18 @@ import java.util.Date;
  */
 public class Teachers {
     private int id;
+    @NotNull
+    @Size(min = 4, max = 50)
     private String lastname;
+    @NotNull
+    @Size(min = 4, max = 50)
     private String firstname;
+    @NotNull
+    @Size(min = 4, max = 50)
     private String middlename;
     private Date birthdate;
+    @NotNull
+    @Size(min = 4, max = 100)
     private String address;
     private Positions positionsByPosition;
 

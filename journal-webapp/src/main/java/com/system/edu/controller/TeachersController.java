@@ -50,16 +50,14 @@ public class TeachersController {
 
         logger.info("IN: Teachers/add-POST");
 
-        if (!teachersService.checkIsUniqueTeacherFullName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename()) || bindingResult.hasErrors()) {
-            logger.info("Teachers-add error: " + bindingResult.toString());
+        if (!teachersService.checkIsUniqueTeacherFullName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename())) {
             bindingResult.rejectValue("lastname", "123", "Teacher with the same name already exists. Check your data again");
-
-            return listOfTeachers(model, teachersModel);
-        } else {
-            teachersService.addTeacher(teachersModel);
-            return "redirect:/teachers";
         }
 
+        if(bindingResult.hasErrors()) return  listOfTeachers(model, teachersModel);
+
+        teachersService.addTeacher(teachersModel);
+        return "redirect:/teachers";
     }
 
 }

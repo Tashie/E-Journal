@@ -1,7 +1,6 @@
 package com.system.edu.web.dao;
 
 import com.system.edu.models.dao.TeachersEntity;
-import com.system.edu.models.dao.UsersEntity;
 import com.system.edu.models.ui.Teachers;
 import net.sf.brunneng.jom.IMergingContext;
 import net.sf.brunneng.jom.MergingContext;
@@ -13,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by sph on 24.06.2014.
- */
 
 @Repository
 public class TeachersDao {
@@ -40,14 +36,9 @@ public class TeachersDao {
     @Transactional
     public boolean checkTeachersFullName(String lastname, String firstname, String middlename) {
 
-        TeachersEntity teachersEntity = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("lastname", lastname))
-                .uniqueResult();
-        TeachersEntity teachersEntity1 = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("firstname", firstname))
-                .uniqueResult();
-        TeachersEntity teachersEntity2 = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("middlename", middlename))
-                .uniqueResult();
+        TeachersEntity teachersEntity = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("lastname", lastname)).add(Restrictions.eq("firstname", firstname)).add(Restrictions.eq("middlename", middlename)).uniqueResult();
 
-        return (teachersEntity == null ? true : false) && (teachersEntity1 == null ? true : false) && (teachersEntity2 == null ? true : false);
+        return (teachersEntity == null ? true : false) ;
     }
 
     @Transactional
@@ -58,7 +49,7 @@ public class TeachersDao {
 
     @Transactional
     public Teachers getTeachers(int id) {
-        Object object = sessionFactory.getCurrentSession().get(UsersEntity.class, id);
+        Object object = sessionFactory.getCurrentSession().get(TeachersEntity.class, id);
         Teachers teachers = context.map(object, Teachers.class);
         return teachers;
     }
