@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 
 @Controller
+@RequestMapping(value="/teachers")
 public class TeachersController {
     static Logger logger = LoggerFactory.getLogger(TeachersController.class);
 
@@ -33,7 +35,7 @@ public class TeachersController {
     @Autowired
     private PositionsService positionsService;
 
-    @RequestMapping(value = {"/teachers"}, method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String listOfTeachers(Model model, @ModelAttribute Teachers teachersModel) {
         logger.info("IN: teachers/list-GET");
         List<Positions> positions = positionsService.getPositions();
@@ -44,7 +46,7 @@ public class TeachersController {
         return "directories/teachers";
     }
 
-    @RequestMapping(value = "/teachers/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addingTeachers(Model model, @Valid @ModelAttribute Teachers teachersModel,
                                  BindingResult bindingResult, RedirectAttributes redirectAttrs) {
 
@@ -57,6 +59,18 @@ public class TeachersController {
         if(bindingResult.hasErrors()) return  listOfTeachers(model, teachersModel);
 
         teachersService.addTeacher(teachersModel);
+        return "redirect:/teachers";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String editStrategyPage(@RequestParam(value = "id", required = true) Integer id, Model model) {
+        logger.info("IN: Teachers/delete-GET:  ID to query = " + id);
+
+        if (!model.containsAttribute("teachers")) {
+            logger.info("Delete Teachers object to model");
+            teachersService.deleteTeacher(id);
+        }
+
         return "redirect:/teachers";
     }
 
