@@ -1,6 +1,9 @@
 package com.system.edu.web.dao;
 
 import com.system.edu.models.dao.ClassesEntity;
+import com.system.edu.models.ui.Classes;
+import net.sf.brunneng.jom.IMergingContext;
+import net.sf.brunneng.jom.MergingContext;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +22,19 @@ public class ClassesDao {
     @Autowired
     SessionFactory sessionFactory;
 
+    IMergingContext context = new MergingContext();
+
     @Transactional
     public List<ClassesEntity> getAllClasses() {
         return sessionFactory.getCurrentSession()
                 .createCriteria(ClassesEntity.class).list();
+    }
+
+    @Transactional
+    public Classes getClass(int id) {
+        Object object = sessionFactory.getCurrentSession().get(ClassesEntity.class, id);
+        Classes pupil = context.map(object, Classes.class);
+        return pupil;
     }
 
     @Transactional

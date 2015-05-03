@@ -1,5 +1,7 @@
 package com.system.edu.models.dao;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -17,6 +19,8 @@ public class ClassesEntity {
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
+    @GenericGenerator(name="classId" , strategy="increment")
+    @GeneratedValue(generator="classId")
     public int getId() {
         return id;
     }

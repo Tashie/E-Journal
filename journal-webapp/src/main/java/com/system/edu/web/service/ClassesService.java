@@ -40,4 +40,7 @@ public class ClassesService {
     public boolean classExists(String name) {
         return classesDao.classExists(name);
     }
+    public Classes getClass(int id) {
+        return classesDao.getClass(id);
+    }
 }

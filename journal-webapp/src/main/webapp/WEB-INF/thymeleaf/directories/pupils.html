@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title data-th-text="#{pupils.list.page.title}">Title</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" href="../css/reveal.css" th:href="@{/css/reveal.css}"/>
+    <script th:src="@{/js/lib/development/bootstrap.js}"></script>
+    <script th:src="@{/js/lib/development/jquery.reveal.js}"></script>
+
+
+</head>
+<body>
+        <div class="container">
+            <div th:include="header :: top(login_include=true)"></div>
+
+            <div th:include="menu :: bar"></div>
+
+            <ul class="breadcrumb" style="margin-bottom: 15px;">
+                <li><a th:href="@{/index}">Home</a></li>
+                <li class="active">Pupils</li>
+            </ul>
+
+            <h4 class="page-header" data-th-text="#{pupils.list.table.title}">List of pupils</h4>
+            <div class="table responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th class="col-sm-2" data-th-text="#{pupils.list.middleName.label}">Middle Name</th>
+                        <th class="col-sm-1" data-th-text="#{pupils.list.firstName.label}">First Name</th>
+                        <th class="col-sm-1" data-th-text="#{pupils.list.lastName.label}">Last Name</th>
+                        <th class="col-sm-1" data-th-text="#{pupils.list.birthdate.label}">BirthDate</th>
+                        <th class="col-sm-1" data-th-text="#{pupils.list.address.label}">Address</th>
+                        <th class="col-sm-2" data-th-text="#{pupils.list.class.label}">Class Name</th>
+                        <th class="col-sm-2" data-th-text="#{pupils.list.actions.label}" style="text-align: center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pupil : ${pupils}" th:id="srow + ${pupil.id}">
+                        <td data-th-text="${pupil.middlename}">s</td>
+                        <td data-th-text="${pupil.firstname}">s</td>
+                        <td data-th-text="${pupil.lastname}">s</td>
+                        <td data-th-text="${pupil.birthdate}">s</td>
+                        <td data-th-text="${pupil.address}">s</td>
+                        <td data-th-text="${pupil.classesByClazz.name}">s</td>
+                        <td style="text-align: center;">
+                            <button type="button" class="btn btn-default btn-xs" th:onclick="'javascript:editRow(' + ${pupil.id} + ',\'' + ${pupil.firstname} + '\',\'' + ${pupil.lastname} + '\',\'' + ${pupil.middlename} + '\',\'' + ${pupil.birthdate} + '\',\'' + ${pupil.address} + '\','+ ${pupil.classesByClazz.id} + ');'">
+                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
+                            </button>
+                            <a href="#" data-th-href="@{/pupils/delete(id=${pupil.id})}">
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" style="text-align: right; margin-right: 10px">
+                <button type="button" class="btn btn-primary" th:onclick="'location.href=\'' + @{/pupils/add} + '\''">Add a new pupil</button>
+            </div>
+        </div>
+
+        <div id="modal" class="reveal-modal">
+            <span id="message"></span>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <script>
+            var pupilId;
+
+            function editRow(pupil, firstName, lastName, middleName, birthday, address, classId) {
+                pupilId = pupil;
+                var row = $('#srow' + pupil);
+                row.empty();
+                var row_sfirstName = '<td><input id="sfirstName" type="text" value=""/></td>';
+                var row_slastName = '<td><input id="slastName" type="text" value=""/></td>';
+                var row_sbirthdate = '<td><input id="sbirthdate" type="date" value=""/></td>';
+                var row_smiddleName = '<td><input id="smiddleName" type="text" value=""/></td>';
+                var row_saddress = '<td><input id="saddress" type="text" value=""/></td>';
+                var row_sclass = '<select id="sclass" class="form-control"><option th:each="_class : ${classes}" th:value="${_class.id}" th:text="${_class.name}">Class</option></select>';
+                var row_sbuttons = '<td style="text-align: center;"><button type="button" class="btn btn-default btn-xs" onclick="accept();"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Accept</button>&nbsp;';
+               // row_sbuttons += '<button type="button" class="btn btn-default btn-xs" onclick="cancel();"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Cancel</button></td>';
+
+                row.append(row_sfirstName);
+                row.append(row_slastName);
+                row.append(row_smiddleName);
+                row.append(row_sbirthdate);
+                row.append(row_saddress);
+                row.append(row_sclass);
+                row.append(row_sbuttons);
+
+                $('#sfirstName').val(firstName);
+                $('#slastName').val(lastName);
+                $('#smiddleName').val(middleName);
+                $('#sbirthdate').val(birthday);
+                $('#saddress').val(address);
+                $('#sclass').val(classId);
+            }
+
+            function accept() {
+                var sfirstName = $('#sfirstName').val();
+                var slastName = $('#slastName').val();
+                var smiddleName = $('#smiddleName').val();
+                var saddress = $('#saddress').val();
+                var sbirthdate = $('#sbirthdate').val();
+                var sclassId = $('#sclass').val();
+                var sclassName = $('#sclass option:selected').text();
+
+                var row = $('#srow' + pupilId);
+                row.empty();
+
+                row.append('<td>' + sfirstName + '</td>');
+                row.append('<td>' + slastName + '</td>');
+                row.append('<td>' + smiddleName + '</td>');
+                row.append('<td>' + sbirthdate + '</td>');
+                row.append('<td>' + saddress + '</td>');
+                row.append('<td>' + sclassName + '</td>');
+                row.append('<button id="editBtnId" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>    <a href="#" id="deleteBtnId"> <button type="button" class="btn btn-default btn-xs"> <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete </button> </a>');
+
+                $("#editBtnId").click(function () {
+                    editRow(pupilId, sfirstName, slastName, smiddleName, sbirthdate, saddress, sclassId);
+                });
+
+                $("#deleteBtnId").prop("href", "/edu-system/pupils/delete?id=" + pupilId);
+                $.post( "/edu-system/pupils/edit", { pupilId: pupilId, firstname: sfirstName, lastname: slastName, middlename: smiddleName, address: saddress, classId: sclassId })
+                        .done(function() {
+                            $("#message").text("Your data was upgrade successfully");
+                            $("#modal").reveal({});
+                        })
+                        .fail(function() {
+                            $("#message").text("Some error was occurred");
+                            $("#modal").reveal({});
+                        });
+            }
+        </script>
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script th:src="@{/js/lib/development/bootstrap.js}"></script>
+        <script th:src="@{/js/lib/development/table.pagination.js}"></script>
+        <script th:src="@{/js/lib/development/datetimepicker.js}"></script>
+    </body>
+</html>
