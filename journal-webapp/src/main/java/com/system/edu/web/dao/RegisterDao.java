@@ -1,6 +1,6 @@
 package com.system.edu.web.dao;
 
-import com.system.edu.models.dao.RolesEntity;
+import com.system.edu.models.dao.Role;
 import com.system.edu.models.dao.UserRolesEntity;
 import com.system.edu.models.dao.UsersEntity;
 import org.hibernate.SessionFactory;
@@ -8,8 +8,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 /**
  * Created by nata on 15.06.2014.
@@ -24,10 +22,10 @@ public class RegisterDao {
     @Transactional
     public boolean registerUser(UsersEntity usersEntity) {
         try {
-            RolesEntity role = new RolesEntity();
+            Role role = new Role();
             role.setId(1);
             UserRolesEntity userRolesEntity = new UserRolesEntity();
-            userRolesEntity.setRolesByRolecode(role);
+            userRolesEntity.setRoleByRolecode(role);
             userRolesEntity.setUser(usersEntity);
             sessionFactory.getCurrentSession().save(usersEntity);
             sessionFactory.getCurrentSession().save(userRolesEntity);

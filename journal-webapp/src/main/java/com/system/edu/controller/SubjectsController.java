@@ -1,7 +1,7 @@
 package com.system.edu.controller;
 
-import com.system.edu.models.ui.Cycles;
-import com.system.edu.models.ui.Subjects;
+import com.system.edu.models.dao.Cycle;
+import com.system.edu.models.dao.Subject;
 import com.system.edu.web.service.CyclesService;
 import com.system.edu.web.service.SubjectsService;
 import org.slf4j.Logger;
@@ -32,23 +32,23 @@ public class SubjectsController {
     public String listOfSubjects(Model model) {
         logger.info("IN: cycles/list-GET");
 
-        List<Subjects> subjects = subjectsService.getSubjects();
+        List<Subject> subjects = subjectsService.getSubjects();
         model.addAttribute("subjects", subjects);
 
-        List<Cycles> cycles = cyclesService.getCycles();
+        List<Cycle> cycles = cyclesService.getCycles();
         model.addAttribute("cycles", cycles);
 
         return "directories/subjects";
     }
 
     @RequestMapping(value = {"/subjects/add"}, method = RequestMethod.GET)
-    public String addSubjectForm(Subjects subjects, ModelMap model) {
+    public String addSubjectForm(Subject subjects, ModelMap model) {
         logger.info("IN: subjects/add-GET");
 
         if (!model.containsAttribute("cycles")) {
             logger.info("Adding subject object to model");
 
-            List<Cycles> cycles = cyclesService.getCycles();
+            List<Cycle> cycles = cyclesService.getCycles();
             model.addAttribute("cycles", cycles);
         }
 
@@ -56,7 +56,7 @@ public class SubjectsController {
     }
 
     @RequestMapping(value = "/subjects/add", method = RequestMethod.POST)
-    public String addCycle(@Valid @ModelAttribute Subjects subject,
+    public String addCycle(@Valid @ModelAttribute Subject subject,
                             BindingResult result, ModelMap model) {
 
         logger.info("IN: subjects/add-POST");
@@ -64,7 +64,7 @@ public class SubjectsController {
         if (result.hasErrors() || !subjectsService.subjectExists(subject.getName())) {
             logger.info("Subject-add error: " + result.toString());
 
-            List<Cycles> cycles = cyclesService.getCycles();
+            List<Cycle> cycles = cyclesService.getCycles();
             model.addAttribute("cycles", cycles);
 
             return "directories/subject";
@@ -81,14 +81,14 @@ public class SubjectsController {
                             @RequestParam("nameShorten") String nameShorten,
                             @RequestParam("difficulty") int difficulty,
                             @RequestParam("cycle") int cycleId) {
-        Subjects subject = new Subjects();
+        Subject subject = new Subject();
         subject.setId(subjectId);
         subject.setName(name);
         subject.setNameShorten(nameShorten);
         subject.setDifficulty(difficulty);
-        Cycles cycle = new Cycles();
+        Cycle cycle = new Cycle();
         cycle.setId(cycleId);
-        subject.setCyclesByCycle(cycle);
+        subject.setCycleByCycle(cycle);
 
         subjectsService.editSubject(subject);
     }

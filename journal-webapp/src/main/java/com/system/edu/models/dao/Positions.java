@@ -4,22 +4,17 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nata
- * Date: 17.06.14
- * To change this template use File | Settings | File Templates.
- */
-@Table(name = "cycles", schema = "", catalog = "journal")
+
+@Table(name = "positions", schema = "", catalog = "journal")
 @Entity
-public class CyclesEntity {
+public class Positions {
     private int id;
     private String name;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    @GenericGenerator(name="cycleId" , strategy="increment")
-    @GeneratedValue(generator="cycleId")
+    @GenericGenerator(name="posId" , strategy="increment")
+    @GeneratedValue(generator="posId")
     public int getId() {
         return id;
     }
@@ -43,7 +38,7 @@ public class CyclesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CyclesEntity that = (CyclesEntity) o;
+        Positions that = (Positions) o;
 
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;

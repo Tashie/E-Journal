@@ -1,25 +1,19 @@
 package com.system.edu.models.dao;
 
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
-import javax.persistence.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nata
- * Date: 17.06.14
- * To change this template use File | Settings | File Templates.
- */
-@Table(name = "positions", schema = "", catalog = "journal")
+@Table(name = "roles", schema = "", catalog = "journal")
 @Entity
-public class PositionsEntity {
+public class Role {
     private int id;
-    private String name;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    @GenericGenerator(name="posId" , strategy="increment")
-    @GeneratedValue(generator="posId")
     public int getId() {
         return id;
     }
@@ -28,7 +22,9 @@ public class PositionsEntity {
         this.id = id;
     }
 
-    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
+    private String name;
+
+    @Column(name = "name", nullable = true, insertable = true, updatable = true, length = 255, precision = 0)
     @Basic
     public String getName() {
         return name;
@@ -43,7 +39,7 @@ public class PositionsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PositionsEntity that = (PositionsEntity) o;
+        Role that = (Role) o;
 
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;

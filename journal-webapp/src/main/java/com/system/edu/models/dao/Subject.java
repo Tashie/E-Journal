@@ -4,20 +4,15 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nata
- * Date: 17.06.14
- * To change this template use File | Settings | File Templates.
- */
+
 @Table(name = "subjects", schema = "", catalog = "journal")
 @Entity
-public class SubjectsEntity {
+public class Subject {
     private int id;
     private String name;
     private String nameShorten;
     private int difficulty;
-    private CyclesEntity cyclesByCycle;
+    private Cycle cycleByCycle;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
@@ -63,12 +58,12 @@ public class SubjectsEntity {
 
     @ManyToOne
     @JoinColumn(name = "cycle", referencedColumnName = "id", nullable = false)
-    public CyclesEntity getCyclesByCycle() {
-        return cyclesByCycle;
+    public Cycle getCycleByCycle() {
+        return cycleByCycle;
     }
 
-    public void setCyclesByCycle(CyclesEntity cyclesByCycle) {
-        this.cyclesByCycle = cyclesByCycle;
+    public void setCycleByCycle(Cycle cycleByCycle) {
+        this.cycleByCycle = cycleByCycle;
     }
 
     @Override
@@ -76,7 +71,7 @@ public class SubjectsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SubjectsEntity that = (SubjectsEntity) o;
+        Subject that = (Subject) o;
 
         if (difficulty != that.difficulty) return false;
         if (id != that.id) return false;

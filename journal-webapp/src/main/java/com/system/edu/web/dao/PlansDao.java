@@ -1,11 +1,8 @@
 package com.system.edu.web.dao;
 
-import com.system.edu.models.dao.PlansEntity;
-import com.system.edu.models.dao.SubjectsEntity;
-import com.system.edu.models.dao.TeachersEntity;
-import com.system.edu.models.ui.Plans;
-import com.system.edu.models.ui.Subjects;
-import com.system.edu.models.ui.Teachers;
+import com.system.edu.models.dao.Plan;
+import com.system.edu.models.dao.Subject;
+import com.system.edu.models.dao.Teacher;
 import net.sf.brunneng.jom.IMergingContext;
 import net.sf.brunneng.jom.MergingContext;
 import org.hibernate.SessionFactory;
@@ -18,10 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * User: nata
- * Date: 27.06.14
- */
 
 @Repository
 public class PlansDao {
@@ -32,11 +25,10 @@ public class PlansDao {
 
 
     @Transactional
-    public boolean addPlan(Plans plan) {
+    public boolean addPlan(Plan plan) {
         try {
-            PlansEntity plansEntity = context.map(plan, PlansEntity.class);
             sessionFactory.getCurrentSession()
-                    .merge(plansEntity);
+                    .merge(plan);
         } catch (Exception e) {
             return false;
         }
@@ -44,30 +36,28 @@ public class PlansDao {
     }
 
     @Transactional
-    public boolean isPlanExists(Plans plans) {
+    public boolean isPlanExists(Plan plans) {
 
-        PlansEntity plansEntity = (PlansEntity) sessionFactory.getCurrentSession()
-                .createCriteria(PlansEntity.class)
+        Plan plan = (Plan) sessionFactory.getCurrentSession()
+                .createCriteria(Plan.class)
                 .add(Restrictions.eq("subjectsBySubject.id", plans.getSubjectsBySubject().getId()))
                 .add(Restrictions.eq("teachersByTeacher.id", plans.getTeachersByTeacher().getId()))
                 .uniqueResult();
-        return plansEntity != null ? true : false;
+        return plan != null ? true : false;
     }
 
 
 
     @Transactional
-    public Plans getPlans(int id) {
-        Object object = sessionFactory.getCurrentSession().get(PlansEntity.class, id);
-        Plans plans = context.map(object, Plans.class);
-        return plans;
+    public Plan getPlans(int id) {
+        return (Plan) sessionFactory.getCurrentSession().get(Plan.class, id);
     }
 
     @Transactional
     public boolean deletePlans(int id) {
         try {
-            PlansEntity entityForDelete = (PlansEntity) sessionFactory.getCurrentSession()
-                    .createCriteria(PlansEntity.class)
+            Plan entityForDelete = (Plan) sessionFactory.getCurrentSession()
+                    .createCriteria(Plan.class)
                     .add(Restrictions.eq("id", id))
                     .uniqueResult();
 
@@ -79,15 +69,15 @@ public class PlansDao {
     }
 
     @Transactional
-    public List<Plans> getAllPlans() {
-        List<Plans> plans = new ArrayList<>();
+    public List<Plan> getAllPlans() {
+        List<Plan> plans = new ArrayList<>();
         try {
-            List<PlansEntity> plansEntities = sessionFactory.getCurrentSession()
-                    .createCriteria(PlansEntity.class)
+            List<Plan> plansEntities = sessionFactory.getCurrentSession()
+                    .createCriteria(Plan.class)
                     .list();
 
-            for (PlansEntity pos : plansEntities) {
-                Plans plan = context.map(pos, Plans.class);
+            for (Plan pos : plansEntities) {
+                Plan plan = context.map(pos, Plan.class);
                 plans.add(plan);
             }
         } catch (Exception e) {
@@ -97,17 +87,14 @@ public class PlansDao {
     }
 
     @Transactional
-    public List<Subjects> getSubjects() {
-        List<Subjects> subjects = new ArrayList<>();
+    public List<Subject> getSubjects() {
+        List<Subject> subjects = new ArrayList<>();
         try {
-            List<SubjectsEntity> subjectsEntities = sessionFactory.getCurrentSession()
-                    .createCriteria(PlansEntity.class)
+            subjects = sessionFactory.getCurrentSession()
+                    .createCriteria(Plan.class)
                     .setProjection(Projections.distinct(Projections.property("subjectsBySubject")))
                     .list();
-            for (SubjectsEntity subj : subjectsEntities) {
-                Subjects subject = context.map(subj, Subjects.class);
-                subjects.add(subject);
-            }
+
         } catch (Exception e) {
             //todo
         }
@@ -117,23 +104,19 @@ public class PlansDao {
     @Transactional
     public List<String> getYears() {
         return sessionFactory.getCurrentSession()
-                .createCriteria(PlansEntity.class)
+                .createCriteria(Plan.class)
                 .setProjection(Projections.distinct(Projections.property("year")))
                 .list();
     }
 
     @Transactional
-    public List<Teachers> getTeachers() {
-        List<Teachers> teachers = new ArrayList<>();
+    public List<Teacher> getTeachers() {
+        List<Teacher> teachers = new ArrayList<>();
         try {
-            List<TeachersEntity> teachersEntities = sessionFactory.getCurrentSession()
-                    .createCriteria(PlansEntity.class)
+            teachers= sessionFactory.getCurrentSession()
+                    .createCriteria(Plan.class)
                     .setProjection(Projections.distinct(Projections.property("teachersByTeacher")))
                     .list();
-            for (TeachersEntity tchr : teachersEntities) {
-                Teachers teacher = context.map(tchr, Teachers.class);
-                teachers.add(teacher);
-            }
         } catch (Exception e) {
             //todo
         }
@@ -141,14 +124,13 @@ public class PlansDao {
     }
 
     @Transactional
-    public Plans getPlans(int teacherId, int subjectId, int year) {
-        PlansEntity plansEntity = (PlansEntity) sessionFactory.getCurrentSession()
-                .createCriteria(PlansEntity.class)
+    public Plan getPlans(int teacherId, int subjectId, int year) {
+        Plan plan = (Plan) sessionFactory.getCurrentSession()
+                .createCriteria(Plan.class)
                 .add(Restrictions.eq("subjectsBySubject.id", subjectId))
                 .add(Restrictions.eq("teachersByTeacher.id", teacherId))
                 .add(Restrictions.eq("year", year))
                 .uniqueResult();
-        Plans plans = context.map(plansEntity, Plans.class);
-        return plans;
+        return plan;
     }
 }

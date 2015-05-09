@@ -3,14 +3,12 @@ package com.system.edu.models.dao;
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * User: nata
- * Date: 27.06.14
- */
+
+
 @SuppressWarnings("ALL")
 @javax.persistence.Table(name = "plan_lessons", schema = "", catalog = "journal")
 @Entity
-public class PlanLessonsEntity {
+public class PlanLesson {
     private int id;
 
     @javax.persistence.Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -52,7 +50,7 @@ public class PlanLessonsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlanLessonsEntity that = (PlanLessonsEntity) o;
+        PlanLesson that = (PlanLesson) o;
 
         if (id != that.id) return false;
         if (lesson != that.lesson) return false;
@@ -69,15 +67,15 @@ public class PlanLessonsEntity {
         return result;
     }
 
-    private PlansEntity plansByPlan;
+    private Plan plansByPlan;
 
     @ManyToOne
     @javax.persistence.JoinColumn(name = "plan", referencedColumnName = "id", nullable = false)
-    public PlansEntity getPlansByPlan() {
+    public Plan getPlansByPlan() {
         return plansByPlan;
     }
 
-    public void setPlansByPlan(PlansEntity plansByPlan) {
+    public void setPlansByPlan(Plan plansByPlan) {
         this.plansByPlan = plansByPlan;
     }
 

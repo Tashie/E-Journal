@@ -1,14 +1,12 @@
 package com.system.edu.web.service;
 
-import com.system.edu.models.dao.TeachersEntity;
-import com.system.edu.models.ui.Teachers;
+import com.system.edu.models.dao.Teacher;
 import com.system.edu.web.dao.TeachersDao;
 import net.sf.brunneng.jom.IMergingContext;
 import net.sf.brunneng.jom.MergingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,25 +21,20 @@ public class TeachersService {
     @Autowired
     private TeachersDao teachersDao;
 
-    public List<Teachers> getTeachers() {
-        List<Teachers> teachers = new ArrayList<>();
-        for (TeachersEntity teachersEntity : teachersDao.getAllTeachers()) {
-            Teachers teacher = context.map(teachersEntity, Teachers.class);
-            teachers.add(teacher);
-        }
-        return teachers;
+    public List<Teacher> getTeachers() {
+        return  teachersDao.getAllTeachers();
     }
 
-    public void addTeacher(Teachers teachers) {
+    public void addTeacher(Teacher teachers) {
         teachersDao.addTeacher(teachers);
     }
 
-    public void updateTeachers(Teachers teachers) {
-        teachersDao.updateTeachers(teachers);
+    public void updateTeachers(Teacher teachers) {
+        teachersDao.updateTeacher(teachers);
     }
 
-    public Teachers getTeachers(int id) {
-        return teachersDao.getTeachers(id);
+    public Teacher getTeachers(int id) {
+        return teachersDao.getTeacher(id);
     }
 
     public void deleteTeacher(int id) {

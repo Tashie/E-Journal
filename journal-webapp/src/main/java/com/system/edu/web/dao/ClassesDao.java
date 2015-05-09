@@ -1,9 +1,6 @@
 package com.system.edu.web.dao;
 
-import com.system.edu.models.dao.ClassesEntity;
-import com.system.edu.models.ui.Classes;
-import net.sf.brunneng.jom.IMergingContext;
-import net.sf.brunneng.jom.MergingContext;
+import com.system.edu.models.dao.Classes;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by sph on 24.06.2014.
- */
 
 @Repository
 public class ClassesDao {
@@ -22,23 +16,20 @@ public class ClassesDao {
     @Autowired
     SessionFactory sessionFactory;
 
-    IMergingContext context = new MergingContext();
 
     @Transactional
-    public List<ClassesEntity> getAllClasses() {
+    public List<Classes> getAllClasses() {
         return sessionFactory.getCurrentSession()
-                .createCriteria(ClassesEntity.class).list();
+                .createCriteria(Classes.class).list();
     }
 
     @Transactional
     public Classes getClass(int id) {
-        Object object = sessionFactory.getCurrentSession().get(ClassesEntity.class, id);
-        Classes pupil = context.map(object, Classes.class);
-        return pupil;
+        return (Classes) sessionFactory.getCurrentSession().get(Classes.class, id);
     }
 
     @Transactional
-    public boolean addClass(ClassesEntity classesEntity) {
+    public boolean addClass(Classes classesEntity) {
         try {
             sessionFactory.getCurrentSession()
                     .save(classesEntity);
@@ -50,8 +41,8 @@ public class ClassesDao {
 
     @Transactional
     public boolean classExists(String name) {
-        ClassesEntity classesEntity = (ClassesEntity)sessionFactory.getCurrentSession()
-                .createCriteria(ClassesEntity.class).add(Restrictions.eq("name", name))
+        Classes classesEntity = (Classes)sessionFactory.getCurrentSession()
+                .createCriteria(Classes.class).add(Restrictions.eq("name", name))
                 .uniqueResult();
         return classesEntity == null ? false : true;
     }

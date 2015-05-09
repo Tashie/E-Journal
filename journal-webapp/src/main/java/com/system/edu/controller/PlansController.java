@@ -1,7 +1,6 @@
 package com.system.edu.controller;
 
-import com.system.edu.models.ui.Classes;
-import com.system.edu.models.ui.Plans;
+import com.system.edu.models.dao.Plan;
 import com.system.edu.web.service.PlansService;
 import com.system.edu.web.service.SubjectsService;
 import com.system.edu.web.service.TeachersService;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -45,10 +43,10 @@ public class PlansController {
     private MessageSource messageSource;
 
     @RequestMapping(value = {"/plans"}, method = RequestMethod.GET)
-    public String listOfPlans(ModelMap model, @ModelAttribute Plans planModel) {
+    public String listOfPlans(ModelMap model, @ModelAttribute Plan planModel) {
         logger.info("IN: plans/list-GET");
 
-        List<Plans> plansList = plansService.getPlans();
+        List<Plan> plansList = plansService.getPlans();
         model.addAttribute("plansList", plansList);
         model.addAttribute("teacherList", teachersService.getTeachers());
         model.addAttribute("subjectsList", subjectsService.getSubjects());
@@ -57,7 +55,7 @@ public class PlansController {
 
 
     @RequestMapping(value = "/plans/add", method = RequestMethod.POST)
-    public String addingPlans(@Valid @ModelAttribute Plans plansModel,
+    public String addingPlans(@Valid @ModelAttribute Plan plansModel,
                               BindingResult bindingResult, ModelMap model) {
 
         logger.info("IN: Plans/add-POST");

@@ -39,9 +39,9 @@
                         <td data-th-text="${subject.name}">-</td>
                         <td data-th-text="${subject.nameShorten}">-</td>
                         <td data-th-text="${subject.difficulty}">-</td>
-                        <td data-th-text="${subject.cyclesByCycle.name}">-</td>
+                        <td data-th-text="${subject.cycleByCycle.name}">-</td>
                         <td style="text-align: center;">
-                            <button type="button" class="btn btn-default btn-xs" th:onclick="'javascript:editRow(' + ${subject.id} + ',\'' + ${subject.name} + '\',\'' + ${subject.nameShorten} + '\',\'' + ${subject.difficulty} + '\',' + ${subject.cyclesByCycle.id} + ');'">
+                            <button type="button" class="btn btn-default btn-xs" th:onclick="'javascript:editRow(' + ${subject.id} + ',\'' + ${subject.name} + '\',\'' + ${subject.nameShorten} + '\',\'' + ${subject.difficulty} + '\',' + ${subject.cycleByCycle.id} + ');'">
                                 <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
                             </button>
                             <a href="#" data-th-href="@{/subjects/delete(id=${subject.id})}">

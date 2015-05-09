@@ -1,7 +1,7 @@
 package com.system.edu.controller;
 
-import com.system.edu.models.ui.Positions;
-import com.system.edu.models.ui.Teachers;
+import com.system.edu.models.dao.Positions;
+import com.system.edu.models.dao.Teacher;
 import com.system.edu.web.service.PositionsService;
 import com.system.edu.web.service.TeachersService;
 import org.slf4j.Logger;
@@ -19,9 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Created by Дмитрий on 11.07.14.
- */
 
 @Controller
 @RequestMapping(value="/teachers")
@@ -36,18 +33,18 @@ public class TeachersController {
     private PositionsService positionsService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String listOfTeachers(Model model, @ModelAttribute Teachers teachersModel) {
+    public String listOfTeachers(Model model, @ModelAttribute Teacher teachersModel) {
         logger.info("IN: teachers/list-GET");
         List<Positions> positions = positionsService.getPositions();
         model.addAttribute("positions", positions);
 
-        List<Teachers> teachersList = teachersService.getTeachers();
+        List<Teacher> teachersList = teachersService.getTeachers();
         model.addAttribute("teachersList", teachersList);
         return "directories/teachers";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addingTeachers(Model model, @Valid @ModelAttribute Teachers teachersModel,
+    public String addingTeachers(Model model, @Valid @ModelAttribute Teacher teachersModel,
                                  BindingResult bindingResult, RedirectAttributes redirectAttrs) {
 
         logger.info("IN: Teachers/add-POST");

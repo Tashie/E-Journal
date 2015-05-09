@@ -6,15 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nata
- * Date: 17.06.14
- * To change this template use File | Settings | File Templates.
- */
+
+
 @Table(name = "grade_types", schema = "", catalog = "journal")
 @Entity
-public class GradeTypesEntity {
+public class GradeTypes {
     private int id;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -44,7 +40,7 @@ public class GradeTypesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GradeTypesEntity that = (GradeTypesEntity) o;
+        GradeTypes that = (GradeTypes) o;
 
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;

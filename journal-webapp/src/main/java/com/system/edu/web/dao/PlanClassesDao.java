@@ -1,7 +1,6 @@
 package com.system.edu.web.dao;
 
-import com.system.edu.models.dao.PlanClassesEntity;
-import com.system.edu.models.ui.PlanClasses;
+import com.system.edu.models.dao.PlanClass;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by sph on 11.07.2014.
- */
-
 @Repository
 public class PlanClassesDao {
 
@@ -21,9 +16,9 @@ public class PlanClassesDao {
     SessionFactory sessionFactory;
 
     @Transactional
-    public List<PlanClassesEntity> getClasses(String tid, String sid, String year) {
+    public List<PlanClass> getClasses(String tid, String sid, String year) {
         return sessionFactory.getCurrentSession()
-                .createCriteria(PlanClassesEntity.class)
+                .createCriteria(PlanClass.class)
                 .createAlias("plansByPlan", "plan")
                 .createAlias("plan.teachersByTeacher", "t")
                 .createAlias("plan.subjectsBySubject", "s")
@@ -36,10 +31,10 @@ public class PlanClassesDao {
     }
 
     @Transactional
-    public boolean addPlanClass(PlanClassesEntity planClassesEntity) {
+    public boolean addPlanClass(PlanClass planClass) {
         try {
             sessionFactory.getCurrentSession()
-                    .save(planClassesEntity);
+                    .save(planClass);
         } catch (Exception e) {
             return false;
         }
@@ -47,10 +42,10 @@ public class PlanClassesDao {
     }
 
     @Transactional
-    public boolean isPlanExists(PlanClasses plansClasses) {
-        PlanClassesEntity plansEntity = (PlanClassesEntity) sessionFactory.getCurrentSession()
-                .createCriteria(PlanClassesEntity.class)
-                .add(Restrictions.eq("plansByPlan.id", plansClasses.getId()))
+    public boolean isPlanExists(PlanClass plansClass) {
+        PlanClass plansEntity = (PlanClass) sessionFactory.getCurrentSession()
+                .createCriteria(PlanClass.class)
+                .add(Restrictions.eq("plansByPlan.id", plansClass.getId()))
                 .uniqueResult();
         return plansEntity != null ? true : false;
     }

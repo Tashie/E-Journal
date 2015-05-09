@@ -62,7 +62,7 @@
         </table>
     </div>
 
-    <form class="form" id="teacher-details-block" action="#" data-th-action="@{/teachers/add}" data-th-object="${teachers}" method="post">
+    <form class="form" id="teacher-details-block" action="#" data-th-action="@{/teachers/add}" data-th-object="${teacher}" method="post">
         <div class="table responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
@@ -85,17 +85,17 @@
                     <td><input class="form-control" id="BirthdateID" type="text" data-th-field="*{birthdate}" placeholder="birthdate"/></td>
                     <td>
                         <div class="col-lg-10">
-                            <select class="form-control" th:field="*{positionsByPosition.id}">
-                                <option th:each="position : ${positions}"
-                                        th:value="${position.id}"
-                                        th:text="${position.name}">Position</option>
+                            <select class="form-control" th:field="*{positionsByPositions.id}">
+                                <option th:each="positions : ${positions}"
+                                        th:value="${positions.id}"
+                                        th:text="${positions.name}">Position</option>
                             </select>
-                            <p th:if="${#fields.hasErrors('positionsByPosition')}" th:errors="*{positionsByPosition}" class="text-warning">Position name is incorrect</p>
+                            <p th:if="${#fields.hasErrors('positionsByPositions')}" th:errors="*{positionsByPositions}" class="text-warning">Position name is incorrect</p>
 
                         </div></td>
                     <td><input class="form-control" id="Address" type="text" data-th-field="*{address}" placeholder="address"/></td>
                     <td>
-                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.teachers}">Update position
+                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.teachers}">Update positions
                         </button>
                     </td>
                 </tr>

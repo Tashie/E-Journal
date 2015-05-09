@@ -5,9 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * Created by sph on 26.06.2014.
- */
+
 @Entity
 @Table(name = "support", schema = "", catalog = "journal")
 public class SupportEntity {

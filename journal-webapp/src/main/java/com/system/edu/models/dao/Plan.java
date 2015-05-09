@@ -5,13 +5,10 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * User: nata
- * Date: 27.06.14
- */
+
 @Table(name = "plans", schema = "", catalog = "journal")
 @Entity
-public class PlansEntity {
+public class Plan {
     private int id;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -43,7 +40,7 @@ public class PlansEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlansEntity that = (PlansEntity) o;
+        Plan that = (Plan) o;
 
         if (id != that.id) return false;
         if (year != that.year) return false;
@@ -58,49 +55,49 @@ public class PlansEntity {
         return result;
     }
 
-    private Collection<PlanClassesEntity> planClassesesById;
+    private Collection<PlanClass> planClassesesById;
 
     @OneToMany(mappedBy = "plansByPlan")
-    public Collection<PlanClassesEntity> getPlanClassesesById() {
+    public Collection<PlanClass> getPlanClassesesById() {
         return planClassesesById;
     }
 
-    public void setPlanClassesesById(Collection<PlanClassesEntity> planClassesesById) {
+    public void setPlanClassesesById(Collection<PlanClass> planClassesesById) {
         this.planClassesesById = planClassesesById;
     }
 
-    private Collection<PlanLessonsEntity> planLessonsesById;
+    private Collection<PlanLesson> planLessonsesById;
 
     @OneToMany(mappedBy = "plansByPlan")
-    public Collection<PlanLessonsEntity> getPlanLessonsesById() {
+    public Collection<PlanLesson> getPlanLessonsesById() {
         return planLessonsesById;
     }
 
-    public void setPlanLessonsesById(Collection<PlanLessonsEntity> planLessonsesById) {
+    public void setPlanLessonsesById(Collection<PlanLesson> planLessonsesById) {
         this.planLessonsesById = planLessonsesById;
     }
 
-    private TeachersEntity teachersByTeacher;
+    private Teacher teachersByTeacher;
 
     @ManyToOne
     @JoinColumn(name = "teacher", referencedColumnName = "id", nullable = false)
-    public TeachersEntity getTeachersByTeacher() {
+    public Teacher getTeachersByTeacher() {
         return teachersByTeacher;
     }
 
-    public void setTeachersByTeacher(TeachersEntity teachersByTeacher) {
+    public void setTeachersByTeacher(Teacher teachersByTeacher) {
         this.teachersByTeacher = teachersByTeacher;
     }
 
-    private SubjectsEntity subjectsBySubject;
+    private Subject subjectsBySubject;
 
     @ManyToOne
     @JoinColumn(name = "subject", referencedColumnName = "id", nullable = false)
-    public SubjectsEntity getSubjectsBySubject() {
+    public Subject getSubjectsBySubject() {
         return subjectsBySubject;
     }
 
-    public void setSubjectsBySubject(SubjectsEntity subjectsBySubject) {
+    public void setSubjectsBySubject(Subject subjectsBySubject) {
         this.subjectsBySubject = subjectsBySubject;
     }
 

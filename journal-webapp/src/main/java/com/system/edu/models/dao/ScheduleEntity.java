@@ -3,16 +3,15 @@ package com.system.edu.models.dao;
 import javax.persistence.*;
 import java.sql.Date;
 
-/**
- * Created by sph on 23.06.2014.
- */
+
+
 @Entity
 @Table(name = "schedule", schema = "", catalog = "journal")
 public class ScheduleEntity {
     private int id;
     private Date lessonDate;
-    private PlanLessonsEntity planLessonsByPlanLessons;
-    private PlanClassesEntity planClassesByPlanClasses;
+    private PlanLesson planLessonsByPlanLessons;
+    private PlanClass planClassesByPlanClasses;
 
     @Id
     @Column(name = "id")
@@ -56,21 +55,21 @@ public class ScheduleEntity {
 
     @ManyToOne
     @JoinColumn(name = "plan_lessons", referencedColumnName = "id", nullable = false)
-    public PlanLessonsEntity getPlanLessonsByPlanLessons() {
+    public PlanLesson getPlanLessonsByPlanLessons() {
         return planLessonsByPlanLessons;
     }
 
-    public void setPlanLessonsByPlanLessons(PlanLessonsEntity planLessonsByPlanLessons) {
+    public void setPlanLessonsByPlanLessons(PlanLesson planLessonsByPlanLessons) {
         this.planLessonsByPlanLessons = planLessonsByPlanLessons;
     }
 
     @ManyToOne
     @JoinColumn(name = "plan_classes", referencedColumnName = "id", nullable = false)
-    public PlanClassesEntity getPlanClassesByPlanClasses() {
+    public PlanClass getPlanClassesByPlanClasses() {
         return planClassesByPlanClasses;
     }
 
-    public void setPlanClassesByPlanClasses(PlanClassesEntity planClassesByPlanClasses) {
+    public void setPlanClassesByPlanClasses(PlanClass planClassesByPlanClasses) {
         this.planClassesByPlanClasses = planClassesByPlanClasses;
     }
 }

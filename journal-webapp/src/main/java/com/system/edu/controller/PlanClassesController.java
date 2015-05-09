@@ -1,7 +1,6 @@
 package com.system.edu.controller;
 
-import com.system.edu.models.dao.PlanClassesEntity;
-import com.system.edu.models.ui.*;
+import com.system.edu.models.dao.*;
 import com.system.edu.web.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Created by sph on 10.07.2014.
- */
 
 @Controller
 public class PlanClassesController {
@@ -38,12 +34,12 @@ public class PlanClassesController {
     private SubjectsService subjectsService;
 
     @RequestMapping(value = {"/planclasses"}, method = RequestMethod.GET)
-    public String listOfPlanClasses(ModelMap model, @ModelAttribute PlanClassesEntity classesModel) {
-        List<Subjects> subjects = plansService.getSubjects();
+    public String listOfPlanClasses(ModelMap model, @ModelAttribute PlanClass classesModel) {
+        List<Subject> subjects = plansService.getSubjects();
         List<String> years = plansService.getYears();
-        List<Teachers> teachers = plansService.getTeachers();
+        List<Teacher> teachers = plansService.getTeachers();
 
-        List<PlanClasses> classes = planClassesService.getClasses(String.valueOf(teachers.get(0).getId()), String.valueOf(subjects.get(0).getId()), String.valueOf(years.get(0)));
+        List<PlanClass> classes = planClassesService.getClasses(String.valueOf(teachers.get(0).getId()), String.valueOf(subjects.get(0).getId()), String.valueOf(years.get(0)));
 
         model.addAttribute("subjectsList", subjects);
         model.addAttribute("yearsList", years);
@@ -62,11 +58,11 @@ public class PlanClassesController {
                                     @RequestParam("years") String year,
                                     ModelMap model) {
 
-        List<Subjects> subjects = plansService.getSubjects();
+        List<Subject> subjects = plansService.getSubjects();
         List<String> years = plansService.getYears();
-        List<Teachers> teachers = plansService.getTeachers();
+        List<Teacher> teachers = plansService.getTeachers();
 
-        List<PlanClasses> classes = planClassesService.getClasses(teacherId, subjectId, year);
+        List<PlanClass> classes = planClassesService.getClasses(teacherId, subjectId, year);
 
         model.addAttribute("subjectsList", subjects);
         model.addAttribute("yearsList", years);
@@ -83,7 +79,7 @@ public class PlanClassesController {
     public String addPlanClassesForm(@PathVariable int teacherId,
                                      @PathVariable int subjectId,
                                      @PathVariable String year,
-                                     PlanClasses planClasses,
+                                     PlanClass planClasses,
                                      ModelMap model) {
         List<Classes> classes = classesService.getClasses();
         model.addAttribute("classes", classes);
@@ -100,7 +96,7 @@ public class PlanClassesController {
     public String addCycle(@RequestParam("teacherId") int teacherId,
                            @RequestParam("subjectId") int subjectId,
                            @RequestParam("year") int year,
-                           @Valid @ModelAttribute PlanClasses planClasses,
+                           @Valid @ModelAttribute PlanClass planClass,
                            BindingResult result, ModelMap model) {
 
         logger.info("IN: planclasses/add-POST");
@@ -111,7 +107,7 @@ public class PlanClassesController {
         model.addAttribute("teacherName", teachersService.getTeacherName(teacherId));
         model.addAttribute("subjectName", subjectsService.getSubjectName(subjectId));
 
-        Plans plans = plansService.getPlans(teacherId, subjectId, year);
+        Plan plans = plansService.getPlans(teacherId, subjectId, year);
 
         if (plans != null) {
             if (result.hasErrors() || plansService.isPlanExists(plans)) {
@@ -123,8 +119,8 @@ public class PlanClassesController {
 
                 return "curriculum/class_form";
             } else {
-                planClasses.setPlansByPlan(plans);
-                if (planClassesService.addPlanClass(planClasses)) {
+                planClass.setPlansByPlan(plans);
+                if (planClassesService.addPlanClass(planClass)) {
                     return "redirect:/planclasses";
                 } else {
                     model.addAttribute("error", "Plan addition error");

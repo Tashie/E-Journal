@@ -1,15 +1,19 @@
-package com.system.edu.models.ui;
+package com.system.edu.models.dao;
 
-/**
- * Created by nata on 15.06.2014.
- */
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 
-public class GradeTypes {
+@Table(name = "cycles", schema = "", catalog = "journal")
+@Entity
+public class Cycle {
     private int id;
     private String name;
 
-
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @Id
+    @GenericGenerator(name="cycleId" , strategy="increment")
+    @GeneratedValue(generator="cycleId")
     public int getId() {
         return id;
     }
@@ -18,7 +22,8 @@ public class GradeTypes {
         this.id = id;
     }
 
-
+    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 45, precision = 0)
+    @Basic
     public String getName() {
         return name;
     }
@@ -32,7 +37,7 @@ public class GradeTypes {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GradeTypes that = (GradeTypes) o;
+        Cycle that = (Cycle) o;
 
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;

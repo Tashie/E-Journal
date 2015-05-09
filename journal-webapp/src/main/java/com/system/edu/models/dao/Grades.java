@@ -2,15 +2,10 @@ package com.system.edu.models.dao;
 
 import javax.persistence.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nata
- * Date: 17.06.14
- * To change this template use File | Settings | File Templates.
- */
+
 @Table(name = "grades", schema = "", catalog = "journal")
 @Entity
-public class GradesEntity {
+public class Grades {
     private int id;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -48,16 +43,16 @@ public class GradesEntity {
     }
 
 
-    private GradeTypesEntity gradeTypesByType;
+    private GradeTypes gradeTypesByType;
 
 
     @ManyToOne
     @JoinColumn(name = "type", referencedColumnName = "id", nullable = false)
-    public GradeTypesEntity getGradeTypesByType() {
+    public GradeTypes getGradeTypesByType() {
         return gradeTypesByType;
     }
 
-    public void setGradeTypesByType(GradeTypesEntity gradeTypesByType) {
+    public void setGradeTypesByType(GradeTypes gradeTypesByType) {
         this.gradeTypesByType = gradeTypesByType;
     }
 
@@ -66,7 +61,7 @@ public class GradesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GradesEntity that = (GradesEntity) o;
+        Grades that = (Grades) o;
 
         if (grade != that.grade) return false;
         if (id != that.id) return false;

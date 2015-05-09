@@ -3,13 +3,10 @@ package com.system.edu.models.dao;
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * User: nata
- * Date: 27.06.14
- */
+
 @javax.persistence.Table(name = "plan_classes", schema = "", catalog = "journal")
 @Entity
-public class PlanClassesEntity {
+public class PlanClass {
     private int id;
 
     @javax.persistence.Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -39,7 +36,7 @@ public class PlanClassesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlanClassesEntity that = (PlanClassesEntity) o;
+        PlanClass that = (PlanClass) o;
 
         if (id != that.id) return false;
         if (subgroup != that.subgroup) return false;
@@ -54,27 +51,27 @@ public class PlanClassesEntity {
         return result;
     }
 
-    private PlansEntity plansByPlan;
+    private Plan plansByPlan;
 
     @ManyToOne
     @javax.persistence.JoinColumn(name = "plan", referencedColumnName = "id", nullable = false)
-    public PlansEntity getPlansByPlan() {
+    public Plan getPlansByPlan() {
         return plansByPlan;
     }
 
-    public void setPlansByPlan(PlansEntity plansByPlan) {
+    public void setPlansByPlan(Plan plansByPlan) {
         this.plansByPlan = plansByPlan;
     }
 
-    private ClassesEntity classesByClazz;
+    private Classes classesByClazz;
 
     @ManyToOne
     @javax.persistence.JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
-    public ClassesEntity getClassesByClazz() {
+    public Classes getClassesByClazz() {
         return classesByClazz;
     }
 
-    public void setClassesByClazz(ClassesEntity classesByClazz) {
+    public void setClassesByClazz(Classes classesByClazz) {
         this.classesByClazz = classesByClazz;
     }
 

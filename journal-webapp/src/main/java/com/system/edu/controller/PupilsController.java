@@ -1,7 +1,7 @@
 package com.system.edu.controller;
 
-import com.system.edu.models.ui.Classes;
-import com.system.edu.models.ui.Pupils;
+import com.system.edu.models.dao.Classes;
+import com.system.edu.models.dao.Pupil;
 import com.system.edu.web.service.ClassesService;
 import com.system.edu.web.service.PupilsService;
 import org.slf4j.Logger;
@@ -37,14 +37,14 @@ public class PupilsController {
         List<Classes> classesList = classesService.getClasses();
         model.addAttribute("classes", classesList);
 
-        List<Pupils> pupilsList = pupilsService.getPupils();
+        List<Pupil> pupilsList = pupilsService.getPupils();
         model.addAttribute("pupils", pupilsList);
 
         return "directories/pupils";
     }
 
     @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
-    public String addPupilForm(Pupils pupils, ModelMap model) {
+    public String addPupilForm(Pupil pupil, ModelMap model) {
         logger.info("IN: pupils/add-GET");
 
         if (!model.containsAttribute("classes")) {
@@ -58,11 +58,11 @@ public class PupilsController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addCycle(@Valid @ModelAttribute Pupils pupils,
+    public String addCycle(@Valid @ModelAttribute Pupil pupil,
                            BindingResult result, ModelMap model) {
 
         logger.info("IN: pupils/add-POST");
-        pupilsService.addPupil(pupils);
+        pupilsService.addPupil(pupil);
         return "redirect:/pupils";
     }
 
@@ -75,7 +75,7 @@ public class PupilsController {
                           @RequestParam("address") String address,
                           @RequestParam("classId") int classId) {
 
-        Pupils pupils = pupilsService.getPupil(pupilId);
+        Pupil pupils = pupilsService.getPupil(pupilId);
         pupils.setId(pupilId);
         pupils.setFirstname(firstname);
         pupils.setLastname(lastname);

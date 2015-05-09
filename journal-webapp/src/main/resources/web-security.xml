@@ -23,7 +23,7 @@
         <!-- Login and logout -->
         <intercept-url pattern="/login" access="permitAll" />
         <intercept-url pattern="/logout" access="permitAll" />
-        <intercept-url pattern="/position" access="permitAll" />
+        <intercept-url pattern="/positions" access="permitAll" />
         <intercept-url pattern="/plans" access="permitAll" />
         <intercept-url pattern="/teachers" access="permitAll" />
 

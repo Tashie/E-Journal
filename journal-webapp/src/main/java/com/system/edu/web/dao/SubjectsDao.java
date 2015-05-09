@@ -1,6 +1,6 @@
 package com.system.edu.web.dao;
 
-import com.system.edu.models.dao.SubjectsEntity;
+import com.system.edu.models.dao.Subject;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +16,16 @@ public class SubjectsDao {
     SessionFactory sessionFactory;
 
     @Transactional
-    public List<SubjectsEntity> getAllSubjects() {
+    public List<Subject> getAllSubjects() {
         return sessionFactory.getCurrentSession()
-                .createCriteria(SubjectsEntity.class).list();
+                .createCriteria(Subject.class).list();
     }
 
     @Transactional
-    public boolean addSubject(SubjectsEntity subjectsEntity) {
+    public boolean addSubject(Subject subject) {
         try {
             sessionFactory.getCurrentSession()
-                    .save(subjectsEntity);
+                    .save(subject);
         } catch (Exception e) {
             return false;
         }
@@ -33,10 +33,10 @@ public class SubjectsDao {
     }
 
     @Transactional
-    public boolean editSubject(SubjectsEntity subjectsEntity) {
+    public boolean editSubject(Subject subject) {
         try {
             sessionFactory.getCurrentSession()
-                    .update(subjectsEntity);
+                    .update(subject);
         } catch (Exception e) {
             return false;
         }
@@ -45,16 +45,16 @@ public class SubjectsDao {
 
     @Transactional
     public boolean subjectExists(String name) {
-        SubjectsEntity subjectsEntity = (SubjectsEntity)sessionFactory.getCurrentSession()
-                .createCriteria(SubjectsEntity.class).add(Restrictions.eq("name", name))
+        Subject subject = (Subject)sessionFactory.getCurrentSession()
+                .createCriteria(Subject.class).add(Restrictions.eq("name", name))
                 .uniqueResult();
-        return subjectsEntity == null ? true : false;
+        return subject == null ? true : false;
     }
 
     @Transactional
     public String getSubjectName(int id) {
-        SubjectsEntity subjectsEntity = (SubjectsEntity) sessionFactory.getCurrentSession()
-                .get(SubjectsEntity.class, id);
-        return subjectsEntity.getName();
+        Subject subject = (Subject) sessionFactory.getCurrentSession()
+                .get(Subject.class, id);
+        return subject.getName();
     }
 }

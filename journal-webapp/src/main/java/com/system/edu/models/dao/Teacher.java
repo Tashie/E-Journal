@@ -3,24 +3,20 @@ package com.system.edu.models.dao;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nata
- * Date: 17.06.14
- * To change this template use File | Settings | File Templates.
- */
+
+
 @Table(name = "teachers", schema = "", catalog = "journal")
 @Entity
-public class TeachersEntity {
+public class Teacher {
     private int id;
     private String lastname;
     private String firstname;
     private String middlename;
     private Date birthdate;
     private String address;
-    private PositionsEntity positionsByPosition;
+    private Positions positionsByPositions;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
@@ -86,12 +82,12 @@ public class TeachersEntity {
 
     @ManyToOne
     @JoinColumn(name = "position", referencedColumnName = "id", nullable = false)
-    public PositionsEntity getPositionsByPosition() {
-        return positionsByPosition;
+    public Positions getPositionsByPositions() {
+        return positionsByPositions;
     }
 
-    public void setPositionsByPosition(PositionsEntity positionsByPosition) {
-        this.positionsByPosition = positionsByPosition;
+    public void setPositionsByPositions(Positions positionsByPositions) {
+        this.positionsByPositions = positionsByPositions;
     }
 
 
@@ -100,7 +96,7 @@ public class TeachersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TeachersEntity that = (TeachersEntity) o;
+        Teacher that = (Teacher) o;
 
         if (id != that.id) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;

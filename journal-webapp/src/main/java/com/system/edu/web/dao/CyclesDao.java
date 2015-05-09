@@ -1,8 +1,6 @@
 package com.system.edu.web.dao;
 
-import com.system.edu.models.dao.CyclesEntity;
-import com.system.edu.models.dao.PositionsEntity;
-import com.system.edu.models.ui.Cycles;
+import com.system.edu.models.dao.Cycle;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +16,13 @@ public class CyclesDao {
     SessionFactory sessionFactory;
 
     @Transactional
-    public List<CyclesEntity> getAllCycles() {
+    public List<Cycle> getAllCycles() {
         return sessionFactory.getCurrentSession()
-                .createCriteria(CyclesEntity.class).list();
+                .createCriteria(Cycle.class).list();
     }
 
     @Transactional
-    public boolean addCycle(CyclesEntity cycleEntity) {
+    public boolean addCycle(Cycle cycleEntity) {
         try {
             sessionFactory.getCurrentSession()
                     .merge(cycleEntity);
@@ -36,8 +34,8 @@ public class CyclesDao {
 
     @Transactional
     public boolean cycleExists(String name) {
-        CyclesEntity positionsEntity = (CyclesEntity) sessionFactory.getCurrentSession()
-                .createCriteria(CyclesEntity.class).add(Restrictions.eq("name", name))
+        Cycle positionsEntity = (Cycle) sessionFactory.getCurrentSession()
+                .createCriteria(Cycle.class).add(Restrictions.eq("name", name))
                 .uniqueResult();
         return positionsEntity == null ? false : true;
     }
@@ -45,7 +43,7 @@ public class CyclesDao {
     @Transactional
     public boolean deleteCycle(int id) {
         try {
-            CyclesEntity entityForDelete = (CyclesEntity) sessionFactory.getCurrentSession().createCriteria(CyclesEntity.class).add(Restrictions.eq("id", id)).uniqueResult();
+            Cycle entityForDelete = (Cycle) sessionFactory.getCurrentSession().createCriteria(Cycle.class).add(Restrictions.eq("id", id)).uniqueResult();
             sessionFactory.getCurrentSession().delete(entityForDelete);
         } catch (Exception e) {
             return false;

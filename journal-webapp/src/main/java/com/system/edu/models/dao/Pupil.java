@@ -1,19 +1,12 @@
 package com.system.edu.models.dao;
 
-import com.system.edu.models.ui.Classes;
-
 import javax.persistence.*;
 import java.sql.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nata
- * Date: 17.06.14
- * To change this template use File | Settings | File Templates.
- */
+
 @Table(name = "pupils", schema = "", catalog = "journal")
 @Entity
-public class PupilsEntity {
+public class Pupil {
     private int id;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -86,15 +79,15 @@ public class PupilsEntity {
         this.address = address;
     }
 
-    private ClassesEntity classesByClazz;
+    private Classes classesByClazz;
 
     @ManyToOne
     @JoinColumn(name = "class", referencedColumnName = "id", nullable = false)
-    public ClassesEntity getClassesByClazz() {
+    public Classes getClassesByClazz() {
         return classesByClazz;
     }
 
-    public void setClassesByClazz(ClassesEntity classesByClazz) {
+    public void setClassesByClazz(Classes classesByClazz) {
         this.classesByClazz = classesByClazz;
     }
 
@@ -103,7 +96,7 @@ public class PupilsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PupilsEntity that = (PupilsEntity) o;
+        Pupil that = (Pupil) o;
 
         if (id != that.id) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;

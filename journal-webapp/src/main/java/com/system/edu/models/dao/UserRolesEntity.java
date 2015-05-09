@@ -2,12 +2,7 @@ package com.system.edu.models.dao;
 
 import javax.persistence.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nata
- * Date: 17.06.14
- * To change this template use File | Settings | File Templates.
- */
+
 @Table(name = "user_roles", schema = "", catalog = "journal")
 @Entity
 public class UserRolesEntity {
@@ -23,13 +18,13 @@ public class UserRolesEntity {
         this.id = id;
     }
 
-    private RolesEntity rolesByRolecode;
+    private Role roleByRolecode;
     private UsersEntity user;
 
     @ManyToOne
     @JoinColumn(name = "rolecode", referencedColumnName = "id", nullable = false)
-    public RolesEntity getRolesByRolecode() {
-        return rolesByRolecode;
+    public Role getRoleByRolecode() {
+        return roleByRolecode;
     }
 
     @ManyToOne
@@ -38,8 +33,8 @@ public class UserRolesEntity {
         return user;
     }
 
-    public void setRolesByRolecode(RolesEntity rolesByRolecode) {
-        this.rolesByRolecode = rolesByRolecode;
+    public void setRoleByRolecode(Role roleByRolecode) {
+        this.roleByRolecode = roleByRolecode;
     }
 
     public void setUser(UsersEntity user) { this.user = user; }

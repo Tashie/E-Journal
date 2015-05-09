@@ -1,7 +1,6 @@
 package com.system.edu.web.dao;
 
-import com.system.edu.models.dao.TeachersEntity;
-import com.system.edu.models.ui.Teachers;
+import com.system.edu.models.dao.Teacher;
 import net.sf.brunneng.jom.IMergingContext;
 import net.sf.brunneng.jom.MergingContext;
 import org.hibernate.SessionFactory;
@@ -23,10 +22,9 @@ public class TeachersDao {
 
 
     @Transactional
-    public boolean addTeacher(Teachers teachers) {
+    public boolean addTeacher(Teacher teacher) {
         try {
-            TeachersEntity teachersEntity = context.map(teachers, TeachersEntity.class);
-            sessionFactory.getCurrentSession().merge(teachersEntity);
+            sessionFactory.getCurrentSession().merge(teacher);
         } catch (Exception e) {
             return false;
         }
@@ -36,28 +34,25 @@ public class TeachersDao {
     @Transactional
     public boolean checkTeachersFullName(String lastname, String firstname, String middlename) {
 
-        TeachersEntity teachersEntity = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("lastname", lastname)).add(Restrictions.eq("firstname", firstname)).add(Restrictions.eq("middlename", middlename)).uniqueResult();
+        Teacher teacher = (Teacher) sessionFactory.getCurrentSession().createCriteria(Teacher.class).add(Restrictions.eq("lastname", lastname)).add(Restrictions.eq("firstname", firstname)).add(Restrictions.eq("middlename", middlename)).uniqueResult();
 
-        return (teachersEntity == null ? true : false) ;
+        return (teacher == null ? true : false) ;
     }
 
     @Transactional
-    public void updateTeachers(Teachers teachers) {
-        TeachersEntity teachersEntity = context.map(teachers, TeachersEntity.class);
-        sessionFactory.getCurrentSession().merge(teachersEntity);
+    public void updateTeacher(Teacher teacher) {
+        sessionFactory.getCurrentSession().merge(teacher);
     }
 
     @Transactional
-    public Teachers getTeachers(int id) {
-        Object object = sessionFactory.getCurrentSession().get(TeachersEntity.class, id);
-        Teachers teachers = context.map(object, Teachers.class);
-        return teachers;
+    public Teacher getTeacher(int id) {
+        return (Teacher) sessionFactory.getCurrentSession().get(Teacher.class, id);
     }
 
     @Transactional
     public boolean deleteTeachers(int id) {
         try {
-            TeachersEntity entityForDelete = (TeachersEntity) sessionFactory.getCurrentSession().createCriteria(TeachersEntity.class).add(Restrictions.eq("id", id)).uniqueResult();
+            Teacher entityForDelete = (Teacher) sessionFactory.getCurrentSession().createCriteria(Teacher.class).add(Restrictions.eq("id", id)).uniqueResult();
             sessionFactory.getCurrentSession().delete(entityForDelete);
         } catch (Exception e) {
             return false;
@@ -66,18 +61,18 @@ public class TeachersDao {
     }
 
     @Transactional
-    public List<TeachersEntity> getAllTeachers() {
+    public List<Teacher> getAllTeachers() {
         return sessionFactory.getCurrentSession()
-                .createCriteria(TeachersEntity.class).list();
+                .createCriteria(Teacher.class).list();
     }
 
     @Transactional
     public String getTeacherName(int id) {
-        TeachersEntity teachersEntity = (TeachersEntity) sessionFactory.getCurrentSession()
-                .get(TeachersEntity.class, id);
-        return teachersEntity.getLastname() + " " +
-                teachersEntity.getFirstname() + " " +
-                teachersEntity.getMiddlename();
+        Teacher teacher = (Teacher) sessionFactory.getCurrentSession()
+                .get(Teacher.class, id);
+        return teacher.getLastname() + " " +
+                teacher.getFirstname() + " " +
+                teacher.getMiddlename();
     }
 
 }

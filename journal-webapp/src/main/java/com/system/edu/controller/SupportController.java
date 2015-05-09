@@ -1,7 +1,6 @@
 package com.system.edu.controller;
 
-import com.system.edu.models.ui.Support;
-import com.system.edu.models.ui.Users;
+import com.system.edu.models.dao.SupportEntity;
 import com.system.edu.web.service.SupportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,13 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
-/**
- * Created by sph on 27.06.2014.
- */
+
 
 @Controller
 public class SupportController {
@@ -27,12 +21,12 @@ public class SupportController {
     private SupportService supportService;
 
     @RequestMapping(value = {"/support"}, method = RequestMethod.GET)
-    public String supportForm(Support support) {
+    public String supportForm(SupportEntity support) {
         return "support";
     }
 
     @RequestMapping(value = {"/support"}, method = RequestMethod.POST)
-    public String support(@Valid Support support,
+    public String support(@Valid SupportEntity support,
                           BindingResult bindingResult, ModelMap map) {
         if (bindingResult.hasErrors()) {
             return "support";

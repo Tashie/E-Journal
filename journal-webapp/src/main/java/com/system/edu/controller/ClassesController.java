@@ -1,7 +1,7 @@
 package com.system.edu.controller;
 
-import com.system.edu.models.ui.Classes;
-import com.system.edu.models.ui.Teachers;
+import com.system.edu.models.dao.Classes;
+import com.system.edu.models.dao.Teacher;
 import com.system.edu.web.service.ClassesService;
 import com.system.edu.web.service.TeachersService;
 import org.slf4j.Logger;
@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sph on 24.06.2014.
- */
 
 @Controller
 public class ClassesController {
@@ -37,7 +35,8 @@ public class ClassesController {
     public String listOfClasses(Model model) {
         logger.info("IN: classes/list-GET");
 
-        List<Classes> classes = classesService.getClasses();
+        List<Classes> classes = new ArrayList();
+        classes.addAll(classesService.getClasses());
         model.addAttribute("classes", classes);
 
         return "directories/classes";
@@ -50,7 +49,7 @@ public class ClassesController {
         if (!model.containsAttribute("teachers")) {
             logger.info("Adding teachers object to model");
 
-            List<Teachers> teachers = teachersService.getTeachers();
+            List<Teacher> teachers = teachersService.getTeachers();
             model.addAttribute("teachers", teachers);
         }
 
@@ -66,7 +65,7 @@ public class ClassesController {
         if (result.hasErrors() || classesService.classExists(clazz.getName())) {
             logger.info("Class-add error: " + result.toString());
 
-            List<Teachers> teachers = teachersService.getTeachers();
+            List<Teacher> teachers = teachersService.getTeachers();
             model.addAttribute("teachers", teachers);
 
             return "directories/class";
