@@ -50,7 +50,7 @@ public class TeachersDao {
     }
 
     @Transactional
-    public boolean deleteTeachers(int id) {
+    public boolean deleteTeacher(int id) {
         try {
             Teacher entityForDelete = (Teacher) sessionFactory.getCurrentSession().createCriteria(Teacher.class).add(Restrictions.eq("id", id)).uniqueResult();
             sessionFactory.getCurrentSession().delete(entityForDelete);

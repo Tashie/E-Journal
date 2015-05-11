@@ -1,7 +1,7 @@
 package com.system.edu.web.dao;
 
 import com.system.edu.models.dao.Positions;
-import com.system.edu.models.dao.UsersEntity;
+import com.system.edu.models.dao.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class PositionsDao {
 
     @Transactional
     public Positions getPosition(int id) {
-        return (Positions) sessionFactory.getCurrentSession().get(UsersEntity.class, id);
+        return (Positions) sessionFactory.getCurrentSession().get(User.class, id);
     }
 
     @Transactional

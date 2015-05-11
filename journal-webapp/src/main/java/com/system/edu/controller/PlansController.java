@@ -1,13 +1,12 @@
 package com.system.edu.controller;
 
 import com.system.edu.models.dao.Plan;
-import com.system.edu.web.service.PlansService;
-import com.system.edu.web.service.SubjectsService;
-import com.system.edu.web.service.TeachersService;
+import com.system.edu.web.dao.PlansDao;
+import com.system.edu.web.dao.SubjectsDao;
+import com.system.edu.web.dao.TeachersDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -30,26 +29,24 @@ public class PlansController {
     static Logger logger = LoggerFactory.getLogger(PlansController.class);
 
     @Autowired
-    private PlansService plansService;
+    private PlansDao plansDao;
 
     @Autowired
-    private TeachersService teachersService;
+    private TeachersDao teachersDao;
 
 
     @Autowired
-    private SubjectsService subjectsService;
+    private SubjectsDao subjectsDao;
 
-    @Autowired
-    private MessageSource messageSource;
 
     @RequestMapping(value = {"/plans"}, method = RequestMethod.GET)
     public String listOfPlans(ModelMap model, @ModelAttribute Plan planModel) {
         logger.info("IN: plans/list-GET");
 
-        List<Plan> plansList = plansService.getPlans();
+        List<Plan> plansList = plansDao.getAllPlans();
         model.addAttribute("plansList", plansList);
-        model.addAttribute("teacherList", teachersService.getTeachers());
-        model.addAttribute("subjectsList", subjectsService.getSubjects());
+        model.addAttribute("teacherList", teachersDao.getAllTeachers());
+        model.addAttribute("subjectsList", subjectsDao.getAllSubjects());
         return "curriculum/plans";
     }
 
@@ -60,10 +57,10 @@ public class PlansController {
 
         logger.info("IN: Plans/add-POST");
 
-        if (bindingResult.hasErrors() || plansService.isPlanExists(plansModel)) {
+        if (bindingResult.hasErrors() || plansDao.isPlanExists(plansModel)) {
             return listOfPlans(model, plansModel);
         } else {
-            plansService.addPlan(plansModel);
+            plansDao.addPlan(plansModel);
             return "redirect:/plans";
         }
     }
@@ -74,7 +71,7 @@ public class PlansController {
 
         if (!model.containsAttribute("plans")) {
             logger.info("Delete Plan object to model");
-            plansService.delete(id);
+            plansDao.deletePlan(id);
         }
 
         return "redirect:/plans";

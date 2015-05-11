@@ -2,7 +2,7 @@ package com.system.edu.controller;
 
 
 import com.system.edu.models.dao.Positions;
-import com.system.edu.web.service.PositionsService;
+import com.system.edu.web.dao.PositionsDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,13 @@ public class PositionsController {
     static Logger logger = LoggerFactory.getLogger(PositionsController.class);
 
     @Autowired
-    private PositionsService positionsService;
+    private PositionsDao positionsDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public String listOfPositions(Model model, @ModelAttribute Positions positionsModel) {
         logger.info("IN: position/list-GET");
 
-        List<Positions> positionsList = positionsService.getPositions();
+        List<Positions> positionsList = positionsDao.getAllPositions();
         model.addAttribute("positionsList", positionsList);
         return "directories/position";
     }
@@ -43,13 +43,13 @@ public class PositionsController {
 
         logger.info("IN: Positions/add-POST");
 
-        if (bindingResult.hasErrors() || !positionsService.checkIsUniquePositionName(positionsModel.getName())) {
+        if (bindingResult.hasErrors() || !positionsDao.checkPositionName(positionsModel.getName())) {
             logger.info("Positions-add error: " + bindingResult.toString());
             bindingResult.rejectValue("name", "123", "Name is incorrect. Try again");
 
             return listOfPositions(model, positionsModel);
         } else {
-            positionsService.addPosition(positionsModel);
+            positionsDao.addPosition(positionsModel);
             return "redirect:/positions";
         }
     }
@@ -60,7 +60,7 @@ public class PositionsController {
 
         if (!model.containsAttribute("position")) {
             logger.info("Delete Positions object to model");
-            positionsService.deletePosition(id);
+            positionsDao.deletePosition(id);
         }
 
         return "redirect:/positions";

@@ -2,8 +2,8 @@ package com.system.edu.controller;
 
 import com.system.edu.models.dao.Cycle;
 import com.system.edu.models.dao.Subject;
-import com.system.edu.web.service.CyclesService;
-import com.system.edu.web.service.SubjectsService;
+import com.system.edu.web.dao.CyclesDao;
+import com.system.edu.web.dao.SubjectsDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +23,19 @@ public class SubjectsController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private SubjectsService subjectsService;
+    private SubjectsDao subjectsDao;
 
     @Autowired
-    private CyclesService cyclesService;
+    private CyclesDao cyclesDao;
 
     @RequestMapping(value = {"/subjects"}, method = RequestMethod.GET)
     public String listOfSubjects(Model model) {
         logger.info("IN: cycles/list-GET");
 
-        List<Subject> subjects = subjectsService.getSubjects();
+        List<Subject> subjects = subjectsDao.getAllSubjects();
         model.addAttribute("subjects", subjects);
 
-        List<Cycle> cycles = cyclesService.getCycles();
+        List<Cycle> cycles = cyclesDao.getAllCycles();
         model.addAttribute("cycles", cycles);
 
         return "directories/subjects";
@@ -48,7 +48,7 @@ public class SubjectsController {
         if (!model.containsAttribute("cycles")) {
             logger.info("Adding subject object to model");
 
-            List<Cycle> cycles = cyclesService.getCycles();
+            List<Cycle> cycles = cyclesDao.getAllCycles();
             model.addAttribute("cycles", cycles);
         }
 
@@ -61,15 +61,15 @@ public class SubjectsController {
 
         logger.info("IN: subjects/add-POST");
 
-        if (result.hasErrors() || !subjectsService.subjectExists(subject.getName())) {
+        if (result.hasErrors() || !subjectsDao.subjectExists(subject.getName())) {
             logger.info("Subject-add error: " + result.toString());
 
-            List<Cycle> cycles = cyclesService.getCycles();
+            List<Cycle> cycles = cyclesDao.getAllCycles();
             model.addAttribute("cycles", cycles);
 
             return "directories/subject";
         } else {
-            subjectsService.addSubject(subject);
+            subjectsDao.addSubject(subject);
             return "redirect:/subjects";
         }
     }
@@ -90,7 +90,7 @@ public class SubjectsController {
         cycle.setId(cycleId);
         subject.setCycleByCycle(cycle);
 
-        subjectsService.editSubject(subject);
+        subjectsDao.editSubject(subject);
     }
 
 

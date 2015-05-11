@@ -54,7 +54,7 @@ public class PlansDao {
     }
 
     @Transactional
-    public boolean deletePlans(int id) {
+    public boolean deletePlan(int id) {
         try {
             Plan entityForDelete = (Plan) sessionFactory.getCurrentSession()
                     .createCriteria(Plan.class)

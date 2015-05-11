@@ -1,7 +1,7 @@
 package com.system.edu.models.dao;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Table(name = "pupils", schema = "", catalog = "journal")

@@ -1,7 +1,7 @@
 package com.system.edu.controller;
 
 import com.system.edu.models.dao.*;
-import com.system.edu.web.service.*;
+import com.system.edu.web.dao.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,27 +19,27 @@ public class PlanClassesController {
     static Logger logger = LoggerFactory.getLogger(PlansController.class);
 
     @Autowired
-    private PlansService plansService;
+    private PlansDao plansDao;
 
     @Autowired
-    private PlanClassesService planClassesService;
+    private PlanClassesDao planClassesDao;
 
     @Autowired
-    private ClassesService classesService;
+    private ClassesDao classesDao;
 
     @Autowired
-    private TeachersService teachersService;
+    private TeachersDao teachersDao;
 
     @Autowired
-    private SubjectsService subjectsService;
+    private SubjectsDao subjectsDao;
 
     @RequestMapping(value = {"/planclasses"}, method = RequestMethod.GET)
     public String listOfPlanClasses(ModelMap model, @ModelAttribute PlanClass classesModel) {
-        List<Subject> subjects = plansService.getSubjects();
-        List<String> years = plansService.getYears();
-        List<Teacher> teachers = plansService.getTeachers();
+        List<Subject> subjects = plansDao.getSubjects();
+        List<String> years = plansDao.getYears();
+        List<Teacher> teachers = plansDao.getTeachers();
 
-        List<PlanClass> classes = planClassesService.getClasses(String.valueOf(teachers.get(0).getId()), String.valueOf(subjects.get(0).getId()), String.valueOf(years.get(0)));
+        List<PlanClass> classes = planClassesDao.getClasses(String.valueOf(teachers.get(0).getId()), String.valueOf(subjects.get(0).getId()), String.valueOf(years.get(0)));
 
         model.addAttribute("subjectsList", subjects);
         model.addAttribute("yearsList", years);
@@ -58,11 +58,11 @@ public class PlanClassesController {
                                     @RequestParam("years") String year,
                                     ModelMap model) {
 
-        List<Subject> subjects = plansService.getSubjects();
-        List<String> years = plansService.getYears();
-        List<Teacher> teachers = plansService.getTeachers();
+        List<Subject> subjects = plansDao.getSubjects();
+        List<String> years = plansDao.getYears();
+        List<Teacher> teachers = plansDao.getTeachers();
 
-        List<PlanClass> classes = planClassesService.getClasses(teacherId, subjectId, year);
+        List<PlanClass> classes = planClassesDao.getClasses(teacherId, subjectId, year);
 
         model.addAttribute("subjectsList", subjects);
         model.addAttribute("yearsList", years);
@@ -81,13 +81,13 @@ public class PlanClassesController {
                                      @PathVariable String year,
                                      PlanClass planClasses,
                                      ModelMap model) {
-        List<Classes> classes = classesService.getClasses();
+        List<Classes> classes = classesDao.getAllClasses();
         model.addAttribute("classes", classes);
         model.addAttribute("teacherId", teacherId);
         model.addAttribute("subjectId", subjectId);
         model.addAttribute("year", year);
-        model.addAttribute("teacherName", teachersService.getTeacherName(teacherId));
-        model.addAttribute("subjectName", subjectsService.getSubjectName(subjectId));
+        model.addAttribute("teacherName", teachersDao.getTeacherName(teacherId));
+        model.addAttribute("subjectName", subjectsDao.getSubjectName(subjectId));
 
         return "curriculum/class_form";
     }
@@ -104,23 +104,23 @@ public class PlanClassesController {
         model.addAttribute("teacherId", teacherId);
         model.addAttribute("subjectId", subjectId);
         model.addAttribute("year", year);
-        model.addAttribute("teacherName", teachersService.getTeacherName(teacherId));
-        model.addAttribute("subjectName", subjectsService.getSubjectName(subjectId));
+        model.addAttribute("teacherName", teachersDao.getTeacherName(teacherId));
+        model.addAttribute("subjectName", subjectsDao.getSubjectName(subjectId));
 
-        Plan plans = plansService.getPlans(teacherId, subjectId, year);
+        Plan plans = plansDao.getPlans(teacherId, subjectId, year);
 
         if (plans != null) {
-            if (result.hasErrors() || plansService.isPlanExists(plans)) {
+            if (result.hasErrors() || plansDao.isPlanExists(plans)) {
                 logger.info("Subject-add error: " + result.toString());
 
-                List<Classes> classes = classesService.getClasses();
+                List<Classes> classes = classesDao.getAllClasses();
                 model.addAttribute("classes", classes);
                 model.addAttribute("error", "Plan already exists");
 
                 return "curriculum/class_form";
             } else {
                 planClass.setPlansByPlan(plans);
-                if (planClassesService.addPlanClass(planClass)) {
+                if (planClassesDao.addPlanClass(planClass)) {
                     return "redirect:/planclasses";
                 } else {
                     model.addAttribute("error", "Plan addition error");

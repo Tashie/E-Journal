@@ -2,7 +2,7 @@ package com.system.edu.web.dao;
 
 import com.system.edu.models.dao.Role;
 import com.system.edu.models.dao.UserRolesEntity;
-import com.system.edu.models.dao.UsersEntity;
+import com.system.edu.models.dao.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ public class RegisterDao {
     SessionFactory sessionFactory;
 
     @Transactional
-    public boolean registerUser(UsersEntity usersEntity) {
+    public boolean registerUser(User user) {
         try {
             Role role = new Role();
             role.setId(1);
             UserRolesEntity userRolesEntity = new UserRolesEntity();
             userRolesEntity.setRoleByRolecode(role);
-            userRolesEntity.setUser(usersEntity);
-            sessionFactory.getCurrentSession().save(usersEntity);
+            userRolesEntity.setUser(user);
+            sessionFactory.getCurrentSession().save(user);
             sessionFactory.getCurrentSession().save(userRolesEntity);
         } catch (Exception e) {
             return false;
@@ -37,8 +37,8 @@ public class RegisterDao {
 
     @Transactional
     public boolean checkUserName(String login) {
-        UsersEntity user = (UsersEntity)sessionFactory.getCurrentSession()
-                .createCriteria(UsersEntity.class)
+        User user = (User)sessionFactory.getCurrentSession()
+                .createCriteria(User.class)
                 .add(Restrictions.eq("username", login))
                 .uniqueResult();
         return user == null ? false : true;
@@ -47,8 +47,8 @@ public class RegisterDao {
     @Transactional
     public boolean validateUser(String username, String uuid) {
         try {
-            UsersEntity user = (UsersEntity) sessionFactory.getCurrentSession()
-                    .createCriteria(UsersEntity.class)
+            User user = (User) sessionFactory.getCurrentSession()
+                    .createCriteria(User.class)
                     .add(Restrictions.eq("username", username))
                     .add(Restrictions.eq("uuid", uuid))
                     .uniqueResult();

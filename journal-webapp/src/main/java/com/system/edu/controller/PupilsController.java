@@ -2,8 +2,8 @@ package com.system.edu.controller;
 
 import com.system.edu.models.dao.Classes;
 import com.system.edu.models.dao.Pupil;
-import com.system.edu.web.service.ClassesService;
-import com.system.edu.web.service.PupilsService;
+import com.system.edu.web.dao.ClassesDao;
+import com.system.edu.web.dao.PupilsDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,20 +24,20 @@ public class PupilsController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private ClassesService classesService;
+    private ClassesDao classesDao;
 
     @Autowired
-    private PupilsService pupilsService;
+    private PupilsDao pupilsDao;
 
 
     @RequestMapping(method = RequestMethod.GET)
     public String listOfPupils(Model model) {
         logger.info("IN: pupils/list-GET");
 
-        List<Classes> classesList = classesService.getClasses();
+        List<Classes> classesList = classesDao.getAllClasses();
         model.addAttribute("classes", classesList);
 
-        List<Pupil> pupilsList = pupilsService.getPupils();
+        List<Pupil> pupilsList = pupilsDao.getAllPupils();
         model.addAttribute("pupils", pupilsList);
 
         return "directories/pupils";
@@ -50,7 +50,7 @@ public class PupilsController {
         if (!model.containsAttribute("classes")) {
             logger.info("Adding pupil object to model");
 
-            List<Classes> classesList = classesService.getClasses();
+            List<Classes> classesList = classesDao.getAllClasses();
             model.addAttribute("classes", classesList);
         }
 
@@ -62,7 +62,7 @@ public class PupilsController {
                            BindingResult result, ModelMap model) {
 
         logger.info("IN: pupils/add-POST");
-        pupilsService.addPupil(pupil);
+        pupilsDao.addPupil(pupil);
         return "redirect:/pupils";
     }
 
@@ -75,21 +75,21 @@ public class PupilsController {
                           @RequestParam("address") String address,
                           @RequestParam("classId") int classId) {
 
-        Pupil pupils = pupilsService.getPupil(pupilId);
-        pupils.setId(pupilId);
-        pupils.setFirstname(firstname);
-        pupils.setLastname(lastname);
-        pupils.setMiddlename(middlename);
-        pupils.setClassesByClazz(classesService.getClass(classId));
+        Pupil pupil = pupilsDao.getPupil(pupilId);
+        pupil.setId(pupilId);
+        pupil.setFirstname(firstname);
+        pupil.setLastname(lastname);
+        pupil.setMiddlename(middlename);
+        pupil.setClassesByClazz(classesDao.getClass(classId));
 
-        pupilsService.updatePupils(pupils);
+        pupilsDao.updatePupil(pupil);
     }
 
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String editStrategyPage(@RequestParam(value = "id", required = true) Integer id, Model model) {
         logger.info("IN: Pupils/delete-GET:  ID to query = " + id);
-        pupilsService.deletePupil(id);
+        pupilsDao.deletePupil(id);
         return "redirect:/pupils";
     }
 }

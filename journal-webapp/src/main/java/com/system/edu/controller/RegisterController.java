@@ -1,6 +1,6 @@
 package com.system.edu.controller;
 
-import com.system.edu.models.dao.UsersEntity;
+import com.system.edu.models.dao.User;
 import com.system.edu.web.dao.RegisterDao;
 import com.system.edu.web.service.HashService;
 import com.system.edu.web.service.MailService;
@@ -38,7 +38,7 @@ public class RegisterController {
     private MailService mailService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@Valid UsersEntity user, BindingResult bindingResult, ModelMap model,
+    public String registration(@Valid User user, BindingResult bindingResult, ModelMap model,
                                @RequestParam("check_password") String confirm,
                                @RequestParam("recaptcha_challenge_field") String user_captcha,
                                @RequestParam("recaptcha_response_field") String original_captcha,
@@ -114,7 +114,7 @@ public class RegisterController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(UsersEntity users) {
+    public String register(User users) {
         return "auth/register";
     }
 

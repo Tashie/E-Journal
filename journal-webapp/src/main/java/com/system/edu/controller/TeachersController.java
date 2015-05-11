@@ -2,8 +2,8 @@ package com.system.edu.controller;
 
 import com.system.edu.models.dao.Positions;
 import com.system.edu.models.dao.Teacher;
-import com.system.edu.web.service.PositionsService;
-import com.system.edu.web.service.TeachersService;
+import com.system.edu.web.dao.PositionsDao;
+import com.system.edu.web.dao.TeachersDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +27,18 @@ public class TeachersController {
 
 
     @Autowired
-    private TeachersService teachersService;
+    private TeachersDao teachersDao;
 
     @Autowired
-    private PositionsService positionsService;
+    private PositionsDao positionsDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public String listOfTeachers(Model model, @ModelAttribute Teacher teachersModel) {
         logger.info("IN: teachers/list-GET");
-        List<Positions> positions = positionsService.getPositions();
+        List<Positions> positions = positionsDao.getAllPositions();
         model.addAttribute("positions", positions);
 
-        List<Teacher> teachersList = teachersService.getTeachers();
+        List<Teacher> teachersList = teachersDao.getAllTeachers();
         model.addAttribute("teachersList", teachersList);
         return "directories/teachers";
     }
@@ -49,13 +49,13 @@ public class TeachersController {
 
         logger.info("IN: Teachers/add-POST");
 
-        if (!teachersService.checkIsUniqueTeacherFullName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename())) {
+        if (!teachersDao.checkTeachersFullName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename())) {
             bindingResult.rejectValue("lastname", "123", "Teacher with the same name already exists. Check your data again");
         }
 
         if(bindingResult.hasErrors()) return  listOfTeachers(model, teachersModel);
 
-        teachersService.addTeacher(teachersModel);
+        teachersDao.addTeacher(teachersModel);
         return "redirect:/teachers";
     }
 
@@ -65,7 +65,7 @@ public class TeachersController {
 
         if (!model.containsAttribute("teachers")) {
             logger.info("Delete Teachers object to model");
-            teachersService.deleteTeacher(id);
+            teachersDao.deleteTeacher(id);
         }
 
         return "redirect:/teachers";

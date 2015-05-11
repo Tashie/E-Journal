@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Table(name = "users", schema = "", catalog = "journal")
 @Entity
-public class UsersEntity {
+public class User {
     private int id;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -120,7 +120,7 @@ public class UsersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UsersEntity that = (UsersEntity) o;
+        User that = (User) o;
 
         if (id != that.id) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
