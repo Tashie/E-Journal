@@ -7,14 +7,12 @@ import com.system.edu.web.dao.TeachersDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -49,7 +47,7 @@ public class ClassesController {
         logger.info("IN: classes/add-GET");
 
         if (!model.containsAttribute("teachers")) {
-            logger.info("Adding teachers object to model");
+            logger.info("Adding class object to model");
 
             List<Teacher> teachers = teachersDao.getAllTeachers();
             model.addAttribute("teachers", teachers);
@@ -58,13 +56,30 @@ public class ClassesController {
         return "directories/class";
     }
 
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String editClass(@RequestParam(value = "id", required = true) Integer id, Model model) {
+        logger.info("IN: classes/edit-GET");
+
+        if (!model.containsAttribute("teachers")) {
+            logger.info("Adding class object to model");
+
+            List<Teacher> teachers = teachersDao.getAllTeachers();
+            model.addAttribute("teachers", teachers);
+
+            model.addAttribute("classes", classesDao.getClass(id));
+        }
+
+        return "directories/class";
+
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addCycle(@Valid @ModelAttribute Classes clazz,
                            BindingResult result, ModelMap model) {
 
         logger.info("IN: classes/add-POST");
 
-        if (result.hasErrors() || classesDao.classExists(clazz.getName())) {
+        if (result.hasErrors() || (clazz.getId() == 0 && classesDao.classExists(clazz.getName()))) {
             logger.info("Class-add error: " + result.toString());
 
             List<Teacher> teachers = teachersDao.getAllTeachers();

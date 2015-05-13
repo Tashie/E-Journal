@@ -32,7 +32,7 @@ public class ClassesDao {
     public boolean addClass(Classes classesEntity) {
         try {
             sessionFactory.getCurrentSession()
-                    .save(classesEntity);
+                    .merge(classesEntity);
         } catch (Exception e) {
             return false;
         }
