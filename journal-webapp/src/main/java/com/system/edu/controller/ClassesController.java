@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
 
 
 @Controller
+@RequestMapping(value = "/classes")
 public class ClassesController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -31,7 +33,7 @@ public class ClassesController {
     @Autowired
     TeachersDao teachersDao;
 
-    @RequestMapping(value = {"/classes"}, method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String listOfClasses(Model model) {
         logger.info("IN: classes/list-GET");
 
@@ -42,8 +44,8 @@ public class ClassesController {
         return "directories/classes";
     }
 
-    @RequestMapping(value = {"/classes/add"}, method = RequestMethod.GET)
-    public String addSubjectForm(Classes classes, ModelMap model) {
+    @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
+    public String addClassesForm(Classes classes, ModelMap model) {
         logger.info("IN: classes/add-GET");
 
         if (!model.containsAttribute("teachers")) {
@@ -56,7 +58,7 @@ public class ClassesController {
         return "directories/class";
     }
 
-    @RequestMapping(value = "/classes/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addCycle(@Valid @ModelAttribute Classes clazz,
                            BindingResult result, ModelMap model) {
 
@@ -73,5 +75,13 @@ public class ClassesController {
             classesDao.addClass(clazz);
             return "redirect:/classes";
         }
+    }
+
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deleteClass(@RequestParam(value = "id", required = true) Integer id, Model model) {
+        logger.info("IN: Pupils/delete-GET:  ID to query = " + id);
+        classesDao.deleteClass(id);
+        return "redirect:/classes";
     }
 }

@@ -58,7 +58,7 @@ public class PupilsController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addCycle(@Valid @ModelAttribute Pupil pupil,
+    public String addPupil(@Valid @ModelAttribute Pupil pupil,
                            BindingResult result, ModelMap model) {
 
         logger.info("IN: pupils/add-POST");
@@ -68,7 +68,7 @@ public class PupilsController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void editCycle(@RequestParam("pupilId") int pupilId,
+    public void editPupil(@RequestParam("pupilId") int pupilId,
                           @RequestParam("firstname") String firstname,
                           @RequestParam("lastname") String lastname,
                           @RequestParam("middlename") String middlename,
@@ -87,7 +87,7 @@ public class PupilsController {
 
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String editStrategyPage(@RequestParam(value = "id", required = true) Integer id, Model model) {
+    public String deletePupil(@RequestParam(value = "id", required = true) Integer id, Model model) {
         logger.info("IN: Pupils/delete-GET:  ID to query = " + id);
         pupilsDao.deletePupil(id);
         return "redirect:/pupils";

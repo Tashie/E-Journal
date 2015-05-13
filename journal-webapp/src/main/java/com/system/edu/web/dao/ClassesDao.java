@@ -46,4 +46,16 @@ public class ClassesDao {
                 .uniqueResult();
         return classesEntity == null ? false : true;
     }
+
+
+    @Transactional
+    public boolean deleteClass(int id) {
+        try {
+            Classes entityForDelete = (Classes) sessionFactory.getCurrentSession().createCriteria(Classes.class).add(Restrictions.eq("id", id)).uniqueResult();
+            sessionFactory.getCurrentSession().delete(entityForDelete);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }
