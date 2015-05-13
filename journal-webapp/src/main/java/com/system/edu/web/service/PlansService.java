@@ -51,4 +51,8 @@ public class PlansService {
     public Plans getPlans(int teacherId, int subjectId, int year) {
         return plansDao.getPlans(teacherId, subjectId, year);
     }
+
+    public Plans getPlan(int planId) {
+        return plansDao.getPlans(planId);
+    }
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title data-th-text="#{lessons.list.page.title}">Title</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:include="header :: top(login_include=true)"></div>
+
+    <div th:include="menu :: bar"></div>
+
+    <ul class="breadcrumb" style="margin-bottom: 15px;">
+        <li><a th:href="@{/index}">Home</a></li>
+        <li class="active">Classes</li>
+    </ul>
+
+    <h4 class="page-header" data-th-text="#{lessons.list.table.title}">List of lessons for the current plan</h4>
+    <div class="table responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="col-sm-2" data-th-text="#{plans.list.id.label}">Id</th>
+                <th class="col-sm-4" data-th-text="#{lessons.list.name.label}">Lesson</th>
+                <th class="col-sm-4" data-th-text="#{lessons.list.topic.label}">Topic</th>
+                <th class="col-sm-2" data-th-text="#{class.list.actions.label}" style="text-align: center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-th-each="lesson : ${lessons}">
+                <td data-th-text="${lesson.id}">-</td>
+                <td data-th-text="${lesson.lesson}">-</td>
+                <td data-th-text="${lesson.topic}">-</td>
+                <td style="text-align: center;">
+                    <a href="#" data-th-href="@{/classes/edit(id=${lesson.id})}">
+                        <button type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
+                        </button></a> &nbsp;
+                    <a href="#" data-th-href="@{/classes/delete(id=${lesson.id})}">
+                        <button type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+                        </button></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form class="form" id="plans-details-block" action="#" data-th-action="@{/planlessons/add(planId=${planId})}" data-th-object="${planLessons}"
+          method="post">
+        <div class="table responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="col-sm-4" data-th-text="#{lessons.list.name.label}">Lesson</th>
+                    <th class="col-sm-4" data-th-text="#{lessons.list.topic.label}">Topic</th>
+                    <th class="col-sm-2"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="border: 0">
+                        <input class="form-control" type="text" placeholder="Lesson" data-th-field="*{lesson}" id="lesson"/>
+                    </td>
+                    <td style="border: 0">
+                        <input class="form-control" type="text" placeholder="Topic" data-th-field="*{topic}" id="topic"/>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.lesson}">
+                            Add a new lesson
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script th:src="@{/js/lib/development/bootstrap.js}"></script>
+</body>
+</html>
