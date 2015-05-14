@@ -7,7 +7,6 @@ import com.system.edu.web.dao.TeachersDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -84,7 +83,7 @@ public class ClassesController {
 
             List<Teacher> teachers = teachersDao.getAllTeachers();
             model.addAttribute("teachers", teachers);
-
+            result.rejectValue("name", "123", "Teacher with the same name already exists. Check your data again");
             return "directories/class";
         } else {
             classesDao.addClass(clazz);
@@ -95,7 +94,7 @@ public class ClassesController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteClass(@RequestParam(value = "id", required = true) Integer id, Model model) {
-        logger.info("IN: Pupils/delete-GET:  ID to query = " + id);
+        logger.info("IN: Classes/delete-GET:  ID to query = " + id);
         classesDao.deleteClass(id);
         return "redirect:/classes";
     }

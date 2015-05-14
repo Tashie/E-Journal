@@ -50,4 +50,12 @@ public class CyclesDao {
         }
         return true;
     }
+
+    @Transactional
+    public Cycle getCycleById(int id) {
+        return (Cycle) sessionFactory.getCurrentSession().createCriteria(Cycle.class).add(Restrictions.eq("id", id)).uniqueResult();
+    }
+
+
+
 }

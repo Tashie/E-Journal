@@ -3,12 +3,17 @@ package com.system.edu.models.dao;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Table(name = "classes", schema = "", catalog = "journal")
 @Entity
 public class Classes {
     private int id;
+    @NotNull
+    @Size(min = 4, max = 150)
     private String name;
     private Teacher teachersByHeadTeacher;
 
@@ -34,6 +39,17 @@ public class Classes {
         this.name = name;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "head_teacher", referencedColumnName = "id", nullable = false)
+    public Teacher getTeachersByHeadTeacher() {
+        return teachersByHeadTeacher;
+    }
+
+
+    public void setTeachersByHeadTeacher(Teacher teachersByHeadTeacher) {
+        this.teachersByHeadTeacher = teachersByHeadTeacher;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,15 +68,5 @@ public class Classes {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "head_teacher", referencedColumnName = "id", nullable = false)
-    public Teacher getTeachersByHeadTeacher() {
-        return teachersByHeadTeacher;
-    }
-
-    public void setTeachersByHeadTeacher(Teacher teachersByHeadTeacher) {
-        this.teachersByHeadTeacher = teachersByHeadTeacher;
     }
 }
