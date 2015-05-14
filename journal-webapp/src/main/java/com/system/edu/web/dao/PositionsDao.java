@@ -41,7 +41,7 @@ public class PositionsDao {
 
     @Transactional
     public Positions getPosition(int id) {
-        return (Positions) sessionFactory.getCurrentSession().get(User.class, id);
+        return (Positions) sessionFactory.getCurrentSession().get(Positions.class, id);
     }
 
     @Transactional

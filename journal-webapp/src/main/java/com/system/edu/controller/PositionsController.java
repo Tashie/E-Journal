@@ -1,13 +1,16 @@
 package com.system.edu.controller;
 
 
+import com.system.edu.models.dao.Classes;
 import com.system.edu.models.dao.Positions;
+import com.system.edu.models.dao.Teacher;
 import com.system.edu.web.dao.PositionsDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +36,26 @@ public class PositionsController {
 
         List<Positions> positionsList = positionsDao.getAllPositions();
         model.addAttribute("positionsList", positionsList);
+        return "directories/positions";
+    }
+
+    @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
+    public String addPositionForm(Positions positions, ModelMap model) {
+        logger.info("IN: positions/add-GET");
+
         return "directories/position";
     }
 
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String editPosition(@RequestParam(value = "id", required = true) Integer id, Model model) {
+        logger.info("IN: positions/edit-GET");
+
+        Positions positions = positionsDao.getPosition(id);
+        model.addAttribute("positions", positions);
+
+        return "directories/position";
+
+    }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addingPositions(Model model, @Valid @ModelAttribute Positions positionsModel,
@@ -43,11 +63,11 @@ public class PositionsController {
 
         logger.info("IN: Positions/add-POST");
 
-        if (bindingResult.hasErrors() || !positionsDao.checkPositionName(positionsModel.getName())) {
+        if (bindingResult.hasErrors() || (positionsModel.getId() == 0 && !positionsDao.checkPositionName(positionsModel.getName()))) {
             logger.info("Positions-add error: " + bindingResult.toString());
             bindingResult.rejectValue("name", "123", "Name is incorrect. Try again");
 
-            return listOfPositions(model, positionsModel);
+            return "directories/position";
         } else {
             positionsDao.addPosition(positionsModel);
             return "redirect:/positions";
@@ -55,7 +75,7 @@ public class PositionsController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String editStrategyPage(@RequestParam(value = "id", required = true) Integer id, Model model) {
+    public String deletePosition(@RequestParam(value = "id", required = true) Integer id, Model model) {
         logger.info("IN: Positions/delete-GET:  ID to query = " + id);
 
         if (!model.containsAttribute("position")) {

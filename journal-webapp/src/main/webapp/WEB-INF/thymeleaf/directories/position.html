@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title data-th-text="#{position.list.page.title}">Title</title>
+    <title data-th-text="#{position.add.page.title}">Title</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
-    <link rel="stylesheet" type="text/css" href="../css/pagination.css" th:href="@{/css/pagination.css}"/>
-    <link rel="script" type="javascript" href="../js/lib/development/jquery-2.1.1.js"
-          th:href="@{/js/lib/development/jquery-2.1.1.js}"/>
 </head>
-
 <body>
-
 <div class="container">
     <div th:include="header :: top(login_include=true)"></div>
 
@@ -18,80 +13,43 @@
 
     <ul class="breadcrumb" style="margin-bottom: 15px;">
         <li><a th:href="@{/index}">Home</a></li>
-        <li class="active">Positions</li>
+        <li><a th:href="@{/positions}">Cycles</a></li>
+        <li class="active">Add Cycle</li>
     </ul>
 
-    <h4 class="page-header" data-th-text="#{position.list.table.title}">Configured Positions</h4>
 
-    <div class="table responsive">
-        <table id = "positionsTable" class="table table-striped table-bordered table-hover">
-            <thead>
-            <tr>
-                <th class="col-sm-1" data-th-text="#{position.list.id.label}">Id</th>
-                <th class="col-sm-4" data-th-text="#{position.list.name.label}">Position Name</th>
-                <th class="col-sm-2" data-th-text="#{position.list.actions.label}" style="text-align: center">Action
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr data-th-each="position : ${positionsList}">
-                <td data-th-text="${position.id}"></td>
-                <td data-th-text="${position.name}"></td>
-                <td style="text-align: center;">
-                    <button type="button"
-                            th:onclick="'javascript:editPosition(\'' + ${position.id} + '\' , \'' + ${position.name}+ '\');'"
-                            class="btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
-                    </button>
-                    &nbsp;
-                    <a href="#" data-th-href="@{/positions/delete(id=${position.id})}">
-                        <button type="button" class="btn btn-default btn-xs">
-                            <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
-                        </button>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+
+    <div class="bs-docs-section">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="well bs-component">
+                    <form class="form-horizontal" action="#" data-th-action="@{/positions/add}" data-th-object="${positions}"  method="post">
+                        <fieldset>
+                            <legend>Fill up the gaps for the new position:</legend>
+                            <input type="text" id="posId" hidden="hidden" data-th-field="*{id}"/>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Name</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" id="posNameId"  type="text" data-th-field="*{name}" placeholder="Name"/>
+                                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-warning">Name</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <button type="button" class="btn btn-default" th:onclick="'location.href=\'' + @{/positions} + '\''">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <form class="form" id="position-details-block" action="#" data-th-action="@{/positions/add}" data-th-object="${positions}" method="post">
-        <div class="table responsive">
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th class="col-sm-1"></th>
-                    <th class="col-sm-4"></th>
-                    <th class="col-sm-2"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td style="border: 0"><input type="text" id="posId" hidden="hidden" data-th-field="*{id}"/></td>
-                    <td><input class="form-control" id="posNameId" type="text" data-th-field="*{name}"
-                               placeholder="Name"/></td>
-                    <td>
-                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.position}">Update position
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-sm-1"></td>
-                    <td class="col-sm-4 text-danger" data-th-if="${#fields.hasErrors('name')}" data-th-errors="*{name}">
-                        name error
-                    </td>
-                    <td class="col-sm-2"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </form>
 </div>
-
+</body>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script th:src="@{/js/lib/development/bootstrap.js}"></script>
-<script th:src="@{/js/lib/development/table.pagination.js}"></script>
-<script th:src="@{/js/lib/models/position.js}"></script>
-
-</body>
 </html>
