@@ -38,20 +38,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-th-each="teachers : ${teachersList}">
-                <td data-th-text="${teachers.lastname}">s</td>
-                <td data-th-text="${teachers.firstname}">s</td>
-                <td data-th-text="${teachers.middlename}">s</td>
-                <td data-th-text="${#dates.format(teachers.birthdate, 'dd-MM-yyyy')}">22-12-2012</td>
-                <td data-th-text="${teachers.address}">dss</td>
+            <tr data-th-each="teacher : ${teachersList}" th:id="srow + ${teacher.id}">
+                <td data-th-text="${teacher.lastname}">s</td>
+                <td data-th-text="${teacher.firstname}">s</td>
+                <td data-th-text="${teacher.middlename}">s</td>
+                <td data-th-text="${#dates.format(teacher.birthdate, 'dd-MM-yyyy')}">22-12-2012</td>
+                <td data-th-text="${teacher.address}">dss</td>
                 <td style="text-align: center;">
-                    <button type="button"
-                            th:onclick="'javascript:editTeachers(\'' + ${teachers.id} + '\' , \'' + ${teachers.lastname}+ '\', \'' + ${teachers.firstname}+ '\', \'' + ${teachers.middlename}+ '\', \'' + ${teachers.birthdate}+ '\', \'' + ${teachers.address}+ '\');'"
-                            class="btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
-                    </button>
-                    &nbsp;
-                    <a href="#" data-th-href="@{/teachers/delete(id=${teachers.id})}">
+                    <a href="#" data-th-href="@{/teachers/edit(id=${teacher.id})}">
+                        <button type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit
+                        </button>
+                    </a> &nbsp;
+                    <a href="#" data-th-href="@{/teachers/delete(id=${teacher.id})}">
                         <button type="button" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
                         </button>
@@ -61,58 +60,9 @@
             </tbody>
         </table>
     </div>
-
-    <form class="form" id="teacher-details-block" action="#" data-th-action="@{/teachers/add}" data-th-object="${teacher}" method="post">
-        <div class="table responsive">
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th class="col-sm-1"></th>
-                    <th class="col-sm-2"></th>
-                    <th class="col-sm-2"></th>
-                    <th class="col-sm-2"></th>
-                    <th class="col-sm-2"></th>
-                    <th class="col-sm-2"></th>
-                    <th class="col-sm-2"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td style="border: 0"><input type="text" id="posId" hidden="hidden" data-th-field="*{id}"/></td>
-                    <td><input class="form-control" id="FastNameId" type="text" data-th-field="*{lastname}" placeholder="lastname"/></td>
-                    <td><input class="form-control" id="FirstNameID" type="text" data-th-field="*{firstname}" placeholder="firstname"/></td>
-                    <td><input class="form-control" id="MiddleNameID" type="text" data-th-field="*{middlename}" placeholder="middlename"/></td>
-                    <td><input class="form-control" id="BirthdateID" type="text" data-th-field="*{birthdate}" placeholder="birthdate"/></td>
-                    <td>
-                        <div class="col-lg-10">
-                            <select class="form-control" th:field="*{positionsByPositions.id}">
-                                <option th:each="positions : ${positions}"
-                                        th:value="${positions.id}"
-                                        th:text="${positions.name}">Position</option>
-                            </select>
-                            <p th:if="${#fields.hasErrors('positionsByPositions')}" th:errors="*{positionsByPositions}" class="text-warning">Position name is incorrect</p>
-
-                        </div></td>
-                    <td><input class="form-control" id="Address" type="text" data-th-field="*{address}" placeholder="address"/></td>
-                    <td>
-                        <button type="submit" class="btn btn-primary" data-th-text="#{button.label.add.teachers}">Update positions
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-sm-1"></td>
-                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('lastname')}" data-th-errors="*{lastname}">lastname error</td>
-                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('firstname')}" data-th-errors="*{firstname}">firstname error</td>
-                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('middlename')}" data-th-errors="*{middlename}">middlename error</td>
-                    <td class="col-sm-2"></td>
-                    <td class="col-sm-2"></td>
-                    <td class="col-sm-2 text-danger" data-th-if="${#fields.hasErrors('address')}" data-th-errors="*{address}">address error</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </form>
-
+    <div class="row" style="text-align: right; margin-right: 10px">
+        <button type="button" class="btn btn-primary" th:onclick="'location.href=\'' + @{/teachers/add} + '\''">Add a new teacher</button>
+    </div>
 </div>
 
 <script type="text/javascript">

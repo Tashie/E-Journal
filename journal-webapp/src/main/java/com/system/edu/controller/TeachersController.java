@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping(value="/teachers")
+@RequestMapping(value = "/teachers")
 public class TeachersController {
     static Logger logger = LoggerFactory.getLogger(TeachersController.class);
 
@@ -31,6 +32,28 @@ public class TeachersController {
 
     @Autowired
     private PositionsDao positionsDao;
+
+    @RequestMapping(value = {"/add"}, method = RequestMethod.GET)
+    public String addPositionForm(Teacher teacher, ModelMap model) {
+        logger.info("IN: teachers/add-GET");
+
+        List<Positions> positions = positionsDao.getAllPositions();
+        model.addAttribute("positions", positions);
+
+        return "directories/teacher";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String editPosition(@RequestParam(value = "id", required = true) Integer id, Model model) {
+        logger.info("IN: teachers/edit-GET");
+        Teacher teacher = teachersDao.getTeacher(id);
+        model.addAttribute("teacher", teacher);
+        List<Positions> positions = positionsDao.getAllPositions();
+        model.addAttribute("positions", positions);
+
+        return "directories/teacher";
+
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String listOfTeachers(Model model, @ModelAttribute Teacher teachersModel) {
@@ -49,11 +72,15 @@ public class TeachersController {
 
         logger.info("IN: Teachers/add-POST");
 
-        if (!teachersDao.checkTeachersFullName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename())) {
+        if (teachersModel.getId() == 0 && !teachersDao.checkTeachersFullName(teachersModel.getLastname(), teachersModel.getFirstname(), teachersModel.getMiddlename())) {
             bindingResult.rejectValue("lastname", "123", "Teacher with the same name already exists. Check your data again");
         }
 
-        if(bindingResult.hasErrors()) return  listOfTeachers(model, teachersModel);
+        if (bindingResult.hasErrors()) {
+            List<Positions> positions = positionsDao.getAllPositions();
+            model.addAttribute("positions", positions);
+            return "directories/teacher";
+        }
 
         teachersDao.addTeacher(teachersModel);
         return "redirect:/teachers";
